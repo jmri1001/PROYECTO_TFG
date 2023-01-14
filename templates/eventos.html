@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block head %} {% endblock %}
+{% block title %}Eventos{% endblock %}
+
+{% block content %}
+    <br>
+
+    <div class="container">
+    
+      <form class="form-search content-search navbar-form" action="/eventosUbic" method="post">
+        <div class="input-group">
+            <input placeholder="Search event in ..." class="form-control form-text" type="text" size="5" maxlength="30" name="search" id="search"/> &nbsp
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
+            </span>
+        </div>
+      </form> <br>
+
+        <div class="row">
+            {% for event in eventos %}
+
+            <div class="col-md-3">
+
+              <!-- Muestra de cada video el titulo y la descripcion-->    
+              <div class="card">
+                <img class="card-img-top" style="object-fit: cover;"  height="100" src="{{ get_img(event)['url'] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
+                <div class="card-body text-dark">
+                  <h6 class="card-title">{{ event['name'] }}</h6>
+                  <p class="card-text">{{ event['type'] }}</p>
+                  
+                  <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a>
+                </div>
+              </div>
+              <br>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

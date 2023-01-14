@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block head %} {% endblock %}
+{% block title %}App{% endblock %}
+
+{% block content %}
+<br>
+<h6 class="card-title">{{ mensaje }}</h6> <!--mensaje para cuando no existen eventos en cierta ubicacion -->
+
+<div class="container">
+
+  <div class="row">
+    {% for event in eventos %}
+
+    <div class="col-md-3">
+
+      <!-- Muestra de cada video el titulo y la descripcion-->
+      <div class="card">
+        <img class="card-img-top" style="object-fit: cover;" height="100" src="{{ get_img(event)['url'] }}" alt="">
+        <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
+        <div class="card-body">
+          <h6 class="card-title">{{ event['name'] }}</h6>
+          <p class="card-text">{{ event['type'] }}</p>
+
+          <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a>
+
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

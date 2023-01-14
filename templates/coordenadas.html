@@ -1,0 +1,11 @@
+<script>
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const { latitude, longitude } = pos.coords
+            const posJson = JSON.stringify({ latitude, longitude })
+            document.cookie = `ubicacion=${posJson};max-age=${60 * 60 * 24 * 30}`
+        },
+        (error) => {
+            console.error(error)
+        })
+</script>

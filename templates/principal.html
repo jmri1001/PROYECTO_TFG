@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}App{% endblock %}
+
+{% block content %}
+
+{% block head %}
+<style>
+    .bg-img {
+        z-index: -1;
+        background: url("{{url}}") white no-repeat center;
+        background-size: cover;
+        filter: blur(2px) grayscale(50%) brightness(1.2) opacity(40%);
+    }
+</style>
+{% endblock %}
+
+<div class="position-absolute h-100 w-100 top-0 left-0 bg-img"></div>
+
+<!-- iframe mete el mapa en una template -->
+<iframe src="/mapa" width="400" height="400" frameborder="0"></iframe>  
+
+{% endblock %}

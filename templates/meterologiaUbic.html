@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block head %} {% endblock %}
+{% block title %}App{% endblock %}
+
+{% block content %} 
+
+
+<div class="container-met"> 
+  <div class="met">
+    <p>Tiempo actual en {{ weather.city }}</p>
+    <p>Hora:</p>
+    <p>Fecha: <span style="color:orange" id="currentDate"></span></p>
+    <p>Temperatura: {{ weather.temp }} ºC</p>
+    <p>Temperatura Min: {{ weather.temp_min }} ºC</p>
+    <p>Temperatura Max: {{ weather.temp_max }} ºC</p>
+  </div>
+</div>  
+
+
+<div class="titulo-met">
+  <h1>Metereología <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png"> </h1>
+</div>
+
+<div class="container-met">
+  <div class="met">
+    <p>Ubicacion: {{ weather.city }} </span></p>
+    <p>Fecha: <span style="color:orange" id="currentDate"></span></p>
+    <p>Temperatura: {{ weather.temp }} ºC</p>
+    <p>Temperatura Min: {{ weather.temp_min }} ºC</p>
+    <p>Temperatura Max: {{ weather.temp_max }} ºC</p>
+  </div>
+  <div class="met">
+    <p>Descripcion: {{ weather.description }} </p>
+    <p>Clima: {{ weather.clim}} </p>
+    <p>Humedad: {{ weather.humidity }} g/m3 </p>
+    <p>Viento: {{ weather.windspeed }} m/s</p>
+    <p>Presion: {{ weather.pressure }} PA</p>
+  </div>
+</div>
+<h3>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp<span style="color:orange"
+    th:text="${mensaje}"></span></h3>
+
+<script>
+  var today = new Date();
+  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  document.getElementById("currentDate").innerHTML = date;
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  document.getElementById("currentTime").innerHTML = time;
+</script>
+{% endblock %}
