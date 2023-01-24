@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Request
+from flask import Flask, render_template, request, redirect, url_for, Request,session
 import requests
 import json
 from GestorGeocoding import *
@@ -8,6 +8,7 @@ from bing_image_downloader import downloader
 import pandas as pd
 from typing import Literal
 import random
+import sqlite3
 
 
 app = Flask(__name__)
@@ -16,19 +17,78 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+def comprobar_usuario(email, password):
+    con = sqlite3.connect('DB.db')
+    cur = con.cursor()
+    cur.execute('Select email,password FROM Usuarios WHERE email=? and password=?', (email, password))
 
-@app.route("/principal", methods=["POST", "GET"])
+    result = cur.fetchone()
+    if result:
+        return True
+    else:
+        return False
+
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if comprobar_usuario(email, password):
+            #session['email'] = username
+            ubicacion_dict = get_coordenadas(request)
+            coord = (str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude")))
+            city = PeticionCoordenadas(coord)
+            urls = get_imagen(city)
+            url = urls[0]
+            return render_template("principal.html",url=url)
+
+        mensaje = "Username or Password incorrect"   
+        return render_template("login.html",mensaje=mensaje)
+    else:
+        return render_template("login.html")
+     
+
+def registro_usuarios(name,email,password):
+    if name == "" or email=="" or password=="":
+        return render_template('registro.html')
+
+    con = sqlite3.connect('DB.db')
+    cur = con.cursor()
+    cur.execute('INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)', (name,email,password,None,None))
+    con.commit()
+
+    result = cur.fetchone()
+    con.close()
+    if result:
+        return True
+    else:
+        return False
+
+@app.route("/registro", methods=["POST", "GET"])
+def registro():
+    if request.method == 'POST':
+        nombre = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        if registro_usuarios(nombre,email,password):
+            return render_template("login.html")
+        else:
+            mensaje = "User already exists"
+            return render_template('registro.html',mensaje=mensaje)
+    else:
+        return render_template('registro.html')
+
+
+@app.route("/principal", methods=["POST","GET"])
 def principal():
     ubicacion_dict = get_coordenadas(request)
-    coord = (
-        str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
-    )
+    coord = (str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude")))
     city = PeticionCoordenadas(coord)
-    print(city)
     urls = get_imagen(city)
     url = urls[0]
-
-    return render_template("principal.html", url=url)
+    return render_template("principal.html",url=url)
+    
 
 
 @app.route("/eventos")
