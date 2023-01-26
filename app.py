@@ -43,27 +43,35 @@ def login():
             url = urls[0]
             return render_template("principal.html",url=url)
 
-        mensaje = "Username or Password incorrect"   
-        return render_template("login.html",mensaje=mensaje)
+        elif email != "" or password != "":
+            mensaje = "Username or Password incorrect"   
+            return render_template("login.html",mensaje=mensaje)
+        else:
+            return render_template("login.html")
+
     else:
         return render_template("login.html")
      
 
 def registro_usuarios(name,email,password):
-    if name == "" or email=="" or password=="":
-        return render_template('registro.html')
 
     con = sqlite3.connect('DB.db')
     cur = con.cursor()
-    cur.execute('INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)', (name,email,password,None,None))
-    con.commit()
-
-    result = cur.fetchone()
+    cur.execute('SELECT count(email) FROM Usuarios WHERE email=?',(email,))
+    resul = cur.fetchall()
+    count = resul[0][0]
     con.close()
-    if result:
+    
+    if count == 0:
+        con = sqlite3.connect('DB.db')
+        cur = con.cursor()
+        cur.execute('INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)', (name,email,password,None,None))
+        con.commit()
+        result = cur.fetchone()
+        con.close()
         return True
-    else:
-        return False
+        
+    return False
 
 @app.route("/registro", methods=["POST", "GET"])
 def registro():
@@ -71,8 +79,13 @@ def registro():
         nombre = request.form['name']
         email = request.form['email']
         password = request.form['password']
+
+        if nombre =="" or email=="" or password=="":
+            return render_template('registro.html')
+
         if registro_usuarios(nombre,email,password):
-            return render_template("login.html")
+            mensaje = "Registered User"
+            return render_template('registro.html',mensaje=mensaje)
         else:
             mensaje = "User already exists"
             return render_template('registro.html',mensaje=mensaje)
