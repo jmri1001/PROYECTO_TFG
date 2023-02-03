@@ -4,41 +4,44 @@
 
 {% block content %} 
 
-
-<div class="container-met"> 
-  <div class="met">
-    <p>Tiempo actual en {{ weather.city }}</p>
-    <p>Hora:</p>
-    <p>Fecha: <span style="color:orange" id="currentDate"></span></p>
-    <p>Temperatura: {{ weather.temp }} ºC</p>
-    <p>Temperatura Min: {{ weather.temp_min }} ºC</p>
-    <p>Temperatura Max: {{ weather.temp_max }} ºC</p>
-  </div>
-</div>  
-
-
 <div class="titulo-met">
-  <h1>Metereología <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png"> </h1>
+  <h1>Metereología</h1>
 </div>
 
+<div style="margin-left: 43%;font-size: large;color: white;">Tiempo actual en {{ weather.city }} <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png"></div>
 <div class="container-met">
   <div class="met">
-    <p>Ubicacion: {{ weather.city }} </span></p>
-    <p>Fecha: <span style="color:orange" id="currentDate"></span></p>
-    <p>Temperatura: {{ weather.temp }} ºC</p>
-    <p>Temperatura Min: {{ weather.temp_min }} ºC</p>
-    <p>Temperatura Max: {{ weather.temp_max }} ºC</p>
+    <p>Fecha: <span style="color: orange" id="currentDate"></span></p>
+    <p>Temperatura: <span style="color:orange">{{ weather.temp }} ºC</span></p>
+    <p>Temperatura Min: <span style="color:orange">{{ weather.temp_min }} ºC</span></p>
+    <p>Temperatura Max: <span style="color:orange">{{ weather.temp_max }} ºC</span></p>
   </div>
   <div class="met">
-    <p>Descripcion: {{ weather.description }} </p>
-    <p>Clima: {{ weather.clim}} </p>
-    <p>Humedad: {{ weather.humidity }} g/m3 </p>
-    <p>Viento: {{ weather.windspeed }} m/s</p>
-    <p>Presion: {{ weather.pressure }} PA</p>
+    <p>Clima: <span style="color:orange">{{ weather.clim}}</span></p>
+    <p>Humedad: <span style="color:orange">{{ weather.humidity }} g/m3</span></p>
+    <p>Viento: <span style="color:orange">{{ weather.windspeed }} m/s</span></p>
+    <p>Presion: <span style="color:orange">{{ weather.pressure }} PA</span></p>
   </div>
 </div>
-<h3>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp<span style="color:orange"
-    th:text="${mensaje}"></span></h3>
+
+
+<div class="row" style="margin-top: 5%;">
+  {% for clima in clima7d %}
+  <div class="col-md-2">
+        <div class="card" style="background-color: cadetblue;">
+          <div class="card-body">
+            <h6 class="card-title" style="color: yellowgreen;margin-left: 26%;">{{ clima.fecha }} </h6>
+            <img style="margin-left: 30%;" src="{{url_for('static', filename='wi/{{clima.icono}}.png')}}">
+            <h6 class="card-title" style="color: yellowgreen;">Temp Min: {{ clima.temp_min }} ºC</h6>
+            <h6 class="card-title" style="color: yellowgreen;">Temp Max: {{ clima.temp_max }} ºC</h6>
+            <h6 class="card-title" style="color: yellowgreen;">Viento: {{ clima.viento }} m/s</h6>
+            <img style="margin-left: 30%;" src="{{url_for('static', filename='wd/{{clima.icono_viento}}.png')}}">
+          </div>
+        </div>
+  </div>
+  {% endfor %}
+</div>
+    
 
 <script>
   var today = new Date();

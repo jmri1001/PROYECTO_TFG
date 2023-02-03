@@ -9,6 +9,7 @@ import pandas as pd
 from typing import Literal
 import random
 import sqlite3
+from previsionMeterologica import *
 
 
 app = Flask(__name__)
@@ -39,8 +40,9 @@ def login():
             ubicacion_dict = get_coordenadas(request)
             coord = (str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude")))
             city = PeticionCoordenadas(coord)
-            urls = get_imagen(city)
-            url = urls[0]
+            #urls = get_imagen(city)
+            #url = urls[0]
+            url = ""
             return render_template("principal.html",url=url)
 
         elif email != "" or password != "":
@@ -50,6 +52,7 @@ def login():
             return render_template("login.html")
 
     else:
+        ubicacion_dict = get_coordenadas(request)
         return render_template("login.html")
      
 
@@ -182,10 +185,7 @@ def meterologiaUbic():
 
     city = PeticionCoordenadas(coord)
     datosObtenidos = requests.get(
-        "http://api.openweathermap.org/data/2.5/weather?q="
-        + city
-        + "&appid=8ca0c1c6f4748e36b8463b280a518364&units=Metric&lang=es"
-    )
+        "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=8ca0c1c6f4748e36b8463b280a518364&units=Metric&lang=es")
     datosFormatonJSON = datosObtenidos.json()
     if datosFormatonJSON.get("message") != None:
         return render_template("meterologia.html")
@@ -205,8 +205,11 @@ def meterologiaUbic():
         "humidity": info["pressure"],
         "windspeed": datosFormatonJSON["wind"]["speed"],
     }
+    # print("Coordenadas de Burgos: ",coord)
+    clima7d = climaDia("41.6704100,-3.6892000")
+    print(clima7d)
 
-    return render_template("meterologiaUbic.html", weather=meterologia)
+    return render_template("meterologiaUbic.html", weather=meterologia,clima7d=clima7d)
 
 
 def get_coordenadas(request: Request):
