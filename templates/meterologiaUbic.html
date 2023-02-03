@@ -2,53 +2,70 @@
 {% block head %} {% endblock %}
 {% block title %}App{% endblock %}
 
-{% block content %} 
+{% block content %}
 
-<div class="titulo-met">
-  <h1>Metereología</h1>
+{% macro card(icon,text,info,unit) -%}
+<p class="d-flex gap-2 fs-6 align-items-center card-text m-0"><i
+    class="wi {{icon}} wi-fw fs-4"></i>{{text}}<span>{{info}}{{unit}}</span></p>
+{% endmacro -%}
+
+<div class="text-center text-warning">
+  <h1>Meterología</h1>
 </div>
 
-<div style="margin-left: 43%;font-size: large;color: white;">Tiempo actual en {{ weather.city }} <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png"></div>
-<div class="container-met">
-  <div class="met">
-    <p>Fecha: <span style="color: orange" id="currentDate"></span></p>
-    <p>Temperatura: <span style="color:orange">{{ weather.temp }} ºC</span></p>
-    <p>Temperatura Min: <span style="color:orange">{{ weather.temp_min }} ºC</span></p>
-    <p>Temperatura Max: <span style="color:orange">{{ weather.temp_max }} ºC</span></p>
+<div class="text-center my-4 fs-5" style="color: orange;">Tiempo actual en {{ weather.city }}</div>
+<div class="container d-flex gap-5">
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    {{card("wi-night-sleet","Fecha:",weather.fecha)}}
+    {{card("wi-thermometer-internal","Temperatura",weather.temp,"ºC")}}
+    {{card("wi-thermometer","Temperatura Min",weather.temp_min,"ºC")}}
+    {{card("wi-thermometer-exterior","Temperatura Max",weather.temp_max,"ºC")}}
   </div>
-  <div class="met">
-    <p>Clima: <span style="color:orange">{{ weather.clim}}</span></p>
-    <p>Humedad: <span style="color:orange">{{ weather.humidity }} g/m3</span></p>
-    <p>Viento: <span style="color:orange">{{ weather.windspeed }} m/s</span></p>
-    <p>Presion: <span style="color:orange">{{ weather.pressure }} PA</span></p>
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    {{card("wi-day-cloudy","Clima",weather.clim)}}
+    {{card("wi-humidity","Humedad",weather.humidity,"g/m3")}}
+    {{card("wi-strong-wind","Viento",weather.windspeed,"m/s")}}
+    {{card("wi-barometer","Presión del aire",weather.pressure,"PA")}}
   </div>
+</div>
+
+
+<div class="text-center my-4 fs-5" style="color: rgb(182, 241, 72);"">PREVISIÓN DE 6 DÍAS</div>
+<div class="container-fluid px-4 gap-3 meteo-wrapper">
+  {% for clima in clima7d %}
+      <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+        <h6 class="card-title">{{ clima.fecha }}</h6>
+        <img src="{{url_for('static', filename='wi/{}.png'.format(clima.icono))}}">
+        {{card("wi-thermometer","Temp Min: ",clima.temp_min,"ºC")}}
+        {{card("wi-thermometer-exterior","Temp Max: ",clima.temp_max,"ºC")}}
+        {{card("wi-strong-wind","Viento: ",clima.viento,"m/s")}}
+        <img src="{{url_for('static', filename='wd/{}.png'.format(clima.icono_viento))}}">
+      </div>
+  {% endfor %}
 </div>
 
 
 <div class="row" style="margin-top: 5%;">
-  {% for clima in clima7d %}
-  <div class="col-md-2">
-        <div class="card" style="background-color: cadetblue;">
-          <div class="card-body">
-            <h6 class="card-title" style="color: yellowgreen;margin-left: 26%;">{{ clima.fecha }} </h6>
-            <img style="margin-left: 30%;" src="{{url_for('static', filename='wi/{{clima.icono}}.png')}}">
-            <h6 class="card-title" style="color: yellowgreen;">Temp Min: {{ clima.temp_min }} ºC</h6>
-            <h6 class="card-title" style="color: yellowgreen;">Temp Max: {{ clima.temp_max }} ºC</h6>
-            <h6 class="card-title" style="color: yellowgreen;">Viento: {{ clima.viento }} m/s</h6>
-            <img style="margin-left: 30%;" src="{{url_for('static', filename='wd/{{clima.icono_viento}}.png')}}">
-          </div>
-        </div>
+  <div class="col-md-3">
+    <div class="card" style="background-color: rgba(255,255,255,0.2);">
+      <div class="card-body">
+        <h6 class="card-text" style="color: rgb(236, 235, 227);text-align: center;"> {{ preparase.fecha }} </h6>
+        <br>
+        <h6 class="card-title" style="color: yellowgreen;text-align: center;font-size: large;"> Prepárese para su día
+        </h6>
+        <br>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Paraguas.png')}}">&nbsp
+          Paragüas: &nbsp<span style="color:orange">{{ preparase.paraguas }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Abrigo.png')}}">&nbsp
+          Abrigo: &nbsp<span style="color:orange">{{ preparase.abrigo }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Aire.png')}}">&nbsp Al
+          aire libre: &nbsp<span style="color:orange">{{ preparase.aireLibre }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img
+            src="{{url_for('static', filename='img/SensTer.png')}}">&nbsp&nbsp Sensación Térmica: &nbsp<span
+            style="color:orange">{{ preparase.sensTermica }}</span></h6>
+      </div>
+    </div>
   </div>
-  {% endfor %}
 </div>
-    
 
-<script>
-  var today = new Date();
-  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  document.getElementById("currentDate").innerHTML = date;
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  document.getElementById("currentTime").innerHTML = time;
-</script>
 {% endblock %}

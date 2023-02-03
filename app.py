@@ -12,6 +12,7 @@ import sqlite3
 from previsionMeterologica import *
 
 
+
 app = Flask(__name__)
 
 @app.route("/", methods=["POST", "GET"])
@@ -192,24 +193,27 @@ def meterologiaUbic():
 
     info = datosFormatonJSON.get("main")
     weather = datosFormatonJSON.get("weather")[0]
+    today = date.today()
+    fecha = today.strftime("%A, %d %b %Y")
 
     meterologia = {
+        "fecha": fecha,
         "city": city,
         "description": weather["description"],
         "clim": weather["main"],
         "icon": weather["icon"],
-        "temp": info["temp"],
-        "temp_min": info["temp_min"],
-        "temp_max": info["temp_max"],
+        "temp": round(info["temp"]),
+        "temp_min": round(info["temp_min"]),
+        "temp_max": round(info["temp_max"]),
         "pressure": info["pressure"],
         "humidity": info["pressure"],
         "windspeed": datosFormatonJSON["wind"]["speed"],
     }
-    # print("Coordenadas de Burgos: ",coord)
-    clima7d = climaDia("41.6704100,-3.6892000")
-    print(clima7d)
+    
+    clima7d = climaDia(coord)
+    preparase = Preparese_Para_Su_Dia(city)
 
-    return render_template("meterologiaUbic.html", weather=meterologia,clima7d=clima7d)
+    return render_template("meterologiaUbic.html", weather=meterologia,clima7d=clima7d,preparase=preparase)
 
 
 def get_coordenadas(request: Request):
@@ -224,7 +228,7 @@ def get_imagen(
     city
 ):
     url = "https://bing-image-search1.p.rapidapi.com/images/search"
-    count = 10
+    count = 4
     params = {"q": city, "count": count, "mkt": "es-ES"}
 
     headers = {

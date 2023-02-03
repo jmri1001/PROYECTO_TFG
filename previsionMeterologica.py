@@ -1,8 +1,10 @@
 import requests
-from datetime import datetime 
+from datetime import datetime, date
 from deep_translator import GoogleTranslator
 import pandas as pd
 import numpy as np
+# import matplotlib.pyplot as plt
+
 
 
 #Funcion que devuelve el dia de la semana respecto a una fecha pasada como parametro
@@ -25,31 +27,39 @@ def Prevision_Clima(city):
 
     lista = []
     info = {}
+    temperatura = []
+    por_horas = []
 
     lista_weather = datosFormatonJSON.get("list")
+    # print(lista_weather)
 
     for weather in lista_weather:
-        temp_min = weather.get("main").get("temp_min")
-        temp_max = weather.get("main").get("temp_max")
-        temp_min = round(temp_min)
-        temp_max = round(temp_max)
+        temp = weather.get("main").get("temp")
+        temp = str(round(temp))+"ºC"
+        descr = weather.get("weather")[0].get("description")
         date = weather.get("dt_txt")
-        fecha = Fecha_d(date)
+        valor = date.split(" ",1)
+        hora = valor[1][:5]
 
         info = {
-            "temp_min": temp_min,
-            "temp_max": temp_max,
+            "temp": temp,
             "icono": weather.get("weather")[0].get("icon"),
             "lluvia": weather.get("pop"),
-            "fecha":  date
+            "fecha": hora,
+            "descripcion": descr
         }
-
+        temperatura.append(temp)    
+        por_horas.append(hora)
         lista.append(info)
 
-    return lista
+    return (temperatura,por_horas,lista)
 
 
 def climaDia(coordenadas):
+
+    if (coordenadas == "42.3443701,-3.6927629"):
+        coordenadas = "41.6704100,-3.6892000"
+
     datosObtenidos = requests.get( "https://api.tutiempo.net/json/?lan=es&&units=Metric&apid=XwY44q4zaqXbxnV&ll=" + coordenadas)
     datosFormatonJSON = datosObtenidos.json()
 
@@ -62,6 +72,7 @@ def climaDia(coordenadas):
     dias.append(datosFormatonJSON.get("day7"))
 
     lista = []
+    print(dias)
 
     for d in dias:
         date = d.get("date")
@@ -84,4 +95,46 @@ def climaDia(coordenadas):
         lista.append(info)
 
     return lista
+
+#para hacer el grafico
+# lista = Prevision_Clima("Burgos")
+# x = lista[0]
+# y = lista[1]
+# print(lista)
+# plt.plot(x,y)
+# plt.show()
+
+def Preparese_Para_Su_Dia(city):
+    lista = Prevision_Clima("Burgos")
+    datos = lista[2][0]
+    info = {}
+ 
+    today = date.today()
+    fecha = today.strftime("%a, %d %b %Y")
+    paraguas = "No es necesario"
+    abrigo = "Ropa fina"
+    sensacion_termica = datos.get("temp")
+    al_aire_libre = datos.get("descripcion")
+    temp = datos.get("temp")
+    temp = temp.split("º",1)
+
+    if datos.get("lluvia") > 30:
+        paraguas = "Es necesario"
+    if int(temp[0]) < 14:
+        abrigo = "Ropa gruesa"
+    if int(temp[0]) > 23:
+        abrigo = "Ropa de verano"
+    
+    info = {
+            "paraguas": paraguas,
+            "abrigo": abrigo,
+            "sensTermica": sensacion_termica,
+            "aireLibre": al_aire_libre,
+            "fecha": fecha
+        }
+    
+    return info
+
+
+
 
