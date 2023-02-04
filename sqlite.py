@@ -32,11 +32,11 @@ def crearDB():
 
 #crearDB()
 
-email = 'pepe@email.com'
+# email = 'pepe@email.com'
 
-con = sqlite3.connect('DB.db')
-cur = con.cursor()
-cur.execute('SELECT count(email) FROM Usuarios WHERE email=?',(email))
-resul = cur.fetchall()
-count = resul[0][0]
-print(count)
+# con = sqlite3.connect('DB.db')
+# cur = con.cursor()
+# cur.execute('SELECT count(email) FROM Usuarios WHERE email=?',(email))
+# resul = cur.fetchall()
+# count = resul[0][0]
+# print(count)

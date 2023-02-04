@@ -194,7 +194,7 @@ def meterologiaUbic():
     info = datosFormatonJSON.get("main")
     weather = datosFormatonJSON.get("weather")[0]
     today = date.today()
-    fecha = today.strftime("%A, %d %b %Y")
+    fecha = today.strftime("%m-%d-%Y")
 
     meterologia = {
         "fecha": fecha,

@@ -16,7 +16,7 @@
 <div class="text-center my-4 fs-5" style="color: orange;">Tiempo actual en {{ weather.city }}</div>
 <div class="container d-flex gap-5">
   <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
-    {{card("wi-night-sleet","Fecha:",weather.fecha)}}
+    <h5 class="date text-center fw-bold">{{ weather.fecha }}</h5>
     {{card("wi-thermometer-internal","Temperatura",weather.temp,"ºC")}}
     {{card("wi-thermometer","Temperatura Min",weather.temp_min,"ºC")}}
     {{card("wi-thermometer-exterior","Temperatura Max",weather.temp_max,"ºC")}}
@@ -31,18 +31,35 @@
 
 
 <div class="text-center my-4 fs-5" style="color: rgb(182, 241, 72);"">PREVISIÓN DE 6 DÍAS</div>
-<div class="container-fluid px-4 gap-3 meteo-wrapper">
+<div class=" container-fluid px-4 gap-3 meteo-wrapper">
   {% for clima in clima7d %}
-      <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
-        <h6 class="card-title">{{ clima.fecha }}</h6>
-        <img src="{{url_for('static', filename='wi/{}.png'.format(clima.icono))}}">
-        {{card("wi-thermometer","Temp Min: ",clima.temp_min,"ºC")}}
-        {{card("wi-thermometer-exterior","Temp Max: ",clima.temp_max,"ºC")}}
-        {{card("wi-strong-wind","Viento: ",clima.viento,"m/s")}}
-        <img src="{{url_for('static', filename='wd/{}.png'.format(clima.icono_viento))}}">
-      </div>
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    <h5 class="date text-center fw-bold">{{ clima.fecha }}</h5>
+    <img class="mx-auto" src="{{clima.wi_icon.format(icon=clima.icono,style='01',size=50)}}">
+    {{card("wi-thermometer","Temp Min: ",clima.temp_min,"ºC")}}
+    {{card("wi-thermometer-exterior","Temp Max: ",clima.temp_max,"ºC")}}
+    {{card("wi-strong-wind","Viento: ",clima.viento,"m/s")}}
+    <img class="wind-icon" src="{{clima.wd_icon.format(icon=clima.icono_viento)}}">
+  </div>
   {% endfor %}
 </div>
+
+<script>
+  const i18n = new Intl.DateTimeFormat("es", {
+    day: "numeric",
+    weekday: "short",
+    month: "short",
+  });
+
+  window.addEventListener("load", () => {
+    const date = document.querySelectorAll(".date");
+    for (let day of date) {
+      const text = day.innerText;
+      const date = new Date(text);
+      day.innerText = i18n.format(date);;
+    }
+  });
+</script>
 
 
 <div class="row" style="margin-top: 5%;">

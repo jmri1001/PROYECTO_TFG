@@ -73,6 +73,10 @@ def climaDia(coordenadas):
 
     lista = []
     print(dias)
+    url = "https://v5i.tutiempo.net"
+    wd, wi = f"{url}/wd/big/black/", f"{url}/wi/"
+    wi_icon = wi + "{style}/{size}/{icon}.png"
+    wd_icon = wd + "{icon}.png"
 
     for d in dias:
         date = d.get("date")
@@ -81,7 +85,6 @@ def climaDia(coordenadas):
         icono = d.get("icon")
         viento = d.get("wind")
         icono_viento = d.get("icon_wind")
-        date = Fecha_d(date)
 
         info = {
                 "fecha": date,
@@ -89,7 +92,9 @@ def climaDia(coordenadas):
                 "temp_max": temp_max,
                 "icono": icono,
                 "viento": viento,
-                "icono_viento": icono_viento
+                "icono_viento": icono_viento,
+                "wi_icon": wi_icon,
+                "wd_icon": wd_icon 
             }
 
         lista.append(info)
