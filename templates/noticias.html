@@ -4,18 +4,40 @@
 {% block content %}
 <br>
 
+
 <div class="container">
 
-  <form class="form-search content-search navbar-form" action="/noticiasUbic" method="post">
-    <div class="input-group">
-      <input placeholder="Search news in ..." class="form-control form-text" type="text" size="5" maxlength="30"
-        name="search" id="search" /> &nbsp
+  <div style="color: white;">Buscar Noticias por Ubicacion:</div><br>
+  <div class="mb-3">
+    <form action="/noticiasUbic" method="post">
+
+      <div class="input-group">
+        <label for="search"></label>
+        <input type="text" placeholder="Search news in ..." id="search" name="search" value=" "> &nbsp
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search"
+              aria-hidden="true"></span>Search</button>
+        </span>
+      </div><br>
+
+      <div style="color: white;">Buscar Noticias por Categorías:</div><br>
+      <select name="categorias" id="categorias" value="disabled selected">
+        <option value="disabled selected">--Seleccione una categoría--</option>
+        <option value="business">Negocios</option>
+        <option value="food">Comida</option>
+        <option value="health">Salud</option>
+        <option value="politics">Politica</option>
+        <option value="science">Ciencia</option>
+        <option value="sports">Deportes</option>
+        <option value="technology">Tecnologia</option>
+      </select>
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search"
             aria-hidden="true"></span>Search</button>
       </span>
-    </div>
-  </form> <br>
+    </form><br>
+  </div>
+
 
   <div class="row">
     {% for new in noticias %}

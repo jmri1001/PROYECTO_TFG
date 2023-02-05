@@ -160,21 +160,52 @@ def Noticias():
     return render_template("noticias.html", noticias=info)
 
 
-@app.route("/noticiasUbic", methods=["POST"])
+@app.route("/noticiasUbic", methods=["POST","GET"])
 def NoticiasPorUbic():
     API_KEY = "pub_7421c00b07c3b0a1ab68df5be83ae037be9f"
-    ubic = request.form[
-        "search"
-    ]  # De esta manera obtengo la ubicacion introducida por el usuario en el html
-    datosObtenidos = requests.get(
-        "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20"
-        + ubic
-        + "&language=es"
-    )
-    datosFormatonJSON = datosObtenidos.json()
-    info = datosFormatonJSON.get("results")
 
-    return render_template("noticiasUbic.html", noticias=info)
+    if request.method == 'POST':
+        city = request.form["search"]
+        categoria = request.form["categorias"]
+
+        if city !=" " and categoria !="disabled selected":
+            datosObtenidos = requests.get(
+            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20"+ city + "&language=es&category=" + categoria
+            )
+            datosFormatonJSON = datosObtenidos.json()
+            info = datosFormatonJSON.get("results")
+            print(info)
+            return render_template("noticiasUbic.html", noticias=info)
+
+        elif city !=" " and categoria =="disabled selected":
+            datosObtenidos = requests.get(
+                "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20"
+                + city
+                + "&language=es"
+            )
+            datosFormatonJSON = datosObtenidos.json()
+            info = datosFormatonJSON.get("results")
+            return render_template("noticiasUbic.html", noticias=info)
+        
+        elif city ==" " and categoria !="disabled selected":
+            datosObtenidos = requests.get(
+            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&category=" + categoria
+            )
+            datosFormatonJSON = datosObtenidos.json()
+            info = datosFormatonJSON.get("results")
+            return render_template("noticiasUbic.html", noticias=info)
+        else:
+            datosObtenidos = requests.get(
+                "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es"
+            )
+            datosFormatonJSON = datosObtenidos.json()
+            info = datosFormatonJSON.get("results")
+
+            return render_template("noticias.html", noticias=info)
+
+    else:
+        info=[]
+        return render_template("noticiasUbic.html", noticias=info)
 
 
 @app.route("/meterologiaUbic")

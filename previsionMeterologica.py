@@ -4,6 +4,7 @@ from deep_translator import GoogleTranslator
 import pandas as pd
 import numpy as np
 # import matplotlib.pyplot as plt
+from flask import Flask, render_template, request, redirect, url_for, Request,session
 
 
 
@@ -141,5 +142,14 @@ def Preparese_Para_Su_Dia(city):
     return info
 
 
+def NoticiasPorCategorias(categorias):
+    API_KEY = "pub_7421c00b07c3b0a1ab68df5be83ae037be9f"
+    datosObtenidos = requests.get(
+        "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&category=" + categorias
+    )
+    datosFormatonJSON = datosObtenidos.json()
+    info = datosFormatonJSON.get("results")
+
+    return render_template("noticiasUbic.html", noticias=info)
 
 
