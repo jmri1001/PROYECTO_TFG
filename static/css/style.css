@@ -402,16 +402,6 @@ li.dropdown {
   width: 40%;
 }
 
-.noticia p,
-.activa p,
-.previa p {
-  margin: 2%;
-  padding: 2%;
-  font-size: 20px;
-  font-family: 'Open Sans', sans-serif;
-  color: rgb(233, 232, 232);
-}
-
 .met p {
   margin: 2%;
   padding: 3%;
@@ -447,7 +437,7 @@ li.dropdown {
   box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
   border-radius: 9px;
   border: none;
-  margin-left: 6%;
+  margin-right: 3%;
 }
 
 .btn-add-fav:hover,
@@ -480,7 +470,7 @@ li.dropdown {
   border: none;
   position: absolute;
   right: 0;
-  margin-right: 30%;
+  margin-right: 3%;
 }
 
 .btn-desactivar2 {

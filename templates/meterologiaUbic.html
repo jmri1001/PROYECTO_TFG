@@ -22,13 +22,14 @@
     {{card("wi-thermometer-exterior","Temperatura Max",weather.temp_max,"ºC")}}
   </div>
   <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
-    {{card("wi-day-cloudy","Clima",weather.clim)}}
+    {{card("wi-day-cloudy","Tiempo",weather.clim)}}
     {{card("wi-humidity","Humedad",weather.humidity,"g/m3")}}
     {{card("wi-strong-wind","Viento",weather.windspeed,"m/s")}}
-    {{card("wi-barometer","Presión del aire",weather.pressure,"PA")}}
+    {{card("wi-barometer","Presión del aire",weather.pressure,"hPa")}}
   </div>
 </div>
 
+<div class="text-center my-4 fs-5" style="color: orange;">{{ mensaje }}</div>
 
 <div class="text-center my-4 fs-5" style="color: rgb(182, 241, 72);"">PREVISIÓN DE 6 DÍAS</div>
 <div class=" container-fluid px-4 gap-3 meteo-wrapper">

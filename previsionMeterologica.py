@@ -5,6 +5,9 @@ import pandas as pd
 import numpy as np
 # import matplotlib.pyplot as plt
 from flask import Flask, render_template, request, redirect, url_for, Request,session
+import random
+import json
+from os import remove
 
 
 
@@ -72,8 +75,10 @@ def climaDia(coordenadas):
     dias.append(datosFormatonJSON.get("day6"))
     dias.append(datosFormatonJSON.get("day7"))
 
+    if None in dias:
+        return None
+
     lista = []
-    print(dias)
     url = "https://v5i.tutiempo.net"
     wd, wi = f"{url}/wd/big/black/", f"{url}/wi/"
     wi_icon = wi + "{style}/{size}/{icon}.png"
@@ -142,14 +147,27 @@ def Preparese_Para_Su_Dia(city):
     return info
 
 
-def NoticiasPorCategorias(categorias):
-    API_KEY = "pub_7421c00b07c3b0a1ab68df5be83ae037be9f"
-    datosObtenidos = requests.get(
-        "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&category=" + categorias
-    )
-    datosFormatonJSON = datosObtenidos.json()
-    info = datosFormatonJSON.get("results")
+def load_file_json_events():
+    with open('eventos.json', 'r') as fp:
+        data = json.load(fp)
+        return data
 
-    return render_template("noticiasUbic.html", noticias=info)
+
+def save_file_json_events(my_dict):
+    remove("eventos.json")
+    with open('eventos.json', 'w') as fp:
+        json.dump(my_dict, fp)
+    
+
+def load_file_json_news():
+    with open('noticias.json', 'r') as fp:
+        data = json.load(fp)
+        return data
+
+
+def save_file_json_news(my_dict):
+    remove("noticias.json")
+    with open('noticias.json', 'w') as fp:
+        json.dump(my_dict, fp)
 
 

@@ -6,15 +6,34 @@
     <br>
 
     <div class="container">
-    
-      <form class="form-search content-search navbar-form" action="/eventosUbic" method="post">
-        <div class="input-group">
-            <input placeholder="Search event in ..." class="form-control form-text" type="text" size="5" maxlength="30" name="search" id="search"/> &nbsp
+
+        <div style="color: white;">Buscar Eventos por Ubicacion:</div><br>
+        <div class="mb-3">
+          <form action="/eventosUbic" method="post">
+      
+            <div class="input-group">
+              <label for="search"></label>
+              <input type="text" placeholder="Search events in ..." id="search" name="search" value=" "> &nbsp
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search"
+                    aria-hidden="true"></span>Search</button>
+              </span>
+            </div><br>
+      
+            <div style="color: white;">Buscar Eventos por Categorías:</div><br>
+            <select name="categorias" id="categorias" value="disabled selected">
+              <option value="disabled selected">--Seleccione una categoría--</option>
+              <option value="Music">Música</option>
+              <option value="Sports">Deportes</option>
+              <option value="Film">Películas</option>
+            </select>
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
+              <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search"
+                  aria-hidden="true"></span>Search</button>
             </span>
+          </form><br>
         </div>
-      </form> <br>
+
 
         <div class="row">
             {% for event in eventos %}
@@ -23,10 +42,10 @@
 
               <!-- Muestra de cada video el titulo y la descripcion-->    
               <div class="card">
-                <img class="card-img-top" style="object-fit: cover;"  height="100" src="{{ get_img(event)['url'] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
+                <img class="card-img-top" style="object-fit: cover"  height="100" src="{{ get_img(event)['url'] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
                 <div class="card-body text-dark">
                   <h6 class="card-title">{{ event['name'] }}</h6>
-                  <p class="card-text">{{ event['type'] }}</p>
+                  <p class="card-text" style="color:rgb(218, 111, 12);">{{ get_categ(event)['name'] }}</p>
                   
                   <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a>
                 </div>

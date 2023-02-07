@@ -1,7 +1,7 @@
 import requests
 
 def PeticionCoordenadas(coordenadas):
-        url = "http://geocode.xyz/"+coordenadas+"?json=1&region=ES"
+        url = "http://geocode.xyz/"+coordenadas+"?json=1&region=ES&auth=866831157714569401247x21047"
         datosObtenidos = requests.get(url)
         datosFormatoJSON = datosObtenidos.json()
 
