@@ -14,10 +14,6 @@
             <div class="input-group">
               <label for="search"></label>
               <input type="text" placeholder="Search events in ..." id="search" name="search" value=" "> &nbsp
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><span class="icon glyphicon glyphicon-search"
-                    aria-hidden="true"></span>Search</button>
-              </span>
             </div><br>
       
             <div style="color: white;">Buscar Eventos por Categorías:</div><br>
@@ -39,22 +35,23 @@
             {% for event in eventos %}
 
             <div class="col-md-3">
-
-              <!-- Muestra de cada video el titulo y la descripcion-->    
+                <!-- Muestra de cada video el titulo y la descripcion-->    
               <div class="card">
                 <img class="card-img-top" style="object-fit: cover"  height="100" src="{{ get_img(event)['url'] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
                 <div class="card-body text-dark">
                   <h6 class="card-title">{{ event['name'] }}</h6>
                   <p class="card-text" style="color:rgb(218, 111, 12);">{{ get_categ(event)['name'] }}</p>
                   
-                  <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a>
+                  <!-- <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a> -->
+                  <a target="_blank" class="btn btn-secondary" href=" /infoEvento?id={{ event['id']}}" role="button">Ver evento</a> 
+
                 </div>
               </div>
               <br>
 
             </div>
             {% endfor %}
-
         </div>
     </div>
+  
 {% endblock %}

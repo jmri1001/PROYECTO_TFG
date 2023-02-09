@@ -10,6 +10,7 @@ from typing import Literal
 import random
 import sqlite3
 from previsionMeterologica import *
+from urllib.parse import parse_qsl
 
 
 app = Flask(__name__)
@@ -116,9 +117,9 @@ def principal():
         str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
     )
     city = PeticionCoordenadas(coord)
-    urls = get_imagen(city)
-    url = urls[0]
-    return render_template("principal.html", url=url)
+    # urls = get_imagen(city)
+    # url = urls[0]
+    return render_template("principal.html")
 
 
 @app.route("/eventos")
@@ -129,7 +130,7 @@ def eventos():
     datosFormatonJSON = datosObtenidos.json()
 
     if (datosFormatonJSON.get("page").get("totalElements") == 0) or (
-        int(datosFormatonJSON.get("page").get("totalElements")) <= 5
+        int(datosFormatonJSON.get("page").get("totalElements")) < 5
     ):
         datosFormatonJSON = load_file_json_events()
     else:
@@ -144,6 +145,41 @@ def eventos():
     return render_template(
         "eventos.html", eventos=eventos, get_img=get_image, get_categ=get_categoria
     )  # Enviamos los datos que queremos mostrar en el html5 list es el atributo que queremos de la api
+
+
+@app.route("/infoEvento")
+def infoEventos():
+    id_evento = request.args.get("id") #Obtenemos el id de cada evento
+    datosObtenidos = requests.get(
+        "https://app.ticketmaster.com/discovery/v2/events.json?apikey=FKM66NQuNZ4k6GAAEJWl57l2tYDQ7VTA&id=" + id_evento
+    )
+    datosFormatonJSON = datosObtenidos.json()
+    info = datosFormatonJSON.get("_embedded")
+    evento = info.get("events")[0]
+
+    nombre = evento.get("name")
+    # imagen = evento.get("images")[0].get("url")
+    precioMin = 0
+    precioMax = 0
+    if evento.get("priceRanges") in evento:
+        precioMin = evento.get("priceRanges")[0].get("min")
+        precioMax = evento.get("priceRanges")[0].get("max")
+
+    fecha = evento.get("dates").get("start").get("localDate")
+    masInfo = info.get("_embedded")
+    # ciudad = masInfo.get("venues")[0].get("city").get("name")
+    # direccion = masInfo.get("address").get("line1")
+    # venues = masInfo.get("venues")[0].get("name")
+
+    print("Nombre: ",nombre)
+    print("PrecioMin: ",precioMin)
+    print("PrecioMax: ",precioMax)
+    print("Fecha: ",fecha)
+    # print("Ciudad: ",ciudad)
+    # print("Direccion: ",direccion)
+    # print("Venues: ",venues)
+
+    return render_template("infoEvento.html")
 
 
 @app.route("/eventosUbic", methods=["POST"])
@@ -264,7 +300,7 @@ def NoticiasPorUbic():
 
     if (not "totalResults" in datosFormatonJSON) or int(
         datosFormatonJSON.get("totalResults")
-    ) <= 5:
+    ) < 1:
         datosFormatonJSON = load_file_json_news()
 
     info = datosFormatonJSON.get("results")
