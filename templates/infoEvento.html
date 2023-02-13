@@ -1,1 +1,50 @@
-Hola
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <title> {% block title %}{% endblock %}</title>
+</head>
+
+
+<body>
+  <br>
+  <div class="row">
+
+    <div class="col-md-3">
+        <!-- Muestra de cada video el titulo y la descripcion-->    
+      <div class="card">
+        <img class="card-img-top" style="object-fit: cover"  height="100" src="{{ info['Imagen'] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
+        <div class="card-body text-dark">
+          <h5 class="card-title" style="color: black;">{{ info['nombre'] }}</h5>
+          <p class="card-text" style="color:rgb(2, 2, 2);">Precio Mínimo: &nbsp<span style="color:orange">{{ info['PrecioMin'] }} €</span></p>
+          <p class="card-text" style="color:rgb(12, 12, 12);"> Precio Maximo: &nbsp<span style="color:orange">{{ info['PrecioMax'] }} €</span></p>
+          <p class="card-text" style="color:rgb(15, 15, 14);">Fecha del evento: &nbsp<span style="color:orange">{{ info['Fecha'] }}</span></p>
+          <p class="card-text" style="color:rgb(10, 10, 10);">Ubicación: &nbsp<span style="color:orange">{{ info['Direccion'] }},{{ info['Venues'] }}</span></p>
+          <p class="card-text" style="color:rgb(10, 10, 10);">Ciudad: &nbsp<span style="color:orange">{{ info['Ciudad'] }}</span></p>
+          <a class="btn btn-warning"  href="/favoritos?info={{info}}" role="button">Añadir a favoritos</a> 
+
+        </div>
+      </div>
+      <br>
+
+    </div>
+
+</div>
+
+</body>
+</html>

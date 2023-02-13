@@ -147,6 +147,13 @@ def eventos():
     )  # Enviamos los datos que queremos mostrar en el html5 list es el atributo que queremos de la api
 
 
+@app.route("/favoritos")
+def favoritos():
+    infoEvento = request.args.get("info") #Obtenemos la info del evento
+    print(infoEvento)
+    return render_template("infoEvento.html",info=infoEvento)
+    
+
 @app.route("/infoEvento")
 def infoEventos():
     id_evento = request.args.get("id") #Obtenemos el id de cada evento
@@ -157,29 +164,31 @@ def infoEventos():
     info = datosFormatonJSON.get("_embedded")
     evento = info.get("events")[0]
 
+
     nombre = evento.get("name")
-    # imagen = evento.get("images")[0].get("url")
+    imagen = evento.get("images")[0].get("url")
     precioMin = 0
     precioMax = 0
-    if evento.get("priceRanges") in evento:
+    if "priceRanges" in evento:
         precioMin = evento.get("priceRanges")[0].get("min")
         precioMax = evento.get("priceRanges")[0].get("max")
 
     fecha = evento.get("dates").get("start").get("localDate")
-    masInfo = info.get("_embedded")
-    # ciudad = masInfo.get("venues")[0].get("city").get("name")
-    # direccion = masInfo.get("address").get("line1")
-    # venues = masInfo.get("venues")[0].get("name")
+    masInfo = evento.get("_embedded")
+    ciudad = masInfo.get("venues")[0].get("city").get("name")
+    direccion = masInfo.get("venues")[0].get("address").get("line1")
+    venues = masInfo.get("venues")[0].get("name")
 
-    print("Nombre: ",nombre)
-    print("PrecioMin: ",precioMin)
-    print("PrecioMax: ",precioMax)
-    print("Fecha: ",fecha)
-    # print("Ciudad: ",ciudad)
-    # print("Direccion: ",direccion)
-    # print("Venues: ",venues)
+    infoEvento = {"nombre":nombre,
+                  "PrecioMin":precioMin,
+                  "PrecioMax":precioMax,
+                  "Fecha":fecha,
+                  "Ciudad":ciudad,
+                  "Direccion":direccion,
+                  "Venues":venues,
+                  "Imagen":imagen}
 
-    return render_template("infoEvento.html")
+    return render_template("infoEvento.html",info=infoEvento)
 
 
 @app.route("/eventosUbic", methods=["POST"])
