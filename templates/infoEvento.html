@@ -32,11 +32,13 @@
         <div class="card-body text-dark">
           <h5 class="card-title" style="color: black;">{{ info['nombre'] }}</h5>
           <p class="card-text" style="color:rgb(2, 2, 2);">Precio Mínimo: &nbsp<span style="color:orange">{{ info['PrecioMin'] }} €</span></p>
-          <p class="card-text" style="color:rgb(12, 12, 12);"> Precio Maximo: &nbsp<span style="color:orange">{{ info['PrecioMax'] }} €</span></p>
+          <p class="card-text" style="color:rgb(12, 12, 12);"> Precio Máximo: &nbsp<span style="color:orange">{{ info['PrecioMax'] }} €</span></p>
           <p class="card-text" style="color:rgb(15, 15, 14);">Fecha del evento: &nbsp<span style="color:orange">{{ info['Fecha'] }}</span></p>
           <p class="card-text" style="color:rgb(10, 10, 10);">Ubicación: &nbsp<span style="color:orange">{{ info['Direccion'] }},{{ info['Venues'] }}</span></p>
           <p class="card-text" style="color:rgb(10, 10, 10);">Ciudad: &nbsp<span style="color:orange">{{ info['Ciudad'] }}</span></p>
-          <a class="btn btn-warning"  href="/favoritos?info={{info}}" role="button">Añadir a favoritos</a> 
+          <a class="btn btn-warning"  href="/favoritos?name={{info['nombre']}}&min={{info['PrecioMin']}}&max={{info['PrecioMax']}}&date={{info['Fecha']}}&dir={{ info['Direccion']}}&city={{info['Ciudad']}}&image={{info['Imagen']}}&venues={{info['Venues']}}" role="button">Añadir a favoritos</a> 
+          <br><br>
+          <div class="card-text" style="color: rgb(185, 17, 11);">{{ mensaje }}</div>
 
         </div>
       </div>

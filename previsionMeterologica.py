@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, Request,se
 import random
 import json
 from os import remove
+import sqlite3
 
 
 
@@ -20,6 +21,28 @@ def Fecha_d(fecha):
     resultado = traductor.translate(dia_Semana)
     return resultado
 
+def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,imagen):
+    # Añadimos a la base de datos el evento elegido por el usuario como favorito 
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT count(Nombre) FROM EventosFavoritos WHERE Nombre=?", (nombre,))
+    resul = cur.fetchall()
+    count = resul[0][0]
+    con.close()
+
+    if count == 0:
+        con = sqlite3.connect("DB.db")
+        cur = con.cursor()
+        cur.execute(
+            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues) values (?,?,?,?,?,?,?,?)",
+            (nombre,PrecioMax,PrecioMin,fecha,ciudad,direccion,imagen,venues),
+        )
+        con.commit()
+        result = cur.fetchone()
+        con.close()
+        return True
+
+    return False
 
 #Llamada de datos meterologicos para hacer un grafico por horas
 def Prevision_Clima(city):
@@ -66,6 +89,8 @@ def climaDia(coordenadas):
 
     datosObtenidos = requests.get( "https://api.tutiempo.net/json/?lan=es&&units=Metric&apid=XwY44q4zaqXbxnV&ll=" + coordenadas)
     datosFormatonJSON = datosObtenidos.json()
+
+    print("ClimaDia: ",datosFormatonJSON)
 
     dias = []
     dias.append(datosFormatonJSON.get("day2"))

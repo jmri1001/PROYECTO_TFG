@@ -149,9 +149,35 @@ def eventos():
 
 @app.route("/favoritos")
 def favoritos():
-    infoEvento = request.args.get("info") #Obtenemos la info del evento
-    print(infoEvento)
-    return render_template("infoEvento.html",info=infoEvento)
+    nombre = request.args.get("name") #Obtenemos la info del evento
+    precioMin = request.args.get("min") #Obtenemos la info del evento
+    precioMax = request.args.get("max") #Obtenemos la info del evento
+    fecha = request.args.get("date") #Obtenemos la info del evento
+    ciudad = request.args.get("city") #Obtenemos la info del evento
+    direccion = request.args.get("dir") #Obtenemos la info del evento
+    venues = request.args.get("venues") #Obtenemos la info del evento
+    imagen = request.args.get("image") #Obtenemos la info del evento
+
+    infoEvento = {"nombre":nombre,
+                  "PrecioMin":precioMin,
+                  "PrecioMax":precioMax,
+                  "Fecha":fecha,
+                  "Ciudad":ciudad,
+                  "Direccion":direccion,
+                  "Venues":venues,
+                  "Imagen":imagen}
+    
+    valor = False
+
+    if nombre !=None and precioMax !=None and precioMin !=None and fecha !=None and ciudad !=None and direccion !=None and venues !=None and imagen !=None:
+        valor = Evento_Favorito(nombre,precioMin,precioMax,fecha,ciudad,direccion,venues,imagen)
+    
+    if valor:
+        mensaje = "Evento añadido a favoritos"
+        return render_template("infoEvento.html",info=infoEvento,mensaje=mensaje)
+
+    mensaje = "Este evento ya existe en favoritos"
+    return render_template("infoEvento.html",info=infoEvento,mensaje=mensaje)
     
 
 @app.route("/infoEvento")
