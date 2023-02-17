@@ -78,9 +78,17 @@ def registro_usuarios(name, email, password):
     if count == 0:
         con = sqlite3.connect("DB.db")
         cur = con.cursor()
+        cur.execute("SELECT count(email) FROM Usuarios")
+        resul = cur.fetchall()
+        count = resul[0][0]
+        count +=1
+        con.close()
+
+        con = sqlite3.connect("DB.db")
+        cur = con.cursor()
         cur.execute(
-            "INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)",
-            (name, email, password, None, None),
+            "INSERT INTO Usuarios(nombre,email,password,gustos,foto,id) values (?,?,?,?,?,?)",
+            (name, email, password, None, None,count),
         )
         con.commit()
         result = cur.fetchone()
@@ -157,6 +165,8 @@ def favoritos():
     direccion = request.args.get("dir") #Obtenemos la info del evento
     venues = request.args.get("venues") #Obtenemos la info del evento
     imagen = request.args.get("image") #Obtenemos la info del evento
+    latitud = request.args.get("lat")
+    longitud = request.args.get("lon")
 
     infoEvento = {"nombre":nombre,
                   "PrecioMin":precioMin,
@@ -170,7 +180,7 @@ def favoritos():
     valor = False
 
     if nombre !=None and precioMax !=None and precioMin !=None and fecha !=None and ciudad !=None and direccion !=None and venues !=None and imagen !=None:
-        valor = Evento_Favorito(nombre,precioMin,precioMax,fecha,ciudad,direccion,venues,imagen)
+        valor = Evento_Favorito(nombre,precioMin,precioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud)
     
     if valor:
         mensaje = "Evento añadido a favoritos"
@@ -204,6 +214,8 @@ def infoEventos():
     ciudad = masInfo.get("venues")[0].get("city").get("name")
     direccion = masInfo.get("venues")[0].get("address").get("line1")
     venues = masInfo.get("venues")[0].get("name")
+    latitud = masInfo.get("venues")[0].get("location").get("latitude")
+    longitud = masInfo.get("venues")[0].get("location").get("longitude")
 
     infoEvento = {"nombre":nombre,
                   "PrecioMin":precioMin,
@@ -212,7 +224,9 @@ def infoEventos():
                   "Ciudad":ciudad,
                   "Direccion":direccion,
                   "Venues":venues,
-                  "Imagen":imagen}
+                  "Imagen":imagen,
+                  "Latitud":latitud,
+                  "Longitud": longitud}
 
     return render_template("infoEvento.html",info=infoEvento)
 
@@ -443,41 +457,32 @@ def get_imagen(city):
 
 @app.route("/mapa")
 def mapa():
-    ubicaciones = {
-        "Madrid": [40.463667, -3.74922],
-        "Caceres": [39.47649, -6.37224],
-        "Burgos": [42.3502200, -3.6752700],
-    }
-
-    mapa = folium.Map(
-        location=[40.463667, -3.74922], zoom_start=6.45, control_scale=True
-    )  # Carga el mapa de Espana
-
-    for ubic in ubicaciones:
-        ubicacion = "<b>"
-        ubicacion += ubic
-        ubicacion += "</b>"
-
-        coordenadas = ubicaciones.get(ubic)
-
-        # Ubicaciones de las cuales se muestran los eventos y noticias en el mapa
-        folium.Marker(location=coordenadas, popup=ubicacion).add_to(mapa)
-        # Colocamos el icono de ubicacion
-        folium.Circle(
-            location=coordenadas,
-            color="purple",
-            fill_color="red",
-            radius=50,
-            weight=4,
-            fill_opacity=0.5,
-            tooltip=ubicacion,
-        ).add_to(mapa)
-
-    minimapa = MiniMap()
-    mapa.add_child(minimapa)
-    mapa.save("templates/mapa.html")
-
+    Eventos(1)
     return render_template("mapa.html")
+
+@app.route("/ubicacionReal")
+def UbicacionReal():
+    ubicacion_dict = get_coordenadas(request)
+    coord = (
+        str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
+    )
+    coord = coord.split(',',1)
+    latitud = float(coord[0])
+    longitud = float(coord[1])
+    
+    mapa = folium.Map(location=[latitud,longitud],zoom_start=11.5, control_scale=True)   #Carga el mapa de Espana
+    # #Ubicacion actual del usuario
+    folium.Marker(location=[latitud,longitud],icon=folium.Icon(color='lightgreen')).add_to(mapa)
+    # #Colocamos el icono de ubicacion 
+    folium.Circle(location=[latitud,longitud],color="purple",fill_color="red",radius=50,weight=4,fill_opacity=0.5).add_to(mapa) 
+    mapa.save("templates/ubicacionReal.html")
+
+    return render_template("ubicacionReal.html")
+
+
+@app.route("/EventosFavoritos")
+def EventosFavoritos():
+    return render_template("EventosFavoritos.html")
 
 
 if __name__ == "__main__":

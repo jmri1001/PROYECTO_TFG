@@ -9,6 +9,8 @@ import random
 import json
 from os import remove
 import sqlite3
+import folium
+from folium.plugins import MiniMap
 
 
 
@@ -21,7 +23,7 @@ def Fecha_d(fecha):
     resultado = traductor.translate(dia_Semana)
     return resultado
 
-def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,imagen):
+def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud):
     # Añadimos a la base de datos el evento elegido por el usuario como favorito 
     con = sqlite3.connect("DB.db")
     cur = con.cursor()
@@ -34,8 +36,8 @@ def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,ima
         con = sqlite3.connect("DB.db")
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues) values (?,?,?,?,?,?,?,?)",
-            (nombre,PrecioMax,PrecioMin,fecha,ciudad,direccion,imagen,venues),
+            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues,Latitud,Longitud) values (?,?,?,?,?,?,?,?,?,?)",
+            (nombre,PrecioMax,PrecioMin,fecha,ciudad,direccion,imagen,venues,latitud,longitud),
         )
         con.commit()
         result = cur.fetchone()
@@ -89,8 +91,6 @@ def climaDia(coordenadas):
 
     datosObtenidos = requests.get( "https://api.tutiempo.net/json/?lan=es&&units=Metric&apid=XwY44q4zaqXbxnV&ll=" + coordenadas)
     datosFormatonJSON = datosObtenidos.json()
-
-    print("ClimaDia: ",datosFormatonJSON)
 
     dias = []
     dias.append(datosFormatonJSON.get("day2"))
@@ -194,5 +194,35 @@ def save_file_json_news(my_dict):
     remove("noticias.json")
     with open('noticias.json', 'w') as fp:
         json.dump(my_dict, fp)
+
+
+
+def Eventos(id):
+    # Extraemos de la base de datos los eventos elegidos por el usuario como favoritos 
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM EventosFavoritos WHERE IdUsuario=?", (id,))
+    resul = cur.fetchall()
+    con.close()
+    
+    mapa = folium.Map(location=[40.463667,-3.74922],zoom_start=6.45, control_scale=True)   #Carga el mapa de Espana
+
+    for tupla in resul:
+        latitud = tupla[8]
+        longitud = tupla[9]
+        ubicacion = tupla[7]
+        evento = "<b>Evento: "
+        evento += tupla[0]
+        evento += "</b>"
+        
+        #Ubicaciones de las cuales se muestran los eventos y noticias en el mapa
+        folium.Marker(location=[latitud,longitud],popup=evento,icon=folium.Icon(color='lightgreen')).add_to(mapa)
+        #Colocamos el icono de ubicacion 
+        folium.Circle(location=[latitud,longitud],color="purple",fill_color="red",radius=50,weight=4,fill_opacity=0.5,tooltip=ubicacion).add_to(mapa) 
+    
+    minimapa = MiniMap()
+    mapa.add_child(minimapa)
+
+    mapa.save("templates/mapa.html")
 
 

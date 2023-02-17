@@ -29,6 +29,31 @@
   </div>
 </div>
 
+<div class="row" style="margin-top: 5%;">
+  <div class="col-md-3">
+    <div class="card" style="background-color: rgba(255,255,255,0.2);">
+      <div class="card-body">
+        <h6 class="card-text" style="color: rgb(236, 235, 227);text-align: center;"> {{ preparase.fecha }} </h6>
+        <br>
+        <h6 class="card-title" style="color: yellowgreen;text-align: center;font-size: large;"> Prepárese para su día
+        </h6>
+        <br>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Paraguas.png')}}">&nbsp
+          Paragüas: &nbsp<span style="color:orange">{{ preparase.paraguas }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Abrigo.png')}}">&nbsp
+          Abrigo: &nbsp<span style="color:orange">{{ preparase.abrigo }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Aire.png')}}">&nbsp Al
+          aire libre: &nbsp<span style="color:orange">{{ preparase.aireLibre }} </span></h6>
+        <h6 class="card-title" style="color: white;"><img
+            src="{{url_for('static', filename='img/SensTer.png')}}">&nbsp&nbsp Sensación Térmica: &nbsp<span
+            style="color:orange">{{ preparase.sensTermica }}</span></h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
 <div class="text-center my-4 fs-5" style="color: orange;">{{ mensaje }}</div>
 
 <div class="text-center my-4 fs-5" style="color: rgb(182, 241, 72);"">PREVISIÓN DE 6 DÍAS</div>
@@ -62,28 +87,5 @@
   });
 </script>
 
-
-<div class="row" style="margin-top: 5%;">
-  <div class="col-md-3">
-    <div class="card" style="background-color: rgba(255,255,255,0.2);">
-      <div class="card-body">
-        <h6 class="card-text" style="color: rgb(236, 235, 227);text-align: center;"> {{ preparase.fecha }} </h6>
-        <br>
-        <h6 class="card-title" style="color: yellowgreen;text-align: center;font-size: large;"> Prepárese para su día
-        </h6>
-        <br>
-        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Paraguas.png')}}">&nbsp
-          Paragüas: &nbsp<span style="color:orange">{{ preparase.paraguas }} </span></h6>
-        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Abrigo.png')}}">&nbsp
-          Abrigo: &nbsp<span style="color:orange">{{ preparase.abrigo }} </span></h6>
-        <h6 class="card-title" style="color: white;"><img src="{{url_for('static', filename='img/Aire.png')}}">&nbsp Al
-          aire libre: &nbsp<span style="color:orange">{{ preparase.aireLibre }} </span></h6>
-        <h6 class="card-title" style="color: white;"><img
-            src="{{url_for('static', filename='img/SensTer.png')}}">&nbsp&nbsp Sensación Térmica: &nbsp<span
-            style="color:orange">{{ preparase.sensTermica }}</span></h6>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock %}
