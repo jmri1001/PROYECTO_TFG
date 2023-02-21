@@ -7,16 +7,39 @@
 <style>
     .bg-img {
         z-index: -1;
-        background: url("{{url_for('static', filename='img/imagen.png')}}") white no-repeat center;
+        background: url("{{url_for('static', filename='img/imagen.jpg')}}") white no-repeat center;
         background-size: cover;
-        filter: blur(2px) grayscale(50%) brightness(1.2) opacity(30%);
+        filter: blur(2px) grayscale(30%) brightness(1.2) opacity(30%);
     }
 </style>
 {% endblock %}
 
 <div class="position-absolute h-100 w-100 top-0 left-0 bg-img"></div>
 
+<h2 style="font-weight: 200; margin-left: 10px;">Fecha: <span id="currentDate" style="color: rgb(193, 69, 69);"></span></h2>
+<h2 style="font-weight: 200; margin-left: 10px;">Hora: <span id="currentTime" style="color: rgb(193, 69, 69)"></span></h2>
+
 <!-- iframe mete el mapa en una template -->
 <iframe class="text-center my-4 fs-5" src="/ubicacionReal" width="300" height="300" frameborder="0"></iframe>  
+<h2 style="color: white;"> Informáte para vivir mejor </h2>
+
+<script>
+    var today = new Date();
+     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+     document.getElementById("currentDate").innerHTML = date;
+     var today = new Date();
+     var currentTime = document.getElementById('currentTime');
+ 
+     function time() {
+       var d = new Date();
+       var s = d.getSeconds();
+       var m = d.getMinutes();
+       var h = d.getHours();
+       currentTime.textContent =
+         ("0" + h).substr(-2) + " : " + ("0" + m).substr(-2) + " : " + ("0" + s).substr(-2);
+     }
+ 
+     setInterval(time, 1000);
+ </script>
 
 {% endblock %}

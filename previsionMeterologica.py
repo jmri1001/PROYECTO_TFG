@@ -11,6 +11,7 @@ from os import remove
 import sqlite3
 import folium
 from folium.plugins import MiniMap
+import os
 
 
 
@@ -23,7 +24,7 @@ def Fecha_d(fecha):
     resultado = traductor.translate(dia_Semana)
     return resultado
 
-def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud):
+def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud,usuario):
     # Añadimos a la base de datos el evento elegido por el usuario como favorito 
     con = sqlite3.connect("DB.db")
     cur = con.cursor()
@@ -36,8 +37,8 @@ def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,ima
         con = sqlite3.connect("DB.db")
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues,Latitud,Longitud) values (?,?,?,?,?,?,?,?,?,?)",
-            (nombre,PrecioMax,PrecioMin,fecha,ciudad,direccion,imagen,venues,latitud,longitud),
+            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues,Latitud,Longitud,IdUsuario) values (?,?,?,?,?,?,?,?,?,?,?)",
+            (nombre,PrecioMax,PrecioMin,fecha,ciudad,direccion,imagen,venues,latitud,longitud,usuario),
         )
         con.commit()
         result = cur.fetchone()
@@ -86,7 +87,7 @@ def Prevision_Clima(city):
 
 def climaDia(coordenadas):
 
-    if (coordenadas == "42.3443701,-3.6927629"):
+    if (coordenadas == "42.3443701,-3.6927629" or coordenadas == "42.34995,-3.69205"):
         coordenadas = "41.6704100,-3.6892000"
 
     datosObtenidos = requests.get( "https://api.tutiempo.net/json/?lan=es&&units=Metric&apid=XwY44q4zaqXbxnV&ll=" + coordenadas)

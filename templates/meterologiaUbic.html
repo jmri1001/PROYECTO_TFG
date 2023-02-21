@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block head %} {% endblock %}
-{% block title %}App{% endblock %}
+{% block title %}Meterologia{% endblock %}
 
 {% block content %}
 
@@ -9,10 +9,16 @@
     class="wi {{icon}} wi-fw fs-4"></i>{{text}}<span>{{info}}{{unit}}</span></p>
 {% endmacro -%}
 
-<div class="text-center text-warning">
-  <h1>Meterología</h1>
-</div>
+<form class="form-inline" action="/searchMeterologiaUbic" method="post">
+  <input type="text" class="form-control mt-3 col-md-10" placeholder="Buscar Ubicacion" name="search">
+  <button type="submit" class="btn btn-danger">Buscar</button>
+</form>
 
+
+<div class="text-center text-warning">
+  <h1><br>Meterología</h1>
+</div>
+ 
 <div class="text-center my-4 fs-5" style="color: orange;">Tiempo actual en {{ weather.city }}</div>
 <div class="container d-flex gap-5">
   <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">

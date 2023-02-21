@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Request, session
+from flask import Flask, render_template, request, redirect, url_for, Request, session, flash
 import requests
 import json
 from GestorGeocoding import *
@@ -14,6 +14,22 @@ from urllib.parse import parse_qsl
 
 
 app = Flask(__name__)
+
+app.secret_key = b'\xe1\xeb\xed3\x1ew\x155\xeb*&c\\\x8f\xeb8'
+
+@app.before_request
+def antes_de_cada_peticion():
+    ruta = request.path
+    # Si no ha iniciado sesión y no quiere ir a algo relacionado al login, lo redireccionamos al login
+    if not 'usuario' in session and ruta != "/login" and ruta != "/registro" and not ruta.startswith("/static"):
+        flash("Inicia sesión para continuar")
+        return render_template("/login.html")
+
+# Cerrar sesión
+@app.route("/logout")
+def logout():
+    session.pop("usuario", None)
+    return redirect("/login")
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -42,7 +58,9 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         if comprobar_usuario(email, password):
-            # session['email'] = username
+            
+            session["usuario"] = email 
+
             ubicacion_dict = get_coordenadas(request)
             coord = (
                 str(ubicacion_dict.get("latitude"))
@@ -78,17 +96,9 @@ def registro_usuarios(name, email, password):
     if count == 0:
         con = sqlite3.connect("DB.db")
         cur = con.cursor()
-        cur.execute("SELECT count(email) FROM Usuarios")
-        resul = cur.fetchall()
-        count = resul[0][0]
-        count +=1
-        con.close()
-
-        con = sqlite3.connect("DB.db")
-        cur = con.cursor()
         cur.execute(
-            "INSERT INTO Usuarios(nombre,email,password,gustos,foto,id) values (?,?,?,?,?,?)",
-            (name, email, password, None, None,count),
+            "INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)",
+            (name, email, password, None, None),
         )
         con.commit()
         result = cur.fetchone()
@@ -129,7 +139,6 @@ def principal():
     # url = urls[0]
     return render_template("principal.html")
 
-
 @app.route("/eventos")
 def eventos():
     datosObtenidos = requests.get(
@@ -167,6 +176,7 @@ def favoritos():
     imagen = request.args.get("image") #Obtenemos la info del evento
     latitud = request.args.get("lat")
     longitud = request.args.get("lon")
+    usuario = session["usuario"] 
 
     infoEvento = {"nombre":nombre,
                   "PrecioMin":precioMin,
@@ -180,7 +190,7 @@ def favoritos():
     valor = False
 
     if nombre !=None and precioMax !=None and precioMin !=None and fecha !=None and ciudad !=None and direccion !=None and venues !=None and imagen !=None:
-        valor = Evento_Favorito(nombre,precioMin,precioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud)
+        valor = Evento_Favorito(nombre,precioMin,precioMax,fecha,ciudad,direccion,venues,imagen,latitud,longitud,usuario)
     
     if valor:
         mensaje = "Evento añadido a favoritos"
@@ -359,6 +369,62 @@ def NoticiasPorUbic():
 
     return render_template("noticiasUbic.html", noticias=info)
 
+@app.route("/searchMeterologiaUbic", methods=["POST"])
+def SearchMeterologiaUbic():
+    city = request.form["search"]
+
+    if (city =="") or (city == " ") or (city == "   "):
+        mensaje = "Para esta ubicación no está disponible el servicio."
+        return render_template("meterologiaUbicError.html",mensaje=mensaje)
+
+
+    datosObtenidos = requests.get(
+        "http://api.openweathermap.org/data/2.5/weather?q="
+        + city
+        + "&appid=8ca0c1c6f4748e36b8463b280a518364&units=Metric&lang=es"
+    )
+
+    datosFormatonJSON = datosObtenidos.json()
+    if datosFormatonJSON.get("cod") == "404":
+        mensaje = "Este Servicio no se encuentra disponible en este momento."
+        return render_template("meterologiaUbicError.html",mensaje=mensaje)
+
+    info = datosFormatonJSON.get("main")
+    weather = datosFormatonJSON.get("weather")[0]
+    today = date.today()
+    fecha = today.strftime("%m-%d-%Y")
+
+    meterologia = {
+        "fecha": fecha,
+        "city": city,
+        "description": weather["description"],
+        "clim": weather["main"],
+        "icon": weather["icon"],
+        "temp": round(info["temp"]),
+        "temp_min": round(info["temp_min"]),
+        "temp_max": round(info["temp_max"]),
+        "pressure": info["pressure"],
+        "humidity": info["pressure"],
+        "windspeed": datosFormatonJSON["wind"]["speed"],
+    }
+
+    coord = PeticionToponimo(city)
+    clima7d = climaDia(coord)
+
+    if clima7d == None :
+        mensaje = "La Previsión del Tiempo no está disponible en este momento."
+        return render_template("meterologiaUbic.html",weather=meterologia,clima7d=[],preparase={},mensaje=mensaje)
+    
+    
+    preparase = Preparese_Para_Su_Dia(city)
+
+    return render_template(
+        "meterologiaUbic.html",
+        weather=meterologia,
+        clima7d=clima7d,
+        preparase=preparase,
+    )
+
 
 @app.route("/meterologiaUbic")
 def meterologiaUbic():
@@ -453,11 +519,12 @@ def get_imagen(city):
     img = results[index]
 
     return img["contentUrl"], img["thumbnailUrl"]
-
+      
 
 @app.route("/mapa")
 def mapa():
-    Eventos(1)
+    usuario = session["usuario"]
+    Eventos(usuario)
     return render_template("mapa.html")
 
 @app.route("/ubicacionReal")
