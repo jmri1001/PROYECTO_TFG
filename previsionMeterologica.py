@@ -28,7 +28,7 @@ def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,ima
     # Añadimos a la base de datos el evento elegido por el usuario como favorito 
     con = sqlite3.connect("DB.db")
     cur = con.cursor()
-    cur.execute("SELECT count(Nombre) FROM EventosFavoritos WHERE Nombre=?", (nombre,))
+    cur.execute("SELECT count(Nombre) FROM EventosFavoritos WHERE Nombre=? AND Ciudad=?", (nombre,ciudad,))
     resul = cur.fetchall()
     count = resul[0][0]
     con.close()
@@ -227,3 +227,18 @@ def Eventos(id):
     mapa.save("templates/mapa.html")
 
 
+def Eventos_DB_Mapa(id):
+    # Extraemos de la base de datos los eventos elegidos por el usuario como favoritos 
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM EventosFavoritos WHERE IdUsuario=?", (id,))
+    resul = cur.fetchall()
+    con.close()
+    return resul
+
+def BorrarEventoFav(nombre,ciudad):
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("DELETE FROM EventosFavoritos WHERE Nombre=? AND Ciudad=?", (nombre,ciudad,))
+    con.commit()
+    con.close()

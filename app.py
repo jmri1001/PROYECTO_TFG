@@ -324,7 +324,7 @@ def NoticiasPorUbic():
     city = request.form["search"]
     categoria = request.form["categorias"]
 
-    if city != " " and categoria != "disabled selected":
+    if city != "" and categoria != "disabled selected":
         datosObtenidos = requests.get(
             "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20&country=es"
             + city
@@ -332,14 +332,14 @@ def NoticiasPorUbic():
             + categoria
         )
 
-    elif city != " " and categoria == "disabled selected":
+    elif city != "" and categoria == "disabled selected":
         datosObtenidos = requests.get(
             "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20&country=es"
             + city
             + "&language=es"
         )
 
-    elif city == " " and categoria != "disabled selected":
+    elif city == "" and categoria != "disabled selected":
         datosObtenidos = requests.get(
             "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&country=es&category="
             + categoria
@@ -432,13 +432,14 @@ def meterologiaUbic():
     coord = (
         str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
     )
-
+    print("Coordenadas Actuales: ",coord)
     city = PeticionCoordenadas(coord)
-    cont = 5
+    cont = 1
+    print("Valor de City: ",city)
 
     while city == None and cont < 6:
         city = PeticionCoordenadas(coord)
-        cont = cont - 1
+        cont = cont + 1
 
     if city == None:
         mensaje = "Este Servicio no se encuentra disponible en este momento."
@@ -549,7 +550,20 @@ def UbicacionReal():
 
 @app.route("/EventosFavoritos")
 def EventosFavoritos():
-    return render_template("EventosFavoritos.html")
+    usuario = session["usuario"]
+    eventos = Eventos_DB_Mapa(usuario)
+    return render_template("EventosFavoritos.html",eventos=eventos)
+
+@app.route("/BorrarEventoFavorito")
+def BorrarEventoFavorito():
+    usuario = session["usuario"]
+    nombre = request.args.get("name")
+    ciudad = request.args.get("city")
+
+    BorrarEventoFav(nombre,ciudad)
+    eventos = Eventos_DB_Mapa(usuario)
+    return render_template("EventosFavoritos.html",eventos=eventos)
+
 
 
 if __name__ == "__main__":

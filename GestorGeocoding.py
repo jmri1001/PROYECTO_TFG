@@ -1,36 +1,44 @@
 import requests
+from geopy.geocoders import Nominatim
+from functools import partial
+
 
 def PeticionCoordenadas(coordenadas):
-        url = "http://geocode.xyz/"+coordenadas+"?json=1&region=ES&auth=866831157714569401247x21047"
-        datosObtenidos = requests.get(url)
-        datosFormatoJSON = datosObtenidos.json()
-
-        if ( datosFormatoJSON == None or  datosFormatoJSON.get("error") != None): return None
-        
-        osmtags = datosFormatoJSON.get("osmtags")
-        
-        if(osmtags != "{}"): 
-                
-                return osmtags.get("name")
-                
+        geolocator = Nominatim(user_agent= 'joselii6ito@gmail.com')
+        geocode = partial(geolocator.geocode, language="es")
+        info = geocode(coordenadas)
+        if info != None:
+                info = str(info)
+                valores = info.split(',',4)
+                return valores[3]
         else:
                 return None
 
 def PeticionToponimo(city):
-        url = "http://geocode.xyz/"+city+"?json=1&region=ES&auth=866831157714569401247x21047"
-        datosObtenidos = requests.get(url)
-        datosFormatoJSON = datosObtenidos.json()
-
-        if ( datosFormatoJSON == None or  datosFormatoJSON.get("error") != None): return None
-        
-        latitud = datosFormatoJSON.get("latt")
-        longitud = datosFormatoJSON.get("longt")
-        coord = latitud + "," + longitud
-        
-        if(latitud != "0.00000" and longitud != "0.00000" ): 
-                
-                return coord
-                
+        geolocator = Nominatim(user_agent= 'joselii6ito@gmail.com')
+        location = geolocator.geocode(city,language="es",country_codes="ES")
+        if location != None:
+                latitud = str(location.latitude)
+                longitud = str(location.longitude)
+                latitud += "," + longitud
+                return  latitud
         else:
                 return None
         
+
+
+geolocator = Nominatim(user_agent= 'joselii6ito@gmail.com')
+geocode = partial(geolocator.geocode, language="es")
+info = geocode("42.34,-3.70")
+info.raw
+print(info)
+
+
+
+
+
+
+
+
+
+

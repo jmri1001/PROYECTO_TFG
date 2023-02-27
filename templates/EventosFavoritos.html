@@ -1,13 +1,35 @@
 {% extends "layout.html" %}
-{% block title %}App{% endblock %}
+{% block head %} {% endblock %}
+{% block title %}EventosFavoritos{% endblock %}
 
 {% block content %}
+<br>
+<div class="container">
+        <div class="row">
+            {% for event in eventos %}
 
-{% block head %}
+            <div class="col-md-4">
+                <!-- Muestra de cada evento el titulo y la descripcion-->    
+                <div class="card">
+                    <img class="card-img-top" style="object-fit: cover"  height="100" src="{{ event[6] }}" alt=""> <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
+                    <div class="card-body text-dark">
+                      <h5 class="card-title" style="color: black;">{{ event[0] }}</h5>
+                      <p class="card-text" style="color:rgb(2, 2, 2);">Precio Mínimo: &nbsp<span style="color:orange">{{ event[2] }} €</span></p>
+                      <p class="card-text" style="color:rgb(12, 12, 12);"> Precio Máximo: &nbsp<span style="color:orange">{{ event[1] }} €</span></p>
+                      <p class="card-text" style="color:rgb(15, 15, 14);">Fecha del evento: &nbsp<span style="color:orange">{{ event[3] }}</span></p>
+                      <p class="card-text" style="color:rgb(10, 10, 10);">Ubicación: &nbsp<span style="color:orange">{{ event[5] }},{{ event[7] }}</span></p>
+                      <p class="card-text" style="color:rgb(10, 10, 10);">Ciudad: &nbsp<span style="color:orange">{{ event[4] }}</span></p>
+                      <a class="btn btn-warning"  href="/BorrarEventoFavorito?name={{ event[0] }}&city={{ event[4] }}" role="button">Eliminar de favoritos</a> 
+                    </div>
+                </div>
+              <br>
 
-{% endblock %}
+            </div>
+            {% endfor %}
+        </div>
+</div>
 
 <!-- iframe mete el mapa en una template -->
-<iframe src="/mapa" width="650" height="520" frameborder="0"></iframe>  
+<iframe src="/mapa" width="650" height="520" frameborder="0"></iframe>
 
 {% endblock %}
