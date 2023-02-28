@@ -9,11 +9,14 @@
     class="wi {{icon}} wi-fw fs-4"></i>{{text}}<span>{{info}}{{unit}}</span></p>
 {% endmacro -%}
 
-<form class="form-inline" action="/searchMeterologiaUbic" method="post">
-  <input type="text" class="form-control mt-3 col-md-10" placeholder="Buscar Ubicacion" name="search">
-  <button type="submit" class="btn btn-danger">Buscar</button>
-</form>
-
+<div class="mb-3">
+  <form action="/searchMeterologiaUbic" method="post">
+    <div class="input-group">
+      <input class="form-control col-8" type="text" placeholder="Buscar ubicación" id="search" name="search" value="">&nbsp
+      <button type="submit" class="btn btn-warning"><i class="fas fa-search"></i></button>
+    </div><br>
+  </form>
+</div>
 
 <div class="text-center text-warning">
   <h1><br>Meterología</h1>

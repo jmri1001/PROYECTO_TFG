@@ -34,22 +34,7 @@ def logout():
 
 @app.route("/", methods=["POST", "GET"])
 def index():
-    return render_template("index.html")
-
-
-def comprobar_usuario(email, password):
-    con = sqlite3.connect("DB.db")
-    cur = con.cursor()
-    cur.execute(
-        "Select email,password FROM Usuarios WHERE email=? and password=?",
-        (email, password),
-    )
-
-    result = cur.fetchone()
-    if result:
-        return True
-    else:
-        return False
+    return render_template("login.html")
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -60,16 +45,6 @@ def login():
         if comprobar_usuario(email, password):
             
             session["usuario"] = email 
-
-            ubicacion_dict = get_coordenadas(request)
-            coord = (
-                str(ubicacion_dict.get("latitude"))
-                + ","
-                + str(ubicacion_dict.get("longitude"))
-            )
-            city = PeticionCoordenadas(coord)
-            # urls = get_imagen(city)
-            # url = urls[0]
             url = ""
             return render_template("principal.html", url=url)
 
@@ -82,30 +57,6 @@ def login():
     else:
         ubicacion_dict = get_coordenadas(request)
         return render_template("login.html")
-
-
-def registro_usuarios(name, email, password):
-
-    con = sqlite3.connect("DB.db")
-    cur = con.cursor()
-    cur.execute("SELECT count(email) FROM Usuarios WHERE email=?", (email,))
-    resul = cur.fetchall()
-    count = resul[0][0]
-    con.close()
-
-    if count == 0:
-        con = sqlite3.connect("DB.db")
-        cur = con.cursor()
-        cur.execute(
-            "INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)",
-            (name, email, password, None, None),
-        )
-        con.commit()
-        result = cur.fetchone()
-        con.close()
-        return True
-
-    return False
 
 
 @app.route("/registro", methods=["POST", "GET"])
@@ -130,38 +81,15 @@ def registro():
 
 @app.route("/principal", methods=["POST", "GET"])
 def principal():
-    ubicacion_dict = get_coordenadas(request)
-    coord = (
-        str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
-    )
-    city = PeticionCoordenadas(coord)
-    # urls = get_imagen(city)
-    # url = urls[0]
     return render_template("principal.html")
 
 @app.route("/eventos")
 def eventos():
-    datosObtenidos = requests.get(
-        "https://app.ticketmaster.com/discovery/v2/events.json?apikey=FKM66NQuNZ4k6GAAEJWl57l2tYDQ7VTA&language=es&countryCode=ES"
-    )
-    datosFormatonJSON = datosObtenidos.json()
-
-    if (datosFormatonJSON.get("page").get("totalElements") == 0) or (
-        int(datosFormatonJSON.get("page").get("totalElements")) < 5
-    ):
-        datosFormatonJSON = load_file_json_events()
-    else:
-        save_file_json_events(datosFormatonJSON)
-
-    info = datosFormatonJSON.get("_embedded")
-
-    eventos = info.get("events")
-    get_image = lambda event: event["images"][-1]
-    get_categoria = lambda categ: categ["classifications"][0]["segment"]
-
-    return render_template(
-        "eventos.html", eventos=eventos, get_img=get_image, get_categ=get_categoria
-    )  # Enviamos los datos que queremos mostrar en el html5 list es el atributo que queremos de la api
+    info = eventosApi()
+    eventos = info[0] 
+    get_image = info[1]
+    get_categoria = info[2]
+    return render_template("eventos.html", eventos=eventos, get_img=get_image, get_categ=get_categoria)  
 
 
 @app.route("/favoritos")
@@ -202,42 +130,8 @@ def favoritos():
 
 @app.route("/infoEvento")
 def infoEventos():
-    id_evento = request.args.get("id") #Obtenemos el id de cada evento
-    datosObtenidos = requests.get(
-        "https://app.ticketmaster.com/discovery/v2/events.json?apikey=FKM66NQuNZ4k6GAAEJWl57l2tYDQ7VTA&id=" + id_evento
-    )
-    datosFormatonJSON = datosObtenidos.json()
-    info = datosFormatonJSON.get("_embedded")
-    evento = info.get("events")[0]
-
-
-    nombre = evento.get("name")
-    imagen = evento.get("images")[0].get("url")
-    precioMin = 0
-    precioMax = 0
-    if "priceRanges" in evento:
-        precioMin = evento.get("priceRanges")[0].get("min")
-        precioMax = evento.get("priceRanges")[0].get("max")
-
-    fecha = evento.get("dates").get("start").get("localDate")
-    masInfo = evento.get("_embedded")
-    ciudad = masInfo.get("venues")[0].get("city").get("name")
-    direccion = masInfo.get("venues")[0].get("address").get("line1")
-    venues = masInfo.get("venues")[0].get("name")
-    latitud = masInfo.get("venues")[0].get("location").get("latitude")
-    longitud = masInfo.get("venues")[0].get("location").get("longitude")
-
-    infoEvento = {"nombre":nombre,
-                  "PrecioMin":precioMin,
-                  "PrecioMax":precioMax,
-                  "Fecha":fecha,
-                  "Ciudad":ciudad,
-                  "Direccion":direccion,
-                  "Venues":venues,
-                  "Imagen":imagen,
-                  "Latitud":latitud,
-                  "Longitud": longitud}
-
+    id_evento = request.args.get("id") #Obtenemos el id del evento
+    infoEvento = infoEventosApi(id_evento)
     return render_template("infoEvento.html",info=infoEvento)
 
 
@@ -300,22 +194,7 @@ def eventosPorUbicacion():
 
 @app.route("/noticias")
 def Noticias():
-    API_KEY = "pub_7421c00b07c3b0a1ab68df5be83ae037be9f"
-    datosObtenidos = requests.get(
-        "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&country=es"
-    )
-
-    datosFormatonJSON = datosObtenidos.json()
-
-    if (not "totalResults" in datosFormatonJSON) or int(
-        datosFormatonJSON.get("totalResults")
-    ) <= 5:
-        datosFormatonJSON = load_file_json_news()
-    else:
-        save_file_json_news(datosFormatonJSON)
-
-    info = datosFormatonJSON.get("results")
-
+    info = NoticiasApi()
     return render_template("noticias.html", noticias=info)
 
 
@@ -490,38 +369,7 @@ def meterologiaUbic():
         clima7d=clima7d,
         preparase=preparase,
     )
-
-
-def get_coordenadas(request: Request):
-    coordenadas = request.cookies.get("ubicacion")
-    if coordenadas == None:
-        return
-    coordenadas = json.loads(coordenadas)
-    return coordenadas
-
-
-def get_imagen(city):
-    url = "https://bing-image-search1.p.rapidapi.com/images/search"
-    count = 4
-    params = {"q": city, "count": count, "mkt": "es-ES"}
-
-    headers = {
-        "X-RapidAPI-Key": "275bb62fcfmshe06f494e237a78cp174832jsn0dbb9c290237",
-        "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
-    }
-
-    response = requests.request("GET", url, headers=headers, params=params)
-
-    data = response.json()
-
-    results = data["value"]
-
-    index = random.randint(0, count - 1)
-    img = results[index]
-
-    return img["contentUrl"], img["thumbnailUrl"]
       
-
 @app.route("/mapa")
 def mapa():
     usuario = session["usuario"]
@@ -530,21 +378,7 @@ def mapa():
 
 @app.route("/ubicacionReal")
 def UbicacionReal():
-    ubicacion_dict = get_coordenadas(request)
-    coord = (
-        str(ubicacion_dict.get("latitude")) + "," + str(ubicacion_dict.get("longitude"))
-    )
-    coord = coord.split(',',1)
-    latitud = float(coord[0])
-    longitud = float(coord[1])
-    
-    mapa = folium.Map(location=[latitud,longitud],zoom_start=11.5, control_scale=True)   #Carga el mapa de Espana
-    # #Ubicacion actual del usuario
-    folium.Marker(location=[latitud,longitud],icon=folium.Icon(color='lightgreen')).add_to(mapa)
-    # #Colocamos el icono de ubicacion 
-    folium.Circle(location=[latitud,longitud],color="purple",fill_color="red",radius=50,weight=4,fill_opacity=0.5).add_to(mapa) 
-    mapa.save("templates/ubicacionReal.html")
-
+    UbicacionTiempoReal()
     return render_template("ubicacionReal.html")
 
 
@@ -563,7 +397,6 @@ def BorrarEventoFavorito():
     BorrarEventoFav(nombre,ciudad)
     eventos = Eventos_DB_Mapa(usuario)
     return render_template("EventosFavoritos.html",eventos=eventos)
-
 
 
 if __name__ == "__main__":

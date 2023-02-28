@@ -21,10 +21,11 @@
           <h6 class="card-title">{{ event['name'] }}</h6>
           <p class="card-text" style="color: rgb(218, 111, 12);">{{ get_categ(event)['name'] }}</p>
 
-          <a target="_blank" class="btn btn-secondary" href="{{ event['url'] }}" role="button">Ver evento</a>
+          <a target="_blank" class="btn btn-warning" href="{{ event['url'] }}" role="button">Ver evento</a>
 
         </div>
       </div>
+      <br>
 
     </div>
     {% endfor %}
