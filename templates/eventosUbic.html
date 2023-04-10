@@ -7,11 +7,9 @@
 <h6 class="card-title">{{ mensaje }}</h6> <!--mensaje para cuando no existen eventos en cierta ubicacion -->
 
 <div class="container">
-
-  <div class="row">
+  <div style="color: white;">&emsp;Eventos en {{ubic}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Categoría: {{categ}}</div><br><br>
+  <div class="grid-wrapper gap-4">
     {% for event in eventos %}
-
-    <div class="col-md-3">
 
       <!-- Muestra de cada video el titulo y la descripcion-->
       <div class="card">
@@ -19,17 +17,14 @@
         <!-- Con id lo que le pasamos el id del video de bucle para que nos coja su foto y la muestre en la web-->
         <div class="card-body">
           <h6 class="card-title">{{ event['name'] }}</h6>
-          <p class="card-text" style="color: rgb(218, 111, 12);">{{ get_categ(event)['name'] }}</p>
+          <p class="card-text" style="color: rgb(218, 111, 12);">{{categ}}</p>
 
           <a target="_blank" class="btn btn-warning"  href="/infoEvento?id={{ event['id']}}" role="button">Ver evento</a>
 
         </div>
       </div>
-      <br>
-
-    </div>
     {% endfor %}
-
-  </div>
+  </div><br>
 </div>
+
 {% endblock %}

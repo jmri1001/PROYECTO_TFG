@@ -1,10 +1,9 @@
-import requests
+import requests,time
 from datetime import datetime, date
 from deep_translator import GoogleTranslator
 import pandas as pd
-import numpy as np
 # import matplotlib.pyplot as plt
-from flask import Flask, render_template, request, redirect, url_for, Request,session,flash
+from flask import request,Request
 import random
 import json
 from os import remove
@@ -13,10 +12,8 @@ import folium
 from folium.plugins import MiniMap
 import os
 from GestorGeocoding import *
-from bing_image_downloader import downloader
-from typing import Literal
 from previsionMeterologica import *
-from urllib.parse import parse_qsl
+
 
 
 def comprobar_usuario(email, password):
@@ -63,6 +60,7 @@ def get_coordenadas(request: Request):
     if coordenadas == None:
         return
     coordenadas = json.loads(coordenadas)
+    print(coordenadas)
     return coordenadas
 
 
@@ -111,6 +109,7 @@ def Evento_Favorito(nombre,PrecioMin,PrecioMax,fecha,ciudad,direccion,venues,ima
         con.commit()
         result = cur.fetchone()
         con.close()
+        TiempoParaEventos(latitud,longitud,ciudad)
         return True
 
     return False
@@ -201,13 +200,120 @@ def climaDia(coordenadas):
 
     return lista
 
-#para hacer el grafico
-# lista = Prevision_Clima("Burgos")
-# x = lista[0]
-# y = lista[1]
-# print(lista)
-# plt.plot(x,y)
-# plt.show()
+
+def ActualizarTiempoEventos(id):
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT DISTINCT Ciudad FROM EventosFavoritos WHERE IdUsuario=?", (id,))
+    resul = cur.fetchall()
+    
+    for tupla in resul:
+        for ciudad in tupla:
+            curs = con.cursor()
+            curs.execute("SELECT Latitud,Longitud FROM Ubicaciones WHERE Ciudad=?", (ciudad,))
+            infocity = curs.fetchall()
+
+            if len(infocity) > 0:
+                latitud = infocity[0][0]
+                longitud = infocity[0][1]
+                TiempoParaEventos(latitud,longitud,ciudad)
+    con.close()
+
+def TiempoParaEventos(latitud,longitud,ciudad):
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT count(Ciudad) FROM Ubicaciones WHERE Ciudad=?", (ciudad,))
+    resul = cur.fetchall()
+    count = resul[0][0]
+    con.close()
+
+    if latitud != None and longitud != None:
+        coordenadas = latitud + "," + longitud
+        if (coordenadas == "42.3443701,-3.6927629" or coordenadas == "42.34995,-3.69205"):
+            coordenadas = "41.6704100,-3.6892000"
+
+        datosObtenidos = requests.get( "https://api.tutiempo.net/json/?lan=es&&units=Metric&apid=XwY44q4zaqXbxnV&ll=" + coordenadas)
+        datosFormatonJSON = datosObtenidos.json()
+        dias = []
+        dias.append(datosFormatonJSON.get("day1"))
+        if None in dias:
+            return None
+
+        fecha = dias[0].get("date")
+        TempMin = dias[0].get("temperature_min")
+        TempMax = dias[0].get("temperature_max")
+        icono = dias[0].get("icon")
+        viento = dias[0].get("wind")
+        iconoViento = dias[0].get("icon_wind")
+
+        if count == 0:
+            con = sqlite3.connect("DB.db")
+            cur = con.cursor()
+            cur.execute(
+                "INSERT INTO Ubicaciones(Ciudad,Fecha,TempMax,TempMin,Icono,Viento,IconoViento,Latitud,Longitud) values (?,?,?,?,?,?,?,?,?)",
+                (ciudad,fecha,TempMax,TempMin,icono,viento,iconoViento,latitud,longitud),
+            )
+            con.commit()
+            result = cur.fetchone()
+            con.close()
+            return True
+        
+        else:
+            con = sqlite3.connect("DB.db")
+            cur = con.cursor()
+            cur.execute(
+                "UPDATE Ubicaciones SET Fecha=?,TempMax=?,TempMin=?,Icono=?,Viento=?,IconoViento=? WHERE Ciudad=?",
+                (fecha,TempMax,TempMin,icono,viento,iconoViento,ciudad),
+            )
+            con.commit()
+            result = cur.fetchone()
+            con.close()
+            return True
+
+    return False
+
+
+def Ubicaciones(id):
+    # Extraemos de la base de datos los eventos elegidos por el usuario como favoritos 
+    con = sqlite3.connect("DB.db")
+    cur = con.cursor()
+    cur.execute("SELECT DISTINCT Ciudad FROM EventosFavoritos WHERE IdUsuario=?", (id,))
+    resul = cur.fetchall()
+    con.close()
+
+    lista = []
+    url = "https://v5i.tutiempo.net"
+    wd, wi = f"{url}/wd/big/black/", f"{url}/wi/"
+    wi_icon = wi + "{style}/{size}/{icon}.png"
+    wd_icon = wd + "{icon}.png"
+
+
+    con = sqlite3.connect("DB.db")
+    for tupla in resul:
+        for ciudad in tupla:
+            if ciudad == "Vitoria-Gasteiz":
+                ciudad = "Vitoria"
+
+            cur = con.cursor()
+            cur.execute("SELECT * FROM Ubicaciones WHERE Ciudad=?", (ciudad,))
+            infocity = cur.fetchall()
+
+            if len(infocity) > 0:
+                info = {
+                    "ciudad": infocity[0][0],
+                    "fecha": infocity[0][1],
+                    "temp_min": infocity[0][3],
+                    "temp_max": infocity[0][2],
+                    "icono": infocity[0][4],
+                    "viento": infocity[0][5],
+                    "icono_viento": infocity[0][6],
+                    "wi_icon": wi_icon,
+                    "wd_icon": wd_icon 
+                }
+                lista.append(info)
+
+    return lista
+    
 
 def Preparese_Para_Su_Dia(city):
     lista = Prevision_Clima("Burgos")
@@ -405,5 +511,7 @@ def eventosApi():
     eventos = info.get("events")
     get_image = lambda event: event["images"][-1]
     get_categoria = lambda categ: categ["classifications"][0]["segment"]
+    ubicacion = "España"
+    categoria = "Todas"
 
-    return (eventos,get_image,get_categoria)
+    return (eventos,get_image,get_categoria,ubicacion,categoria)

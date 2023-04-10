@@ -1,16 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, Request, session, flash
+from flask import Flask, render_template, request, redirect,session, flash
 import requests
-import json
+import threading
 from GestorGeocoding import *
-import folium
-from folium.plugins import MiniMap
-from bing_image_downloader import downloader
-import pandas as pd
-from typing import Literal
-import random
-import sqlite3
 from previsionMeterologica import *
-from urllib.parse import parse_qsl
 
 
 app = Flask(__name__)
@@ -89,7 +81,9 @@ def eventos():
     eventos = info[0] 
     get_image = info[1]
     get_categoria = info[2]
-    return render_template("eventos.html", eventos=eventos, get_img=get_image, get_categ=get_categoria)  
+    ubicacion = info[3]
+    categ = info[4]
+    return render_template("eventos.html", eventos=eventos, get_img=get_image, get_categ=get_categoria, ubic=ubicacion, categ=categ)  
 
 
 @app.route("/favoritos")
@@ -141,7 +135,7 @@ def eventosPorUbicacion():
     categoria = request.form["categorias"]
     datosObtenidos = ""
 
-    if city != " " and categoria != "disabled selected":
+    if city != "" and categoria != "disabled selected":
         datosObtenidos = requests.get(
             "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="
             + categoria
@@ -150,14 +144,14 @@ def eventosPorUbicacion():
             + "&apikey=FKM66NQuNZ4k6GAAEJWl57l2tYDQ7VTA&language=es&countryCode=ES"
         )
 
-    elif city != " " and categoria == "disabled selected":
+    elif city != "" and categoria == "disabled selected":
         datosObtenidos = requests.get(
             "https://app.ticketmaster.com/discovery/v2/events.json?&city="
             + city
             + "&apikey=FKM66NQuNZ4k6GAAEJWl57l2tYDQ7VTA&language=es&countryCode=ES"
         )
 
-    elif city == " " and categoria != "disabled selected":
+    elif city == "" and categoria != "disabled selected":
         datosObtenidos = requests.get(
             "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="
             + categoria
@@ -174,7 +168,7 @@ def eventosPorUbicacion():
     datosFormatonJSON = datosObtenidos.json()
 
     if (datosFormatonJSON.get("page").get("totalElements") == 0) or (
-        int(datosFormatonJSON.get("page").get("totalElements")) <= 5
+        int(datosFormatonJSON.get("page").get("totalElements")) <= 0
     ):
         datosFormatonJSON = load_file_json_events()
 
@@ -186,16 +180,26 @@ def eventosPorUbicacion():
 
     get_image = lambda event: event["images"][-1]
     get_categoria = lambda categ: categ["classifications"][0]["segment"]
+    ubicacion = city
+    categ = categoria
+
+    if ubicacion == "":
+        ubicacion = "España"
+    
+    if categ == "disabled selected":
+        categ = "Todas"
 
     return render_template(
-        "eventosUbic.html", eventos=eventos, get_img=get_image, get_categ=get_categoria
+        "eventosUbic.html", eventos=eventos, get_img=get_image, get_categ=get_categoria, ubic=ubicacion, categ=categ
     )
 
 
 @app.route("/noticias")
 def Noticias():
     info = NoticiasApi()
-    return render_template("noticias.html", noticias=info)
+    ubicacion = "España"
+    categ = "Todas"
+    return render_template("noticias.html", noticias=info,ubic=ubicacion, categ=categ)
 
 
 @app.route("/noticiasUbic", methods=["POST", "GET"])
@@ -205,16 +209,14 @@ def NoticiasPorUbic():
 
     if city != "" and categoria != "disabled selected":
         datosObtenidos = requests.get(
-            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20&country=es"
-            + city
+            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q="+city+"&country=es"
             + "&language=es&category="
             + categoria
         )
 
     elif city != "" and categoria == "disabled selected":
         datosObtenidos = requests.get(
-            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news%20AND%20&country=es"
-            + city
+            "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q="+city+"&country=es"
             + "&language=es"
         )
 
@@ -229,24 +231,34 @@ def NoticiasPorUbic():
             "https://newsdata.io/api/1/news?apikey=pub_7421c00b07c3b0a1ab68df5be83ae037be9f&q=news&language=es&country=es"
         )
         datosFormatonJSON = datosObtenidos.json()
+
         if ("totalResults" in datosFormatonJSON) and int(
             datosFormatonJSON.get("totalResults")
-        ) > 5:
+        ) > 0:
             save_file_json_news(datosFormatonJSON)
 
     datosFormatonJSON = datosObtenidos.json()
 
+    ubicacion = city
+    categ = categoria
+
+    if ubicacion == "":
+        ubicacion = "España"
+    
+    if categ == "disabled selected":
+        categ = "Todas"
+
+
     if (not "totalResults" in datosFormatonJSON) or int(
         datosFormatonJSON.get("totalResults")
     ) < 1:
-        datosFormatonJSON = load_file_json_news()
+        info = []
+        mensaje = "No hay noticias disponibles en este momento"
+        return render_template("noticiasUbic.html", noticias=info, ubic=ubicacion, categ=categ,mensaje=mensaje)
 
     info = datosFormatonJSON.get("results")
 
-    if len(info) == 0:
-        return render_template("noticias.html")
-
-    return render_template("noticiasUbic.html", noticias=info)
+    return render_template("noticiasUbic.html", noticias=info, ubic=ubicacion, categ=categ)
 
 @app.route("/searchMeterologiaUbic", methods=["POST"])
 def SearchMeterologiaUbic():
@@ -386,7 +398,10 @@ def UbicacionReal():
 def EventosFavoritos():
     usuario = session["usuario"]
     eventos = Eventos_DB_Mapa(usuario)
-    return render_template("EventosFavoritos.html",eventos=eventos)
+    t = threading.Timer(86400,ActualizarTiempoEventos(usuario)) #Actualizacion del tiempo cada 24Horas
+    t.start()
+    tiempo = Ubicaciones(usuario)
+    return render_template("EventosFavoritos.html",eventos=eventos,tiempo=tiempo)
 
 @app.route("/BorrarEventoFavorito")
 def BorrarEventoFavorito():
@@ -396,7 +411,8 @@ def BorrarEventoFavorito():
 
     BorrarEventoFav(nombre,ciudad)
     eventos = Eventos_DB_Mapa(usuario)
-    return render_template("EventosFavoritos.html",eventos=eventos)
+    tiempo = Ubicaciones(usuario)
+    return render_template("EventosFavoritos.html",eventos=eventos,tiempo=tiempo)
 
 
 if __name__ == "__main__":

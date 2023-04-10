@@ -6,11 +6,13 @@
 <br>
 
 <div class="container">
-  
-  <div class="row">
-    {% for new in noticias %}
 
-    <div class="col-md-3">
+  <div style="color: white;">&emsp;Noticias publicadas en {{ubic}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Categoría: {{categ}}</div><br><br>
+
+  <div class="text-center my-4 fs-5" style="color: rgb(199, 131, 29);">{{mensaje}}</div>
+  
+  <div class="grid-wrapper gap-4">
+    {% for new in noticias %}
 
       <!-- Muestra de cada video el titulo y la descripcion-->
       <div class="card">
@@ -23,8 +25,6 @@
           <a target="_blank" class="btn btn-secondary" href="{{ new['link'] }}" role="button">Ver noticia</a>
         </div>
       </div>
-
-    </div>
     {% endfor %}
     <br>
   </div>

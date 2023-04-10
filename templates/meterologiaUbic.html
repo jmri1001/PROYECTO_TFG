@@ -10,7 +10,7 @@
 {% endmacro -%}
 
 <div class="mb-3">
-  <form action="/searchMeterologiaUbic" method="post">
+  <form action="/searchMeterologiaUbic" method="post" class="form-group col-8 mx-auto mt-6">
     <div class="input-group">
       <input class="form-control col-8" type="text" placeholder="Buscar ubicación" id="search" name="search" value="">&nbsp
       <button type="submit" class="btn btn-warning"><i class="fas fa-search"></i></button>
@@ -78,6 +78,7 @@
   </div>
   {% endfor %}
 </div>
+<br>
 
 <script>
   const i18n = new Intl.DateTimeFormat("es", {
