@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block head %} {% endblock %}
+{% block title %}Meterologia{% endblock %}
+
+{% block content %}
+
+{% macro card(icon,text,info,unit) -%}
+<p class="d-flex gap-2 fs-6 align-items-center card-text m-0"><i
+    class="wi {{icon}} wi-fw fs-4"></i>{{text}}<span>{{info}}{{unit}}</span></p>
+{% endmacro -%}
+
+<form action="/searchMeterologiaUbic" method="post" class="form-group col-md-6 col-lg-3 p-4 mx-auto mb-3 pt-5">
+  <div class="input-group">
+    <input class="form-control" type="text" placeholder="Tiempo en ..." id="search" name="search" value="">&nbsp
+    <button type="submit" class="btn btn-warning"><i class="fas fa-search"></i></button>
+  </div>
+</form>
+
+<div class="text-center text-warning">
+  <h1>Meterología</h1>
+</div>
+
+<div class="text-center my-4 fs-5" style="color: orange;">Tiempo actual en {{ weather.city }}</div>
+<div class="container-xl px-4 gap-3 meteo-wrapper">
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    <h5 class="date text-center fw-bold">{{ weather.fecha }}</h5>
+    {{card("wi-thermometer-internal","Temperatura",weather.temp,"ºC")}}
+    {{card("wi-thermometer-exterior","Temperatura Min",weather.temp_min,"ºC")}}
+    {{card("wi-thermometer","Temperatura Max",weather.temp_max,"ºC")}}
+  </div>
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    {{card("wi-day-cloudy","Tiempo",weather.clim)}}
+    {{card("wi-humidity","Humedad",weather.humidity,"g/m3")}}
+    {{card("wi-strong-wind","Viento",weather.windspeed,"m/s")}}
+    {{card("wi-barometer","Presión del aire",weather.pressure,"hPa")}}
+  </div>
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    <br>
+    <h6 class="card-title" style="color: rgb(9, 36, 111);text-align: center;font-size: large;"> Prepárese para su día
+    </h6><br>
+    {{card("fas fa-umbrella","Paragüas:",preparase.paraguas)}}
+    {{card("fas fa-tshirt","Abrigo:",preparase.abrigo)}}
+    {{card("wi-strong-wind","Aire Libre:",preparase.aireLibre)}}
+    {{card("wi-thermometer","Sensación Térmica:", preparase.sensTermica)}}
+  </div>
+</div>
+
+
+<div class="text-center my-4 fs-5" style="color: orange;">{{ mensaje }}</div>
+
+<div class="text-center my-4 fs-5" style="color: rgb(182, 241, 72);"">PREVISIÓN DE 6 DÍAS</div>
+<div class=" container-fluid px-4 gap-3 meteo-wrapper">
+  {% for clima in clima7d %}
+  <div class="card card-body gap-3 text-bg-light bg-opacity-75 shadow-lg meteo-card">
+    <h5 class="date text-center fw-bold">{{ clima.fecha }}</h5>
+    <img class="mx-auto" src="{{clima.wi_icon.format(icon=clima.icono,style='01',size=50)}}">
+    {{card("wi-thermometer","Temp Min: ",clima.temp_min,"ºC")}}
+    {{card("wi-thermometer-exterior","Temp Max: ",clima.temp_max,"ºC")}}
+    {{card("wi-strong-wind","Viento: ",clima.viento,"m/s")}}
+    <img class="wind-icon" src="{{clima.wd_icon.format(icon=clima.icono_viento)}}">
+  </div>
+  {% endfor %}
+</div>
+<br>
+
+<script>
+  const i18n = new Intl.DateTimeFormat("es", {
+    day: "numeric",
+    weekday: "short",
+    month: "short",
+  });
+
+  window.addEventListener("load", () => {
+    const date = document.querySelectorAll(".date");
+    for (let day of date) {
+      const text = day.innerText;
+      const date = new Date(text);
+      day.innerText = i18n.format(date);;
+    }
+  });
+</script>
+
+
+{% endblock %}

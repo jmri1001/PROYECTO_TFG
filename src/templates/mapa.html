@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d04492f97c5c5249e0925a6076f2e49c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_d04492f97c5c5249e0925a6076f2e49c" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d04492f97c5c5249e0925a6076f2e49c = L.map(
+                "map_d04492f97c5c5249e0925a6076f2e49c",
+                {
+                    center: [40.463667, -3.74922],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6.45,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+
+            
+
+        
+    
+            var tile_layer_c2729b511ce12984ab739affbadcb7a5 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            var marker_71c079245a3559fc004d33ebe78327b7 = L.marker(
+                [40.45243, -3.68681],
+                {}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            var icon_a221f86216923ad9a755353645ec07d6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "lightgreen", "prefix": "glyphicon"}
+            );
+            marker_71c079245a3559fc004d33ebe78327b7.setIcon(icon_a221f86216923ad9a755353645ec07d6);
+        
+    
+        var popup_898b730a8c15d5c410d9a7a63120fbad = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c8dd5c80edda3d72b6f5c3f6e2eeeca1 = $(`<div id="html_c8dd5c80edda3d72b6f5c3f6e2eeeca1" style="width: 100.0%; height: 100.0%;"><b>Evento: Real Madrid - Celta</b></div>`)[0];
+                popup_898b730a8c15d5c410d9a7a63120fbad.setContent(html_c8dd5c80edda3d72b6f5c3f6e2eeeca1);
+            
+        
+
+        marker_71c079245a3559fc004d33ebe78327b7.bindPopup(popup_898b730a8c15d5c410d9a7a63120fbad)
+        ;
+
+        
+    
+    
+            var circle_8a372cfa41d3b90c2ec0a2f9eedb5203 = L.circle(
+                [40.45243, -3.68681],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 4}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            circle_8a372cfa41d3b90c2ec0a2f9eedb5203.bindTooltip(
+                `<div>
+                     Santiago Bernabeu Stadium
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_29283c05e8362b5c1a0b411433b0bc51 = L.marker(
+                [41.36476, 2.15565],
+                {}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            var icon_bf9c498b7d383b094f39a79a59a6003a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "lightgreen", "prefix": "glyphicon"}
+            );
+            marker_29283c05e8362b5c1a0b411433b0bc51.setIcon(icon_bf9c498b7d383b094f39a79a59a6003a);
+        
+    
+        var popup_5c7585f804d393f27f55cac86ed00938 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d6a608a61552a12f58fc76c484e7fdee = $(`<div id="html_d6a608a61552a12f58fc76c484e7fdee" style="width: 100.0%; height: 100.0%;"><b>Evento: BEYONCÉ - RENAISSANCE WORLD TOUR</b></div>`)[0];
+                popup_5c7585f804d393f27f55cac86ed00938.setContent(html_d6a608a61552a12f58fc76c484e7fdee);
+            
+        
+
+        marker_29283c05e8362b5c1a0b411433b0bc51.bindPopup(popup_5c7585f804d393f27f55cac86ed00938)
+        ;
+
+        
+    
+    
+            var circle_c885302847e0600d85df1c8ffee40c63 = L.circle(
+                [41.36476, 2.15565],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 4}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            circle_c885302847e0600d85df1c8ffee40c63.bindTooltip(
+                `<div>
+                     Estadi Olímpic Lluis Companys
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e39830f5b6e28537485e174005eb698d = L.marker(
+                [39.96741, -0.05745],
+                {}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            var icon_f42f5592d26802d3dca4f61d3ab9a7ba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "lightgreen", "prefix": "glyphicon"}
+            );
+            marker_e39830f5b6e28537485e174005eb698d.setIcon(icon_f42f5592d26802d3dca4f61d3ab9a7ba);
+        
+    
+        var popup_9b70a0549252db5a44dba33df7dab545 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_031da26a50e11499b22984d0174e052b = $(`<div id="html_031da26a50e11499b22984d0174e052b" style="width: 100.0%; height: 100.0%;"><b>Evento: Uoho</b></div>`)[0];
+                popup_9b70a0549252db5a44dba33df7dab545.setContent(html_031da26a50e11499b22984d0174e052b);
+            
+        
+
+        marker_e39830f5b6e28537485e174005eb698d.bindPopup(popup_9b70a0549252db5a44dba33df7dab545)
+        ;
+
+        
+    
+    
+            var circle_beb1d36140e1e33aeb769d94c67fa0b8 = L.circle(
+                [39.96741, -0.05745],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 4}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            circle_beb1d36140e1e33aeb769d94c67fa0b8.bindTooltip(
+                `<div>
+                     Salatal Club
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1afcbeb509a97366771283bf947af029 = L.marker(
+                [38.88544, 1.40489],
+                {}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            var icon_ab9916a63eba5f9552c013241e634e73 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "lightgreen", "prefix": "glyphicon"}
+            );
+            marker_1afcbeb509a97366771283bf947af029.setIcon(icon_ab9916a63eba5f9552c013241e634e73);
+        
+    
+        var popup_9cc8660d344b23ef0f23a09d009e1141 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3b3d6acd2c4d82adc6d0ed076ea1ccf4 = $(`<div id="html_3b3d6acd2c4d82adc6d0ed076ea1ccf4" style="width: 100.0%; height: 100.0%;"><b>Evento: The Signal - Ushuaïa </b></div>`)[0];
+                popup_9cc8660d344b23ef0f23a09d009e1141.setContent(html_3b3d6acd2c4d82adc6d0ed076ea1ccf4);
+            
+        
+
+        marker_1afcbeb509a97366771283bf947af029.bindPopup(popup_9cc8660d344b23ef0f23a09d009e1141)
+        ;
+
+        
+    
+    
+            var circle_9cdb0c4bef6cb2c81a5b0021c0576bdb = L.circle(
+                [38.88544, 1.40489],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 4}
+            ).addTo(map_d04492f97c5c5249e0925a6076f2e49c);
+        
+    
+            circle_9cdb0c4bef6cb2c81a5b0021c0576bdb.bindTooltip(
+                `<div>
+                     Ushuaïa 
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var tile_layer_28e3e7b606571eb9bc0583f7d64bffb2 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_8050bdb2ad152012c82fb63b6994f053 = new L.Control.MiniMap(
+                tile_layer_28e3e7b606571eb9bc0583f7d64bffb2,
+                {"autoToggleDisplay": false, "centerFixed": false, "collapsedHeight": 25, "collapsedWidth": 25, "height": 150, "minimized": false, "position": "bottomright", "toggleDisplay": false, "width": 150, "zoomAnimation": false, "zoomLevelOffset": -5}
+            );
+            map_d04492f97c5c5249e0925a6076f2e49c.addControl(mini_map_8050bdb2ad152012c82fb63b6994f053);
+        
+</script>
+</html>

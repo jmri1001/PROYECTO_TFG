@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}App{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+<iframe class="w-100 min-vh-100" id="landingContainer"  scrolling="no" src="/landing" frameborder="0"></iframe>  
+
+<script>
+	window.onmessage = (e) => {
+		if (e.data.hasOwnProperty("height")) {
+			console.log("height", e.data.height);
+			document.getElementById(
+				"landingContainer"
+			).style.height = `${e.data.height}px`;
+		}
+	};
+</script>
+{% endblock %}
