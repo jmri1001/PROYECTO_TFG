@@ -5,6 +5,7 @@ EXPOSE 8080
 WORKDIR /app
 
 COPY ./requirements.txt .
+COPY ./start.py . 
 COPY ./src ./src
 
 RUN pip install -r requirements.txt
