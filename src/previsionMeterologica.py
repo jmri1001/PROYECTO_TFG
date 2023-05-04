@@ -11,25 +11,31 @@ from os import remove
 import folium
 from folium.plugins import MiniMap
 import os
+import bcrypt
 from geopy.geocoders import Nominatim
 from functools import partial
 from .db import con
 from .utils import relative_to
 
 
-def comprobar_usuario(email, password):
+def comprobar_usuario(email, pass_texto_plano):
     cur = con.cursor()
     cur.execute(
-        "Select email,password FROM Usuarios WHERE email=? and password=?",
-        (email, password),
+        "Select password FROM Usuarios WHERE email=?",
+        (email,),
     )
+    result = cur.fetchall()
 
-    result = cur.fetchone()
-    if result:
+    if len(result) == 0: return False
+
+    pass_hasheada = result[0][0]
+    pass_texto_plano = pass_texto_plano.encode()   
+    if bcrypt.checkpw(pass_texto_plano, pass_hasheada):
         return True
     else:
         return False
-
+    
+    
 
 def registro_usuarios(name, email, password):
     cur = con.cursor()
@@ -38,9 +44,13 @@ def registro_usuarios(name, email, password):
     count = resul[0][0]
     
     if count == 0:
+        password = password.encode()
+        sal = bcrypt.gensalt()
+        pass_hasheada = bcrypt.hashpw(password, sal)
+
         cur.execute(
             "INSERT INTO Usuarios(nombre,email,password,gustos,foto) values (?,?,?,?,?)",
-            (name, email, password, None, None),
+            (name, email, pass_hasheada, None, None),
         )
         result = cur.fetchone()
         con.commit()
@@ -113,10 +123,11 @@ def Evento_Favorito(
     # Añadimos a la base de datos el evento elegido por el usuario como favorito
     cur = con.cursor()
     cur.execute(
-        "SELECT count(Nombre) FROM EventosFavoritos WHERE Nombre=? AND Ciudad=?",
+        "SELECT count(Nombre) FROM EventosFavoritos WHERE Nombre=? AND Ciudad=? AND IdUsuario=?",
         (
             nombre,
             ciudad,
+            usuario,
         ),
     )
     resul = cur.fetchall()
@@ -125,7 +136,7 @@ def Evento_Favorito(
     if count == 0:
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues,Latitud,Longitud,IdUsuario) values (?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO EventosFavoritos(Nombre,PrecioMax,PrecioMin,Fecha,Ciudad,Direccion,Imagen,Venues,Latitud,Longitud,IdUsuario,Usuario) values (?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 nombre,
                 PrecioMax,
@@ -138,11 +149,12 @@ def Evento_Favorito(
                 latitud,
                 longitud,
                 usuario,
+                usuario,
             ),
         )
         result = cur.fetchone()
-        TiempoParaEventos(latitud, longitud, ciudad)
         con.commit()
+        TiempoParaEventos(latitud, longitud, ciudad)
         return True
     
     con.commit()
