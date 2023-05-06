@@ -22,26 +22,11 @@
 
 ## 📖 Overview
 
-Desktop app for casting orders and molds managment for [Azterlan](http://www.azterlan.es/es/). Allows for schedule and casting optimization.
+Desktop app 
 
 ## 🛠️ Tools Used
 
-This repository is structured as a monorepo with `pnpm` and `turbo`.
-
-- Package Mannager: [pnpm](https://pnpm.io/)
-- Monorepo: [turborepo](https://turbo.build/)
-- IDE: [VSCode](https://code.visualstudio.com/)
-- Cross-Platform: [electron](https://www.electronjs.org/)
-- Front-End: [Next.js](https://nextjs.org/)
-- Electron overlay for Next.js: [Nextron](https://github.com/saltyshiomix/nextron)
-
 ## ✨ Features
-
-- You are able to create create multiple planning configurations.
-- You may add as many days of plannification as required.
-- Each day can have as many castings as will be needed that day.
-- Molds will be assigned to the casting until all the molds are assigned.
-- The molds can be dragged and dropped as wished.
 
 ## 🚧 Roadmap
 
