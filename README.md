@@ -1,4 +1,3 @@
-```markdown
 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="company logo" width="55"/>
 
 <div align="center">
@@ -68,4 +67,4 @@ Para cualquier consulta o comentario, puedes ponerte en contacto con nosotros a 
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT.
-```
+
