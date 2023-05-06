@@ -59,7 +59,9 @@ Para utilizar ANME, simplemente accede a la aplicación en la siguiente URL: [an
 ## 🙏 Agradecimientos
 
 * OpenWeatherMap API: <https://openweathermap.org/>
-
+* TicketMaster API: <https://developer.ticketmaster.com/>
+* TuTiempo API: <https://api.tutiempo.net/>
+* NewsData.io API: <https://newdata.io/>
 ## 📞 Soporte
 
 Para cualquier consulta o comentario, puedes ponerte en contacto con nosotros a través del correo electrónico: [jri1001@alu.ubu.es](https://jri1001@alu.ubu.es)
