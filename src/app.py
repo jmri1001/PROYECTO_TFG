@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, redirect,session, flash
 import requests
 import threading
-from .previsionMeterologica import *
+
+from .servicios.ServicioEventos import *
+from .servicios.ServicioLoginYRegistro import *
+from .servicios.ServicioMeteorologia import *
+from .servicios.ServicioNoticias import *
 
 
 app = Flask(__name__)
