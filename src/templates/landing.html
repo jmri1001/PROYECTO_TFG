@@ -1,203 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<script>
-            const sendPostMessage = () => {
-                const iframe = document.getElementById("landing");
-                window.parent.postMessage({ height: iframe.offsetHeight }, "*");
-            };
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
 
-            window.onload = () => sendPostMessage();
-            window.onresize = () => sendPostMessage();
-        </script>
-	</head>
+	<script>
+		const sendPostMessage = () => {
+			const iframe = document.getElementById("landing");
+			window.parent.postMessage({ height: iframe.offsetHeight }, "*");
+		};
 
-	<div
-		id="landing"
-		class="bg-gradient-to-br from-[hsl(211,36%,21%)] to-[hsl(185,36%,21%)] text-neutral-50 min-h-screen flex flex-col gap-32"
-	>
-		<header class="px-8">
-			<div
-				class="h-96 bg-gradient-to-b flex flex-col items-center gap-6 justify-center from-neutral-50/20 to-transparent rounded-b-[150px] w-full grid place-content-center text-neutral-800 text-center"
-			>
-				<span
-					class="font-extrabold italic text-transparent text-8xl bg-clip-text bg-gradient-to-r from-[#00c5ff] to-[#0072ff]"
-				>
-					ANME
-				</span>
+		window.onload = () => sendPostMessage();
+		window.onresize = () => sendPostMessage();
+	</script>
+</head>
 
-				<span class="text-neutral-50 text-xl"
-					>Tu aplicación de noticias, eventos y tiempo, ¡Todo en uno!</span
-				>
-			</div>
-		</header>
+<div id="landing"
+	class="bg-gradient-to-br from-[hsl(211,36%,21%)] to-[hsl(185,36%,21%)] text-neutral-50 min-h-screen flex flex-col gap-32">
+	<header class="px-8">
+		<div
+			class="h-96 bg-gradient-to-b flex flex-col items-center gap-6 justify-center from-neutral-50/20 to-transparent rounded-b-[150px] w-full grid place-content-center text-neutral-800 text-center">
+			<span
+				class="font-extrabold italic text-transparent text-8xl bg-clip-text bg-gradient-to-r from-[#00c5ff] to-[#0072ff]">
+				ANME
+			</span>
 
-		<main class="items-center flex flex-col gap-24 px-16">
-			<div
-				class="flex max-w-4xl gap-12 gap-4 w-full justify-evenly items-center max-lg:flex-col"
-			>
-				<span class="flex-shrink-0">
-					<lottie-player
-						autoplay
-						speed="0.5"
-						loop
-						mode="normal"
-						src="./static/lotties/search.json"
-						class="w-72"
-					>
-					</lottie-player>
-				</span>
-				<span class="flex flex-col gap-4">
-					<h1
-						class="font-extrabold text-2xl tracking-wide text-center uppercase"
-					>
-						Informate para vivir mejor
-					</h1>
-					<span class="text-md text-neutral-300 leading-7">
-						Con nuestra aplicación, podrás estar al día con las últimas noticias
-						y actualidades de la ubicación en la que te encuentres o de
-						cualquier otra ubicación que desees. Te mantendremos informado sobre
-						lo que sucede en tu ciudad o provincia.
-					</span>
-				</span>
-			</div>
-			<div
-				class="flex flex-row-reverse max-w-4xl w-full justify-evenly items-center max-lg:flex-col"
-			>
-				<span class="flex-shrink-0">
-					<lottie-player
-						autoplay
-						speed="0.5"
-						loop
-						mode="normal"
-						src="./static/lotties/calendar.json"
-						class="w-72"
-					>
-					</lottie-player>
-				</span>
-				<span class="flex flex-col gap-4">
-					<h1
-						class="font-extrabold text-2xl tracking-wide text-center uppercase"
-					>
-						Explora nuestro catálogo de eventos
-					</h1>
-					<span class="text-md text-neutral-300 leading-7">
-						Descubre todos los eventos que están sucediendo cerca de ti o en
-						cualquier otra ciudad que te interese. Desde conciertos y festivales
-						hasta ferias y exposiciones, nuestra aplicación te mantendrá al
-						tanto de todo lo que está pasando.
-					</span>
-					<button
-						class="bg-[hsl(45,100%,51%)] w-max self-center shadow-sm shadow-[hsl(45,100%,51%)]/50 text-neutral-800 active:scale-95 hover:bg-[hsl(45,100%,41%)] font-bold py-3 px-4 rounded transition-all duration-200 rounded-lg"
-						onClick="window.parent.location='eventos'"
-					>
-						Ir a eventos
-					</button>
-				</span>
-			</div>
-			<div
-				class="flex max-w-4xl gap-12 w-full justify-evenly items-center max-lg:flex-col"
-			>
-				<span class="flex-shrink-0">
-					<lottie-player
-						autoplay
-						speed="0.2"
-						loop
-						mode="normal"
-						src="./static/lotties/weather.json"
-						class="w-96"
-					>
-					</lottie-player>
-				</span>
-				<span class="flex flex-col gap-4">
-					<h1
-						class="font-extrabold text-2xl tracking-wide text-center uppercase"
-					>
-						No te marches de casa sin paragüas
-					</h1>
-					<span class="text-md text-neutral-300 leading-7">
-						Con nuestra aplicación, siempre estarás preparado para cualquier
-						clima. Ofrecemos pronósticos precisos y actualizados para tu
-						ubicación actual o cualquier otra que elijas. Evita sorpresas
-						desagradables por el clima.
-					</span>
-					<button
-						class="bg-[hsl(45,100%,51%)] w-max self-center shadow-sm shadow-[hsl(45,100%,51%)]/50 text-neutral-800 active:scale-95 hover:bg-[hsl(45,100%,41%)] font-bold py-3 px-4 rounded transition-all duration-200 rounded-lg"
-						onClick="window.parent.location='meterologiaUbic'"
-					>
-						Ir al tiempo
-					</button>
-				</span>
-			</div>
-			<div
-				class="flex flex-row-reverse max-w-4xl gap-12 gap-4 w-full justify-evenly items-center max-lg:flex-col"
-			>
-				<span class="flex-shrink-0">
-					<lottie-player
-						autoplay
-						speed="0.5"
-						loop
-						mode="normal"
-						src="./static/lotties/maps.json"
-						class="w-72"
-					>
-					</lottie-player>
-				</span>
-				<span class="flex flex-col gap-4">
-					<h1
-						class="font-extrabold text-2xl tracking-wide text-center uppercase"
-					>
-						Nos adaptamos a donde estés
-					</h1>
-					<span class="text-md text-neutral-300 leading-7">
-						Con nuestra aplicación, no importa dónde te encuentres, siempre
-						tendrás acceso a la información del tiempo para saber cómo vestirte
-						y planificar tus actividades. Además, te marcaremos en un mapa
-						interactivo las ubicaciones exactas de tus eventos favoritos.
-					</span>
-				</span>
-			</div>
-			<div
-				class="flex max-w-4xl w-full justify-evenly items-center max-lg:flex-col"
-			>
-				<span class="flex-shrink-0">
-					<lottie-player
-						autoplay
-						speed="0.8"
-						loop
-						reverse
-						mode="bounce"
-						src="./static/lotties/stars.json"
-						class="w-72"
-					>
-					</lottie-player>
-				</span>
-				<span class="flex flex-col gap-4">
-					<h1
-						class="font-extrabold text-2xl tracking-wide text-center uppercase"
-					>
-						Guarda tus ventos favoritos
-					</h1>
-					<span class="text-md text-neutral-300 leading-7">
-						Explora nuestro catálogo de eventos y guarda tus favoritos para
-						encontrarlos fácilmente más tarde. Además, siempre sabrás cuándo y
-						dónde se llevarán a cabo gracias a nuestros detalles precisos de
-						ubicación y tiempo. ¡Entra ahora y nunca te pierdas un evento
-						importante otra vez!
-					</span>
-				</span>
-			</div>
-		</main>
+			<span class="text-neutral-50 text-xl">Tu aplicación de noticias, eventos y tiempo, ¡Todo en uno!</span>
+		</div>
+	</header>
 
-		<footer class="bg-neutral-800 h-32 grid place-content-center">
-			<span class="font-bold italic text-neutral-50">ANME</span>
-		</footer>
-	</div>
+	<main class="items-center flex flex-col gap-24 px-16">
+		<div class="flex max-w-4xl gap-12 gap-4 w-full justify-evenly items-center max-lg:flex-col">
+			<span class="flex-shrink-0">
+				<lottie-player autoplay speed="0.5" loop mode="normal" src="./static/lotties/search.json" class="w-72">
+				</lottie-player>
+			</span>
+			<span class="flex flex-col gap-4">
+				<h1 class="font-extrabold text-2xl tracking-wide text-center uppercase">
+					Informate para vivir mejor
+				</h1>
+				<span class="text-md text-neutral-300 leading-7">
+					Con nuestra aplicación, podrás estar al día con las últimas noticias
+					y actualidades de la ubicación en la que te encuentres o de
+					cualquier otra ubicación que desees. Te mantendremos informado sobre
+					lo que sucede en tu ciudad o provincia.
+				</span>
+			</span>
+		</div>
+		<div class="flex flex-row-reverse max-w-4xl w-full justify-evenly items-center max-lg:flex-col">
+			<span class="flex-shrink-0">
+				<lottie-player autoplay speed="0.5" loop mode="normal" src="./static/lotties/calendar.json"
+					class="w-72">
+				</lottie-player>
+			</span>
+			<span class="flex flex-col gap-4">
+				<h1 class="font-extrabold text-2xl tracking-wide text-center uppercase">
+					Explora nuestro catálogo de eventos
+				</h1>
+				<span class="text-md text-neutral-300 leading-7">
+					Descubre todos los eventos que están sucediendo cerca de ti o en
+					cualquier otra ciudad que te interese. Desde conciertos y festivales
+					hasta ferias y exposiciones, nuestra aplicación te mantendrá al
+					tanto de todo lo que está pasando.
+				</span>
+				<button
+					class="bg-[hsl(45,100%,51%)] w-max self-center shadow-sm shadow-[hsl(45,100%,51%)]/50 text-neutral-800 active:scale-95 hover:bg-[hsl(45,100%,41%)] font-bold py-3 px-4 rounded transition-all duration-200 rounded-lg"
+					onClick="window.parent.location='eventos'">
+					Ir a eventos
+				</button>
+			</span>
+		</div>
+		<div class="flex max-w-4xl gap-12 w-full justify-evenly items-center max-lg:flex-col">
+			<span class="flex-shrink-0">
+				<lottie-player autoplay speed="0.2" loop mode="normal" src="./static/lotties/weather.json" class="w-96">
+				</lottie-player>
+			</span>
+			<span class="flex flex-col gap-4">
+				<h1 class="font-extrabold text-2xl tracking-wide text-center uppercase">
+					No te marches de casa sin paragüas
+				</h1>
+				<span class="text-md text-neutral-300 leading-7">
+					Con nuestra aplicación, siempre estarás preparado para cualquier
+					clima. Ofrecemos pronósticos precisos y actualizados para tu
+					ubicación actual o cualquier otra que elijas. Evita sorpresas
+					desagradables por el clima.
+				</span>
+				<button
+					class="bg-[hsl(45,100%,51%)] w-max self-center shadow-sm shadow-[hsl(45,100%,51%)]/50 text-neutral-800 active:scale-95 hover:bg-[hsl(45,100%,41%)] font-bold py-3 px-4 rounded transition-all duration-200 rounded-lg"
+					onClick="window.parent.location='meterologiaUbic'">
+					Ir al tiempo
+				</button>
+			</span>
+		</div>
+		<div class="flex flex-row-reverse max-w-4xl gap-12 gap-4 w-full justify-evenly items-center max-lg:flex-col">
+			<span class="flex-shrink-0">
+				<lottie-player autoplay speed="0.5" loop mode="normal" src="./static/lotties/maps.json" class="w-72">
+				</lottie-player>
+			</span>
+			<span class="flex flex-col gap-4">
+				<h1 class="font-extrabold text-2xl tracking-wide text-center uppercase">
+					Nos adaptamos a donde estés
+				</h1>
+				<span class="text-md text-neutral-300 leading-7">
+					Con nuestra aplicación, no importa dónde te encuentres, siempre
+					tendrás acceso a la información del tiempo para saber cómo vestirte
+					y planificar tus actividades. Además, te marcaremos en un mapa
+					interactivo las ubicaciones exactas de tus eventos favoritos.
+				</span>
+			</span>
+		</div>
+		<div class="flex max-w-4xl w-full justify-evenly items-center max-lg:flex-col">
+			<span class="flex-shrink-0">
+				<lottie-player autoplay speed="0.8" loop reverse mode="bounce" src="./static/lotties/stars.json"
+					class="w-72">
+				</lottie-player>
+			</span>
+			<span class="flex flex-col gap-4">
+				<h1 class="font-extrabold text-2xl tracking-wide text-center uppercase">
+					Guarda tus ventos favoritos
+				</h1>
+				<span class="text-md text-neutral-300 leading-7">
+					Explora nuestro catálogo de eventos y guarda tus favoritos para
+					encontrarlos fácilmente más tarde. Además, siempre sabrás cuándo y
+					dónde se llevarán a cabo gracias a nuestros detalles precisos de
+					ubicación y tiempo. ¡Entra ahora y nunca te pierdas un evento
+					importante otra vez!
+				</span>
+			</span>
+		</div>
+	</main>
+
+	<footer class="bg-neutral-800 h-32 grid place-content-center text-center">
+		<span class="font-bold italic  text-xl text-neutral-50">ANME</span>
+		<span class="text-neutral-100">Universidad de Burgos • TFG por José Manuel Rodríguez Iglesias</span>
+		<a target="_blank" class="text-neutral-100 mx-auto" href="https://github.com/jmri1001/PROYECTO_TFG"> <svg
+				xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+				<g id="feGithub0" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
+					<g id="feGithub1" fill="currentColor">
+						<path id="feGithub2"
+							d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476c0-.237-.013-1.024-.013-1.862c-2.512.463-3.162-.612-3.362-1.175c-.113-.288-.6-1.175-1.025-1.413c-.35-.187-.85-.65-.013-.662c.788-.013 1.35.725 1.538 1.025c.9 1.512 2.338 1.087 2.912.825c.088-.65.35-1.087.638-1.337c-2.225-.25-4.55-1.113-4.55-4.938c0-1.088.387-1.987 1.025-2.688c-.1-.25-.45-1.275.1-2.65c0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337c1.912-1.3 2.75-1.024 2.75-1.024c.55 1.375.2 2.4.1 2.65c.637.7 1.025 1.587 1.025 2.687c0 3.838-2.337 4.688-4.562 4.938c.362.312.675.912.675 1.85c0 1.337-.013 2.412-.013 2.75c0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10Z" />
+					</g>
+				</g>
+			</svg> </a>
+	</footer>
+</div>
+
 </html>
