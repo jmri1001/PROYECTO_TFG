@@ -76,7 +76,7 @@ def ActualizarTiempoEventos(id):
 
 
 def Preparese_Para_Su_Dia(city):
-    lista = prevision_clima("Burgos")
+    lista = prevision_clima(city)
     datos = lista[2][0]
     info = {}
 
