@@ -10,7 +10,7 @@
 ![estado](https://img.shields.io/badge/estado-completado-%E2%9C%96%EF%B8%8F-green)
 ![versión](https://img.shields.io/badge/versi%C3%B3n-0.5-rojo)
 
-## Aplicación web de meteorología, eventos y noticias
+## Aplicación web de meteorología, eventos y noticias a tiempo real
 
 </div>
 
