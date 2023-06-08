@@ -1,0 +1,331 @@
+\apendice{Documentación técnica de programación}
+
+\section{Introducción}
+En este apéndice, se proporcionará información detallada sobre la estructura del presente proyecto, los requisitos fundamentales para garantizar una correcta ejecución del proyecto y un manual de instrucciones dirigido al programador.
+
+\section{Estructura de directorios}
+
+En este sub apartado detallaremos la estructura de directorios del presente proyecto:
+
+\begin{itemize}
+    \item \textit{docs}: En este directorio se encuentra la memoria y los anexos creados en formato LaTeX del presente proyecto.
+
+    \item \textit{src}: En este directorio es donde se encuentra tanto el código de la lógica de la aplicación como el código que se utiliza para desarrollar la interfaz de usuario. Además, dentro de este directorio podemos 
+    encontrar los siguientes elementos:
+    \begin{itemize}
+        \item static: Este directorio contiene los archivos de estilos CSS e imágenes utilizadas en nuestra aplicación.
+        \item templates: En este directorio es donde se encuentra la interfaz del usuario, que se utiliza para generar la vista de la aplicación.
+        \item DB.db: Este archivo  es la base de datos de nuestra aplicación, que es donde se guardan todos los datos que son necesarios para el correcto funcionamiento de nuestra aplicación.
+        \item app.py: Este archivo  contiene el código que conecta la interfaz de usuario con la lógica de la aplicación.
+        \item db.py: En este archivo se encuentra la conexión a la base de datos.
+        \item eventos.json: Aquí se almacenan los eventos disponibles que hay en nuestra aplicación para seguir teniendo el servicio disponible de eventos en el caso de que la API que nos proporciona dichos eventos no esté disponible en el momento que la solicitemos.
+        \item noticias.json:Aquí se almacenan las noticias disponibles que hay en nuestra aplicación para seguir teniendo el servicio disponible de noticias en el caso de que la API que nos proporciona dichas noticias no esté disponible en el momento que la solicitemos.
+        \item servicios: En este directorio se encuentran todos los servicios que se han utilizado en nuestra aplicación. En nuestro caso, se han utilizado tres servicios que son:
+        \begin{itemize}
+            \item ServicioNoticias: En este módulo se encuentra el código donde se realizan las peticiones a la API NewsDataIO para extraer de la API las noticias disponibles.
+
+            \item ServicioEventos: En este módulo se encuentra el código donde se realizan las peticiones a la API TicketMaster para extraer de la API los eventos disponibles en cada momento.
+
+            \item ServicioMeteorología: En este módulo se encuentra el código donde se realizan las peticiones a las APIs OpenWeather y TuTiempo para obtener la meteorología de una ubicación.
+
+            \item FuncionesCompartidas: En este módulo se encuentran las funciones comunes que utilizan ambos servicios de nuestra aplicación.
+            
+        \end{itemize}
+        
+    \end{itemize}
+    
+    \item \textit{start.py}: Este fichero es el encargado de ejecutar nuestra aplicación web.
+    
+\end{itemize}
+
+\section{Manual del programador}
+
+\subsection{Instalamos Python}
+
+Para poder llevar a cabo la ejecución de este proyecto, es fundamental realizar la instalación de Python en nuestro equipo. Para ello, podemos obtener la versión necesaria en el siguiente enlace: \url{ https://www.python.org/downloads/}. Una vez que se haya completado la descarga, procederemos a la ejecución e instalación del programa.
+
+\section{Compilación, instalación y ejecución del proyecto}
+
+Para hacer uso del presente proyecto, será necesario descargarlo del repositorio de GitHub en el cual se encuentra alojado. Podemos acceder a este repositorio a través del siguiente enlace: \url{https://github.com/jmri1001/PROYECTO_TFG.git}. Una vez descargado el proyecto, procederemos a descomprimirlo y a continuación lo importaremos en nuestra herramienta de trabajo.
+
+El presente proyecto ha sido creado y desarrollado utilizando Visual Studio Code como la herramienta principal de trabajo. 
+
+\subsection{Compilación}
+Como el código está realizado en Python, no hace falta realizar el paso de compilación, debido a que Python es un lenguaje de programación interpretado.
+
+\subsection{Instalación de dependencias del proyecto }
+Una vez que se haya importado el proyecto en nuestra herramienta de desarrollo, instalaremos las dependencias necesarias para nuestro proyecto, ejecutando en la terminal el siguiente comando:  
+   -> \textcolor{cyan}{ pip install -r requirements.txt}
+
+ Tras haber instalado las dependencias en nuestro proyecto, lo siguiente que haremos será ejecutar el proyecto.
+
+\subsection{Ejecución del proyecto}
+
+Para poder ejecutar el proyecto en nuestra herramienta de desarrollo, es necesario abrir una terminal en dicha herramienta y, a continuación, accederemos al directorio donde se encuentra ubicado el proyecto utilizando el comando \textit{cd {path}}.
+
+Una vez que hemos accedido al directorio del proyecto, ejecutaremos el siguiente comando:
+
+   -> \textcolor{ cyan}{python  start.py}
+
+Tras haber ejecutado el comando anterior, nuestra aplicación  se iniciará en \textcolor{red}{http://127.0.0.1:8080}
+
+\textit{Consejo}: Si estamos usando la aplicación, es importante no cerrar la terminal, ya que esto detendrá el proceso de la aplicación.
+
+
+\section{Pruebas del sistema}
+
+En este apartado se han llevado a cabo una serie de pruebas exhaustivas con el objetivo de verificar que el funcionamiento de la aplicación es el adecuado. También, se ha implementado la integración continua para garantizar la creación de código de alta calidad y así prevenir posibles errores que podrían desencadenar otros más graves.
+
+\textbf{Especificación de Pruebas del sistema:}
+
+\begin{itemize}
+    \item \textbf{\textit{Prueba 1}} \label{Prueba1}: En esta prueba se verifica los dos casos posibles que se pueden dar al registrarse un nuevo usuario en la aplicación.
+
+    \begin{itemize}
+        \item \textit{Caso 1}:
+    Verificar que se pueda registrar un nuevo usuario correctamente. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de Registro de la aplicación.
+       \item  Completar todos los campos obligatorios del formulario de registro con datos válidos.
+       \item Verificar que se redirija al usuario a la página de Login.
+       \item Hacer clic en el botón Registrarse.
+       \item Verificar que el nuevo usuario se pueda autenticar correctamente con las credenciales registradas.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 2}:
+    Verificar que se muestre un mensaje de error cuando se intente registrar un usuario con un nombre que ya existe en el sistema. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de Registro de la aplicación.
+       \item Ingresar un nombre de un usuario registrado en el formulario de Registro.
+       \item  Completar los demás campos del formulario con datos válidos.
+       \item Hacer clic en el botón Registrarse.
+       \item Verificar que se muestre un mensaje de error indicando que el nombre de usuario ya existe en el sistema. 
+   \end{enumerate}
+    \end{itemize}
+    
+    \item \textbf{\textit{Prueba 2}} \label{Prueba2}: En esta prueba se verifica los dos casos posibles que se pueden dar a la hora de Iniciar sesión en la aplicación.
+
+    \begin{itemize}
+        \item \textit{Caso 1}:
+    Verificar que se puedan ingresar credenciales válidas y acceder al sistema correctamente. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Ingresar un usuario válido y una contraseña válida en la página de Login de la aplicación.
+       \item Hacer clic en el botón Iniciar sesión.
+       \item Verificar que se redirija correctamente a la página principal del usuario.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 2}:
+    Verificar que se muestre un mensaje de error cuando se ingresen credenciales inválidas. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Ingresar un usuario inválido y una contraseña inválida en la página de Login.
+       \item Hacer clic en el botón Iniciar sesión.
+       \item Verificar que se muestre un mensaje de error indicando que las credenciales son incorrectas.
+   \end{enumerate}
+    \end{itemize}
+
+
+     \item \textbf{\textit{Prueba 3}} \label{Prueba3}: En esta prueba se verifica que el funcionamiento de la ventana de Noticias de la aplicación web funciona correctamente, para ello comprobaremos varios casos:
+
+      \begin{itemize}
+        \item \textit{Caso 1}:
+    Verificar que las noticias se muestren correctamente en la página de noticias de la app. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de noticias de la aplicación.
+       \item Verificar que se carguen y muestren las noticias más recientes.
+       \item Comprobar que se muestren los detalles de cada noticia, como el título y la fecha de publicación.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 2}:
+    Verificar que se muestre un mensaje de error cuando no haya noticias disponibles. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de noticias de la aplicación.
+       \item Verificar que se muestre un mensaje indicando que no hay noticias disponibles en este momento.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 3}:
+    Verificar que se pueda hacer clic en una noticia y redirigir al usuario a la página de detalle de dicha noticia. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de noticias de la aplicación.
+       \item Hacer clic en una noticia en la lista de noticias.
+       \item Verificar que se redirija al usuario a la página de detalles de dicha noticia mostrando la información completa de la noticia.
+   \end{enumerate}
+    \end{itemize}
+
+     \item \textbf{\textit{Prueba 4}} \label{Prueba4}: En esta prueba se verifica que el funcionamiento de la ventana de Eventos de la aplicación web funciona correctamente, para ello comprobaremos varios casos:
+
+      \begin{itemize}
+        \item \textit{Caso 1}:
+    Verificar que los eventos se muestren correctamente en la página de eventos de la app. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de eventos de la aplicación.
+       \item Verificar que se carguen y muestren los eventos disponibles.
+       \item Comprobar que se muestren los detalles de cada evento, como el título y la categoría del mismo.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 2}:
+    Verificar que se muestre un mensaje de error cuando no haya eventos disponibles. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de eventos de la aplicación.
+       \item Verificar que se muestre un mensaje indicando que no hay eventos disponibles en este momento.
+   \end{enumerate}
+    \end{itemize}
+
+    \begin{itemize}
+        \item \textit{Caso 3}:
+    Verificar que se pueda hacer clic en un evento y redirigir al usuario a la página de detalle de dicho evento. Para comprobar este caso se realizará lo siguiente:
+   \begin{enumerate}
+       \item Acceder a la página de eventos de la aplicación.
+       \item Hacer clic en un evento.
+       \item Verificar que se redirija al usuario a la página de detalles de dicho evento mostrando la información completa del evento.
+   \end{enumerate}
+    \end{itemize}
+
+ \item \textbf{\textit{Prueba 5}} \label{Prueba5}: En esta prueba se verifica que se pueda añadir un evento a la lista de favoritos de un usuario. Para comprobar este caso se realizará lo siguiente:
+ 
+   \begin{enumerate}
+        \item Iniciar sesión con un usuario válido. 
+       \item Acceder a la página de eventos.
+       \item Hacer clic en un evento en la lista de eventos.
+       \item Comprobar que se muestren los detalles del evento.
+       \item Hacer clic en el botón Añadir a Favoritos.
+       \item Verificar que se muestre un mensaje que indique que el evento ha agregado a favoritos exitosamente.
+       \item Verificar que el evento se ha agregado correctamente a la lista de favoritos del usuario.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 6}} \label{Prueba6}: En esta prueba se verifica que se pueda eliminar un evento de la lista de favoritos de un usuario. Para comprobar este caso se realizará lo siguiente:
+    
+   \begin{enumerate}
+        \item Iniciar sesión con un usuario válido. 
+       \item Acceder a la página de Eventos Favoritos del usuario dentro la aplicación.
+       \item Hacer clic en el botón Eliminar de un evento en la lista de eventos favoritos.
+       \item Verificar que se muestre un mensaje indicando que el evento se ha eliminado de favoritos exitosamente.
+       \item Comprobar que el evento se ha eliminado correctamente de la lista de eventos favoritos del usuario.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 7}} \label{Prueba7}: En esta prueba se verifica que se muestren todos los eventos marcados como favoritos por un usuario. Para comprobar este caso se realizará lo siguiente:
+    
+   \begin{enumerate}
+        \item Iniciar sesión con un usuario válido. 
+       \item Acceder a la página de Eventos Favoritos del usuario dentro la aplicación.
+       \item Verificar que se carguen y muestren solo los eventos marcados como favoritos.
+       \item Comprobar que se muestren los detalles de cada evento, como el título, la fecha, la ubicación, la meteorología, etc.
+   \end{enumerate}
+
+
+ \item \textbf{\textit{Prueba 8}}  \label{Prueba8}: En esta prueba se verifica que se puedan buscar noticias por ubicación dentro de la aplicación web. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de noticias de la aplicación.
+       \item Ingresar una ubicación válida en el campo de búsqueda por ubicación.
+       \item Hacer clic en el botón "Buscar"
+       \item  Verificar que se muestren las noticias relacionadas con la ubicación ingresada.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 9}} \label{Prueba9}: En esta prueba se verifica que se puedan buscar noticias por categoría dentro de la aplicación web. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de noticias de la aplicación.
+       \item Seleccionar una categoría en el campo de búsqueda por categoría.
+       \item Hacer clic en el botón "Buscar"
+       \item  Verificar que se muestren las noticias relacionadas con la categoría seleccionada.
+   \end{enumerate}
+
+
+\item \textbf{\textit{Prueba 10}} \label{Prueba10}: En esta prueba se verifica que se puedan buscar eventos por ubicación dentro de la aplicación web. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de eventos de la aplicación.
+       \item Ingresar una ubicación válida en el campo de búsqueda por ubicación.
+       \item Hacer clic en el botón "Buscar"
+       \item  Verificar que se muestren los eventos relacionados con la ubicación ingresada.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 11}} \label{Prueba11}: En esta prueba se verifica que se puedan buscar eventos por categoría dentro de la aplicación web. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de eventos de la aplicación.
+       \item Seleccionar una categoría en el campo de búsqueda por categoría.
+       \item Hacer clic en el botón "Buscar"
+       \item  Verificar que se muestren los eventos relacionados con la categoría seleccionada.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 12}} \label{Prueba12}: En esta prueba se verifica que se muestre correctamente el pronóstico del tiempo actual. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de meteorología de la aplicación.
+       \item  Verificar que se muestre la información actual del clima, como la temperatura, el viento, la humedad, etc.
+   \end{enumerate}
+
+   \item \textbf{\textit{Prueba 13}} \label{Prueba13}: En esta prueba se verifica que se pueda buscar el pronóstico del tiempo para una ubicación en concreto. Para comprobar este caso se realizará lo siguiente:
+
+   \begin{enumerate}
+       \item Acceder a la página de meteorología de la aplicación.
+       \item Ingresar una ubicación válida en el campo de búsqueda de ubicación.
+       \item Hacer clic en el botón Buscar.
+       \item  Verificar que se muestre la información actual del clima de la ubicación ingresada.
+   \end{enumerate}
+   
+\end{itemize}
+
+A continuación podemos observar en la Tabla D.1 las diferentes pruebas que se pueden hacer para ver que se cumplen todos los requisitos definidos en el apéndice de Especificación de Requisitos.
+
+
+\tablaSmall{Pruebas de Verificación de Requisitos}{l c c c}{VerificacionRequisitos}
+{ \multicolumn{1}{l}{Requisitos} & & Pruebas de Verificación \\}{ 
+RF1: Registro de usuarios & & \textcolor{teal}{Prueba 1 } Pag\pageref{Prueba1}\\
+RF2: Inicio Sesión & & \textcolor{teal}{Prueba 2 } Pag\pageref{Prueba2}\\
+RF3: Mostrar Noticias & & \textcolor{teal}{Prueba 3 } Pag\pageref{Prueba3}\\
+RF4: Consultar una Noticia & & \textcolor{teal}{Prueba 3 } Pag\pageref{Prueba3}\\
+RF5: Mostrar Eventos & & \textcolor{teal}{Prueba 4 } Pag\pageref{Prueba4}\\
+RF6: Consultar un evento & & \textcolor{teal}{Prueba 4 } Pag\pageref{Prueba4}\\
+RF7: Añadir eventos a Favoritos & & \textcolor{teal}{Prueba 5 } Pag\pageref{Prueba5}\\
+RF8: Buscar noticias por Ubicación & & \textcolor{teal}{Prueba 8 } 
+ Pag\pageref{Prueba8}\\
+RF9: Buscar noticias por Categoría & & \textcolor{teal}{Prueba 9 } Pag\pageref{Prueba9}\\
+RF10: Buscar Eventos por Ubicación & & \textcolor{teal}{Prueba 10 } Pag\pageref{Prueba10}\\
+RF11: Buscar Eventos por Categoría & & \textcolor{teal}{Prueba 11 } Pag\pageref{Prueba11}\\
+RF12: Mostrar Meteorología & & \textcolor{teal}{Prueba 12 } Pag\pageref{Prueba12}\\
+RF13: Buscar Meteorología por ubicación & &  \textcolor{teal}{Prueba 13 } Pag\pageref{Prueba13}\\
+RF14: Mostrar Eventos Favoritos & & \textcolor{teal}{Prueba 5 } Pag\pageref{Prueba5}\\
+RF15: Eliminar Eventos de Favoritos & & \textcolor{teal}{Prueba 6 } Pag\pageref{Prueba6}\\
+} 
+
+\subsection{Integración Continua}
+En esta sección se detallará el proceso que se ha seguido para implementar la integración continua en el presente proyecto, es decir, como se ha configurado el esquema de CD/CI, como está organizado, que acciones se han configurado en GitHub, cómo y donde se despliega ahora mismo la aplicación desarrollada. 
+
+Para realizar la integración continua en el presente proyecto se ha utilizado la herramienta Docker, ya que esta es muy efectiva para asegurar que nuestra aplicación se construya, pruebe y despliegue de manera consistente y segura.
+
+Para desplegar el proyecto hemos utilizado uno de los IaaS(Infrastructure as a Service) más famosos, Google Cloud.
+
+A continuación se detallarán los pasos que se han seguido para la implementación de la integración continua:
+
+\begin{enumerate}
+    \item \textbf{Creación de la imagen de Docker}: Se ha necesitado crear un archivo de configuración llamado \textit{Dockerfile} en el repositorio del código del proyecto. Este archivo contiene las instrucciones para construir la imagen de Docker de nuestra aplicación, como por ejemplo las dependencias, el entorno de ejecución, etc.  
+
+    \item \textbf{Configuración del flujo de CI}: Para configurar el flujo de Integración Continua, se ha utilizado una herramienta de Google Cloud llamada Cloud Build. A partir de los denominados Triggers o activadores, es capaz de detectar cuando hacemos commit en el repositorio (u otra opción a elegir como pull request) y generar una nueva compilación.
+
+    
+    \imagen{CloudBuild}{Cloud Build. Podemos observar la lista de compilaciones a lo largo del tiempo y los commits.}
+    
+    \imagen{Triggers}{Visualización del resultado del Trigger en en el repositorio de GitHub de nuestro proyecto.}
+
+    \item \textbf{Almacenamiento de la imagen}: Como almacenamiento de la imagen de docker se ha usado otra herramienta interna de Google Cloud como alternativa a \textit{docker registry} llamada \textit{Artifact Registry}. Esto nos permite almacenar las imágenes de Docker de forma permanente.
+    
+    \item \textbf{Despliegue}: Para generar nuestra aplicación y desplegarla de forma pública, hemos usado \textit{Google Cloud Run}. Es un servicio serveless\footnote{Un servicio serveless o <<sin servidor>> es aquel que no mantiene la persitencia de los datos y se apaga cuando no hay tráfico. Cuando el tráfico vuelve se produce el denominado cold start o <<inicio en frío>>.} para el despliegue de contenedores. Este servicio también nos proporciona el acceso mediante un dominio público usando DNS de nuestro proveedor de servicio(en nuestro caso, el proveedor es Porkbun)
+
+    \newpage
+    Se puede acceder a nuestra aplicación web desde:
+    
+    \url{https://www.anme.city}
+
+\end{enumerate}

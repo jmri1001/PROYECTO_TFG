@@ -1,0 +1,580 @@
+\apendice{Especificación de Requisitos}
+
+\section{Introducción}
+
+En esta sección se listarán y explicarán los objetivos y requisitos previamente establecidos al inicio del proyecto, que son necesarios para la aplicación. Además, también se han incluido algunos objetivos adicionales a medida que se ha avanzado en el desarrollo.
+
+\section{Objetivos generales}
+El propósito del presente proyecto se enfoca en los siguientes aspectos:
+
+\begin{itemize}
+    \item Crear una plataforma en línea que proporcione datos relevantes(como noticias, pronósticos climáticos, eventos, etc.) sobre una ciudad o área geográfica de interés para el usuario.
+    \item Proporcionar una experiencia de usuario(UX) fácil de entender, actualizada y accesible, que permita una compresión clara y sencilla de la información presentada en la plataforma.
+    \item La plataforma en línea debe contar con la capacidad de obtener información en tiempo real a través de las APIs correspondientes.
+    \item Organizar de forma sistemática todos los datos requeridos obtenidos mediante las APIs, de manera que se pueda acceder a ellos de manera fácil y eficiente.
+    \item Proporcionar una plataforma en línea que garantice la seguridad de los usuarios y proteja su información personal de posibles amenazas o intrusiones externas.
+\end{itemize}
+
+\section{Catálogo de requisitos}
+
+En este apartado, se detallarán de manera exhaustiva y precisa tanto los requisitos funcionales como los requerimientos no funcionales del proyecto actual.
+
+\subsection{Requisitos Funcionales}
+
+\begin{itemize}
+    \item \textbf{RF-1 Registro de Usuarios}: La aplicación debe contar con la opción para que un usuario pueda crear su propia cuenta y que la información que proporcione sea almacenada en la base de datos correspondiente.
+    \item \textbf{RF-2 Inicio Sesión}: La aplicación debe tener la capacidad de verificar las credenciales del usuario y permitirle el acceso a todos los servicios disponibles en dicha aplicación.
+    \item \textbf{RF-3 Mostrar Noticias}: La app deberá mostrar todas las noticias que se encuentren disponibles en la API \textit{NewsData.io} y que estén redactadas en idioma español.
+    \begin{itemize}
+         \item \textbf{RF-3.1 Consultar una Noticia}: Como usuario quiero ver la información  de una noticia, con el fin de estar informado sobre la misma.
+     \end{itemize}
+    \item \textbf{RF-4 Mostrar Eventos}: La app deberá mostrar todos los eventos disponibles en España proporcionados por la API de \textit{TicketMaster}  
+    y que estén redactadas en idioma español.
+    \begin{itemize}
+        \item \textbf{RF-4.1 Consultar un Evento}: Como usuario quiero consultar la información  de un evento, con el fin de estar informado sobre dicho evento.
+        \begin{itemize}
+            \item \textbf{RF-4.1.1 Añadir Eventos a Favoritos}: Como usuario deseo tener la opción de añadir eventos a favoritos con el fin de poder acceder a ellos sin tener que realizar búsquedas de nuevo.
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{RF-5 Buscar Noticias}: Como usuario deseo buscar información específica respecto a las noticias.
+    \begin{itemize}
+        \item  \textbf{RF-5.1 Buscar Noticias por Ubicación}: Como usuario deseo tener la opción de buscar noticias por ubicación, con el fin de estar informado de las noticias sucedidas en una ubicación determinada.
+        \item  \textbf{RF-5.2 Buscar Noticias por Categoría}: Como usuario deseo tener la opción de buscar noticias por categoría, con el fin de conocer todas las noticias en esa categoría específica. 
+    \end{itemize}
+    
+    \item \textbf{RF-6 Buscar Eventos}: Como usuario deseo buscar información precisa y específica respecto a los eventos.
+    \begin{itemize}
+        \item  \textbf{RF-6.1 Buscar Eventos por Ubicación}: Como usuario deseo tener la opción de buscar eventos por ubicación, con el objetivo de estar informado de los eventos disponibles en una zona determinada.
+        \item  \textbf{RF-6.2 Buscar Eventos por Categoría}: Como usuario deseo tener la opción de buscar eventos por categoría, con el fin de conocer los eventos disponibles en esa categoría específica.
+    \end{itemize}
+    
+    \item \textbf{RF-7 Mostrar datos meteorológicos}: La aplicación debe mostrar la meteorología de la ubicación actual del usuario.
+    \item \textbf{RF-8 Buscar Meteorología por Ubicación}: Como usuario deseo tener la opción de buscar meteorología por ubicación, con el objetivo de estar informado del pronóstico del tiempo de una ubicación determinada.
+    
+    \item \textbf{RF-9 Mostrar Eventos Favoritos}: La aplicación debe mostrar los eventos que han sido añadidos a favoritos por el usuario.
+    \begin{itemize}
+        \item \textbf{RF-9.1 Eliminar Eventos de Favoritos}: Como usuario deseo tener la opción eliminar eventos de favoritos, con el fin de evitar interfaces de usuario sobrecargadas.
+    \end{itemize}
+    
+\end{itemize}
+
+\subsection{Requisitos No Funcionales}
+
+\begin{itemize}
+    \item \textbf{RFN-1 Usabilidad}: La aplicación debe ser fácil de usar y de comprender. 
+    \item \textbf{RFN-2 Integridad de los datos}: La aplicación no debe tener alteraciones.
+    \item \textbf{RFN-3 Disponibilidad}: La aplicación debe ser accesible durante la mayor parte del tiempo y en diversos lugares, con el objetivo de brindar a los usuarios un acceso óptimo en todo momento.  
+    \item \textbf{RFN-4 Mantenimiento}: La aplicación debe ser fácil de actualizar y mantener. 
+    \item \textbf{RFN-5 Seguridad}: La aplicación debe estar protegida contra el acceso no autorizado. 
+    
+\end{itemize}
+
+
+\section{Especificación de requisitos}
+
+En este apartado, presentaremos el diagrama de Casos de Uso y detallaremos ciertos requerimientos mencionados previamente en el apartado anterior. Cabe destacar que la aplicación solo cuenta con un tipo de usuario, es decir, el usuario cliente, ya que no se contempla la existencia de algún usuario administrador o equivalente.
+
+\subsection{Diagrama de Casos de Uso}
+A continuación, se presenta el diagrama que muestra los casos de uso del proyecto actual:
+
+\imagen{CasosDeUso}{ Diagrama de Casos de Uso}
+
+\subsection{Casos de Uso}
+% Caso de Uso 1 -> Consultar Experimentos.
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-1}    & \textbf{Inscripción de Usuarios}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-1\\
+		\textbf{Descripción}          & Permite que el usuario registre una cuenta en el sistema. \\
+		\textbf{Precondición}         & El sistema debe estar operativo. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario selecciona la alternativa \textit{Crear una cuenta} 
+			\item El usuario ingresa su nombre, nombre de usuario y contraseña.
+			\item El usuario hace clic en el botón de registro.
+		\end{enumerate}\\
+		\textbf{Postcondición}        &  El username elegido por el usuario no debe estar registrado en el sistema.\\
+		\textbf{Excepciones}          & El username ya está registrado en el sistema (mensaje).\\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-1 Inscripción de Usuarios.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-2}    & \textbf{Inicio sesión}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-2 \\
+		\textbf{Descripción}          & Permite el acceso al usuario para utilizar la app. \\
+		\textbf{Precondición}         & El usuario debe estar registrado en la app. \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario accede a la opción de Login.
+			\item El usuario introduce sus credenciales en el formulario.
+			\item El usuario pulsa el botón de Acceder.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Las credenciales introducidas por el usuario deben estar registradas en el sistema. \\
+		\textbf{Excepciones}          & El servicio de noticias no está disponible(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-2 Inicio sesión.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-3}    & \textbf{Mostrar Noticias}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-3, RF-3.1 \\
+		\textbf{Descripción}          & Muestra todas las noticias disponibles al usuario. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de noticias debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de \textit{Noticias} situado en la barra de navegación.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna. \\
+		\textbf{Excepciones}          & El servicio de noticias no está disponible(Mensaje).\\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-3 Mostrar noticias.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-4}    & \textbf{Consultar una noticia}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-3.1 \\
+		\textbf{Descripción}          & Permite leer al usuario una noticia en concreto. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de noticias debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de \textit{Noticias} situado en la barra de navegación.
+			\item El usuario hace clic en el botón \textit{Ver Noticia} en la noticia deseada.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & Esta noticia no se encuentra disponible(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-3 Consultar una noticia.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-5}    & \textbf{Mostrar Eventos}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & R.F-4, R.F-4.1, R.F-4.1.1 \\
+		\textbf{Descripción}          & Muestra todos los eventos disponibles al usuario. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de eventos debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de\textit{ Eventos} situado en la barra de navegación.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna. \\
+		\textbf{Excepciones}          & El servicio de eventos no está disponible(Mensaje).\\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-5 Mostrar eventos.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-6}    & \textbf{Consultar un Evento}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-4.1, RF-4.1.1 \\
+		\textbf{Descripción}          & Permite al usuario conocer las características de un evento en específico. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de eventos debe estar disponible.
+		\end{enumerate}\\
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic el botón de \textit{Eventos} situado en la barra de navegación.
+			\item El usuario hace clic en el botón \textit{Ver Evento} en el evento deseado.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & Este evento no se encuentra disponible(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-6 Consultar evento.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-7}    & \textbf{Añadir Eventos a Favoritos}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-4.1.1\\
+		\textbf{Descripción}          & Permite al usuario añadir eventos a favoritos. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de eventos debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic el botón de\textit{ Eventos} situado en la barra de navegación.
+                 \item El usuario hace clic en el botón \textit{Ver Evento} en el evento deseado.
+                 \item Pulsa el botón \textit{Añadir a Favoritos} en el evento deseado.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & El evento que se va a añadir a favoritos no puede existir en los eventos favoritos del usuario. \\
+		\textbf{Excepciones}          & Este evento ya existe en favoritos(Mensaje).\\
+		\textbf{Importancia}          & Media\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-7 Añadir eventos a favoritos.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-8}    & \textbf{Buscar noticias por Ubicación}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-5.1 \\
+		\textbf{Descripción}          & Permite al usuario conocer todas las noticias de una ubicación determinada. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de noticias debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+                \item El usuario hace clic en el botón de\textit{ Noticias} situado en la barra de navegación.
+			\item El usuario introduce la ubicación deseada en la barra de búsqueda. 
+                \item Hacer clic en el botón de \textit{Buscar}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & No existen noticias disponibles para esta ubicación(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-8 Buscar noticias por Ubicación.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9}    & \textbf{Buscar noticias por Categorías}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-5.2 \\
+		\textbf{Descripción}          & Permite al usuario conocer todas las noticias de una categoría específica. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de noticias debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+                \item El usuario hace clic en 
+                
+                el botón de\textit{ Noticias} situado en la barra de navegación.
+			\item El usuario selecciona la categoría por la que desea buscar. 
+                \item Pulsa el botón de \textit{Buscar}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & No existen noticias disponibles para esta categoría(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9 Buscar noticias por Categorías.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-10}    & \textbf{Buscar Eventos por Ubicación}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-6.1 \\
+		\textbf{Descripción}          & Permite al usuario conocer todos los eventos de una ubicación determinada. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de eventos debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+                \item El usuario hace clic el botón de\textit{ Eventos} situado en la barra de navegación.
+			\item El usuario introduce la ubicación deseada en la barra de búsqueda. 
+                \item Hacer clic en el botón de \textit{Buscar}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & No existen eventos disponibles para esta ubicación(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-10 Buscar eventos por Ubicación.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11}    & \textbf{Buscar Eventos por Categorías}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-6.2 \\
+		\textbf{Descripción}          & Permite al usuario conocer todos los eventos de una categoría específica. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haberiniciado sesión en el sistema.
+			\item El servicio de eventos debe estar disponible.
+		\end{enumerate}\\
+    
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+                \item El usuario hace clic en el botón de\textit{ Eventos} situado en la barra de navegación.
+			\item El usuario selecciona la categoría por la que desea buscar. 
+                \item Pulsa el botón de \textit{Buscar}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & No existen eventos disponibles para esta categoría(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11 Buscar eventos por Categorías.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-12}    & \textbf{Mostrar Meteorología}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+	\textbf{Requisitos asociados} & RF-7\\
+		\textbf{Descripción}          & Permite conocer el pronóstico del tiempo de una ubicación de interés. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de meteorología debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de\textit{ Meteorología} situado en la barra de navegación.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna. \\
+		\textbf{Excepciones}          & El pronóstico del tiempo no se encuentra disponible(Mensaje).\\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-12 Mostrar Meteorología.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-13}    & \textbf{Buscar Meteorología por Ubicación}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-8 \\
+		\textbf{Descripción}          & Permite al usuario conocer el pronóstico del tiempo para una ubicación determinada. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item El servicio de meteorología debe estar disponible.
+		\end{enumerate}\\
+    
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+                \item El usuario hace clic en el botón de\textit{ Meteorología} situado en la barra de navegación.
+			\item El usuario introduce la ubicación deseada en la barra de búsqueda. 
+                \item Hacer clic en el botón de \textit{Buscar}.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna \\
+		\textbf{Excepciones}          & No se encuentra disponible el pronóstico del tiempo para esta ubicación(Mensaje). \\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-13 Buscar Meteorología por Ubicación.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-14}    & \textbf{Mostrar Eventos Favoritos}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+	\textbf{Requisitos asociados} & RF-9\\
+		\textbf{Descripción}          & Permite al usuario visualizar sus eventos favoritos. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item La base de datos debe estar disponible.
+		\end{enumerate}\\
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de\textit{ Eventos Favoritos} situado en la barra de navegación.
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna. \\
+		\textbf{Excepciones}          & Ninguna.\\
+		\textbf{Importancia}          & Alta\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-14 Mostrar Eventos Favoritos.}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-15}    & \textbf{Eliminar Eventos de Favoritos}\\
+		\toprule
+            \textbf{Autor}                & José Manuel Rodríguez Iglesias \\
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Requisitos asociados} & RF-9.1\\
+		\textbf{Descripción}          & Permite al usuario elimnar eventos de favoritos. \\
+		\textbf{Precondición}         &  
+            \begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario debe haber iniciado sesión en el sistema.
+			\item La base de datos debe estar disponible.
+		\end{enumerate}\\
+    
+  
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item El usuario hace clic en el botón de\textit{ Eventos Favoritos} situado en la barra de navegación.
+                 \item El usuario hace clic en el botón \textit{Eliminar Evento de Favoritos} en el evento deseado.
+                 
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Ninguna.\\
+		\textbf{Excepciones}          &Ninguna.\\
+		\textbf{Importancia}          & Media\\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-15 Eliminar eventos de favoritos.}
+\end{table}

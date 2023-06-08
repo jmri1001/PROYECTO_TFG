@@ -1,0 +1,337 @@
+\capitulo{4}{Técnicas y herramientas}
+ 
+En esta sección explicaremos detalladamente qué técnicas y herramientas hemos utilizado en cada parte del proyecto. A continuación se adjuntan dos tablas, en la Tabla 4.1 se muestra que herramientas y tecnologías hemos utilizado en cada parte del proyecto ,y en la Tabla 4.2 se muestra que servicios (Apis) hemos utilizado.
+
+
+\tablaSmall{Herramientas y tecnologías usadas en el proyecto}{l c c c c c}{herramientasportipodeuso}
+{ \multicolumn{1}{l}{Herramientas} & Front-end & Back-end & Documentación & SCRUM \\}{ 
+Python & & Pág \pageref{Python} & & &\\
+HTML & Pág \pageref{HTML} & & & & \\
+CSS & Pág \pageref{CSS} & & & &\\
+SQL & & Pág \pageref{SQL} & & &\\
+Latex & & & Pág \pageref{LATEX} &\\
+Jira & & & & Pág \pageref{JIRA} &\\
+GitHub & & Pág \pageref{GITHUB} &\\
+Git & & Pág \pageref{GIT} & & &\\
+Docker & & Pág \pageref{DOCKER} & &\\
+BootStrap & Pág \pageref{BOOTSTRAP} & & & &\\
+Flask & Pág \pageref{FLASK} & & &\\
+JSON & & Pág \pageref{JSON} & & &\\
+SQLite & & Pág \pageref{SQLite} & &\\
+} 
+
+
+\tablaSmall{Servicios (Apis) utilizados en el desarrollo del proyecto}{l c c c c c}{servicios}
+{ \multicolumn{1}{l}{Apis} & & Front-end & Back-end \\}{ 
+OpenWeatherMaps & & & Pág \pageref{API OpenWeatherMaps} &\\
+TuTiempo & & & Pág \pageref{API TuTiempo} &\\
+NewData.io & & & Pág \pageref{API NewsData.io} & &\\
+TicketMaster  & & & Pág \pageref{API TicketMaster} &\\
+} 
+
+\newpage
+
+\section{Lenguajes}
+En esta sección explicaremos los lenguajes de programación que hemos utilizado para desarrollar nuestro proyecto. A continuación se detallará cada uno de ellos: 
+
+\subsection{Python} \label{Python}
+Python es un lenguaje de programación que se caracteriza por su facilidad de uso y legibilidad. Es utilizado en múltiples aplicaciones, desde el desarrollo web hasta la inteligencia artificial. Python es un lenguaje interpretado, por lo que no necesita ser compilado antes de ser ejecutado, lo que lo hace más rápido para desarrollar y probar. Además, Python tiene una gran biblioteca estándar que proporciona una amplia gama de módulos para realizar tareas comunes. En general, este lenguaje de programación es muy conocido ,y además permite beneficiarse a cualquier persona con interés en la programación.
+
+Python es el lenguaje que hemos utilizado para el desarrollo del modelo, es decir, creación del backned. Se ha utilizado este lenguaje porque nos proporciona todas las librerías necesarias tanto para el desarrollo del modelo como el desarrollo del presentador.
+
+Además, este lenguaje nos ha permitido crear scripts con muy poco código comparado con otros lenguajes de programación. En nuestro caso hemos utilizado la versión  3.8.6 .
+
+\begin{itemize}
+    \item Puedes consultar más información sobre \textit{Python}  desde el siguiente enlace: \url{https://www.python.org/}
+\end{itemize}
+
+\subsection{HTML} \label{HTML}
+
+HTML es un lenguaje de programación simple que se utiliza para estructurar el contenido de una página web y definir cómo se debe presentar en un navegador web. Se puede utilizar en diferentes navegadores web y plataformas.
+
+Este lenguaje utiliza una serie de etiquetas o "tags" que se utilizan para definir diferentes elementos en una página web, como títulos, párrafos, imágenes, enlaces y listas. Estas etiquetas son interpretadas por el navegador web y son usadas para presentar el contenido en una página web de manera organizada y estructurada.
+
+Aparte de permitir la estructura básica de una página web, HTML también permite la inclusión de otros elementos como formularios para la entrada de datos y la integración de elementos multimedia, como vídeos y audio.
+
+HTML es el lenguaje que hemos utilizado para el desarrollo del front-end, es decir, para generar las templates de la aplicación. Se ha elegido este lenguaje porque es el más utilizado para crear la parte visual y de interacción en las aplicaciones web, conocida como front-end.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre  \textit{HTML}  desde el siguiente enlace: \url{https://html.com/}
+\end{itemize}
+
+\subsection{CSS} \label{CSS}
+
+CSS es un lenguaje de diseño utilizado para definir el estilo visual de una página web. Se utiliza en conjunto con HTML para dar formato y estilo a los componentes de una web, como por ejemplo el color, la tipografía, el tamaño, la posición y la disposición de los elementos.\cite{marcado}
+
+Este lenguaje nos permite desvincular entre el diseño y el contenido de una página web, lo que nos ayuda a que el código sea más fácil de entender y de mantener. Además, CSS permite crear estilos reutilizables para aplicarlos a múltiples elementos en una página web, lo que hace que el diseño sea más eficiente y coherente.
+
+CSS es el lenguaje que hemos utilizado para dar estilo a las templates de nuestra aplicación web. También hemos usado dos frameworks de prototipados llamados bootstrap y Font Awesom.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre   \textit{CSS}  desde el siguiente enlace: \url{https://css.com/}
+\end{itemize}
+
+
+\subsection{SQL} \label{SQL}
+
+SQL es un lenguaje de programación que se compone de un conjunto de comandos y declaraciones que permiten interactuar con una base de datos\cite{consultas}.
+
+Con SQL, es posible crear y definir tablas, insertar y modificar datos en ellas, buscar y recuperar información, y realizar operaciones complejas como unir varias tablas y filtrar datos.\cite{operaciones}.
+
+Este lenguaje es utilizado en múltiples aplicaciones, desde la gestión de datos de empresas y organizaciones hasta la creación de sitios web dinámicos. Es un lenguaje muy versátil y poderoso que permite a los programadores manipular grandes cantidades de datos de manera efectiva y eficiente. 
+
+\begin{itemize}
+    \item Puedes consultar más información sobre SQL desde el siguiente enlace: \url{https://www.mysql.com/}
+\end{itemize}
+
+
+\subsection{LaTeX} \label{LATEX}
+
+LaTeX es el sistema de creación de textos que hemos utilizado para generar nuestra memoria sobre el desarrollo del proyecto que estás leyendo, así como los anexos.
+
+En lugar de formatear el texto manualmente, LaTeX utiliza comandos y estructuras predefinidas para crear y organizar el contenido del documento. Esto permite a los usuarios 
+no preocuparse por el formato, sino estar centrado en el contenido del documento.
+
+Una vez que se domina, LaTeX puede ser una herramienta muy eficaz para producir documentos de alta calidad con un aspecto profesional.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre LaTeX desde la siguiente URL: \url{https://www.latex-project.org/}
+\end{itemize}
+
+\subsection{JSON} \label{JSON}
+JSON no se considera como un lenguaje de programación, sino como un archivo formado por datos estructurados que se utiliza para enviar información entre diferentes sistemas
+
+Los datos en JSON se representan en pares clave-valor, donde la clave es una cadena que identifica el valor correspondiente.
+
+Además, JSON es compatible con muchos lenguajes de programación, lo que lo hace fácil de implementar en cualquier aplicación web o móvil. Es una herramienta muy necesaria en el desarrollo de aplicaciones web modernas, ya que permite el intercambio de información entre distintos dispositivos.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre JSON desde la siguiente URL: \url{https://www.json.org/json-es.html}
+\end{itemize}
+    
+\section{Herramientas para el desarrollo}
+
+\subsection{Jira} \label{JIRA}
+Jira es una herramienta que ayuda  a gestionar las tareas y actividades del equipo de trabajo. Gracias a esta herramienta podemos seguir los principios ágiles, la cual nos permite realizar un seguimiento de nuestro trabajo.
+
+Además, permite a los equipos colaborar y organizar su trabajo en sprints o iteraciones, así como también realizar un seguimiento del progreso y la resolución de problemas. También ofrece funciones avanzadas como paneles de control personalizables, informes y automatización de flujos de trabajo.
+
+En este proyecto hemos utilizado esta herramienta para gestionar las tareas del desarrollo y poder realizar un seguimiento del progreso del mismo.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre   \textit{Jira}  desde el siguiente enlace: \url{https://www.atlassian.com/es/software/jira}
+\end{itemize}
+
+
+\subsection{GitHub} \label{GITHUB}
+
+GitHub es una plataforma de alojamiento y gestión de proyectos de software basada en la nube. Es un lugar donde los desarrolladores pueden almacenar y colaborar en proyectos de software, seguir el historial de cambios y contribuir al código de otros desarrolladores. La plataforma utiliza Git, un sistema de control de versiones distribuido, para gestionar el código fuente y permite a los desarrolladores trabajar en equipo en proyectos de software de forma remota. Además, GitHub proporciona herramientas para la revisión de código, la gestión de problemas, la automatización de flujos de trabajo y la integración con otras herramientas populares de desarrollo de software.
+
+Esta herramienta ha sido utilizada en el desarrollo del proyecto para tener una copia de seguridad del código del proyecto y poder ver los cambios realizados de forma progresiva.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre  \textit{GitHub}  desde el siguiente enlace: \url{https://github.com/}
+\end{itemize}
+
+\subsection{Git} \label{GIT}
+Git es una herramienta que se utiliza para tener el control de versiones y la gestión de proyectos de desarrollo de software.
+
+Permite a los desarrolladores trabajar en el mismo código fuente de forma colaborativa y mantener un registro completo de los cambios en el código, lo que facilita la coordinación y el seguimiento del progreso del proyecto. Además, Git también ofrece herramientas para la gestión de ramas y fusiones de código, lo que permite a los desarrolladores trabajar en diferentes características o correcciones de errores de forma aislada y luego combinarlas sin conflictos. 
+
+En el presente proyecto se ha utilizado la herramienta git para tener un control de versiones del código y mantener un registro de los cambios realizados previamente. 
+
+\begin{itemize}
+    \item Puedes consultar más información sobre  \textit{Git}  desde el siguiente enlace: \url{https://git-scm.com/}
+\end{itemize}
+
+\subsection{StarUML} \label{STARUML}
+
+StarUML es una herramienta de modelado de software que se utiliza para diseñar y visualizar diagramas UML. Es especialmente útil para la creación de diagramas de casos de uso, de clases, de secuencia u otros tipos de diagramas UML que se utilizan para visualizar y especificar el diseño de un sistema de software. 
+
+Esta herramienta es utilizada por desarrolladores de software, arquitectos de software y otros profesionales en todo el mundo para facilitar el proceso de diseño y desarrollo de software. Además, esta herramienta es gratuita y de código abierto.
+
+En el presente proyecto se ha sido utilizado esta herramienta para realizar el modelado de software, es decir, los diagramas de casos de uso, de secuencia y de arquitectura. 
+
+\begin{itemize}
+    \item Puedes consultar más información sobre  \textit{StartUML}  desde el siguiente enlace: \url{https://sourceforge.net/projects/staruml/}
+\end{itemize}
+
+\subsection{Docker} \label{DOCKER}
+Docker es una plataforma de contenedores de software que permite a los desarrolladores crear, distribuir y ejecutar aplicaciones en entornos aislados y portátiles. Utiliza contenedores, que son entornos de software aislados que incluyen todas las dependencias necesarias para ejecutar una aplicación. Esto permite a los desarrolladores crear aplicaciones en un entorno local y luego distribuirlas de manera confiable en diferentes entornos de producción, independientemente del sistema operativo o la infraestructura subyacente. 
+
+
+Esta plataforma ofrece una solución eficiente para la implementación de aplicaciones en diferentes entornos de ejecución, lo que facilita la portabilidad de las aplicaciones y reduce los problemas de compatibilidad. Además, también proporciona herramientas para la gestión de contenedores, el escalado de aplicaciones y la automatización de flujos de trabajo.
+
+Gracias a esta plataforma se ha conseguido hacer el despliegue de nuestra aplicación en un servicio de alojamiento (hosting) con el fin de ser utilizada por los usuarios finales.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre \textit{Docker}  desde el siguiente enlace: \url{https://www.docker.com/}
+\end{itemize}
+
+\subsection{Bootstrap} \label{BOOTSTRAP}
+Bootstrap es un \textit{framework} CSS y Javascript diseñado para crear interfaces limpias y con un diseño responsive en el mundo del desarrollo web. Además, nos proporciona diferentes herramientas y funcionalidades que nos permite crear una web desde cero muy fácilmente.
+
+Este framework ha sido utilizado en el desarrollo del presente proyecto para crear la interfaz de usuario de nuestra aplicación de manera sencilla y rápida.
+
+Gracias a Bootstrap, podemos ahorrar tiempo en el diseño de páginas web responsivas.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre Bootstrap desde el siguiente enlace: \url{https://getbootstrap.com/docs/5.0/getting-started/introduction/}
+\end{itemize}
+
+\subsection{Flask} \label{FLASK}
+Flask es un framework de desarrollo web escrito en Python que se utiliza para desarrollar aplicaciones web de manera rápida y sencilla, ofreciendo las herramientas necesarias para crear un servidor web y manejar solicitudes HTTP. Además, este framework sigue el paradigma de arquitectura Modelo-Vista-Controlador y se enfoca en la simplicidad.
+
+Este micro-framework es conocido por su flexibilidad y por permitir a los desarrolladores construir aplicaciones web altamente personalizadas y adaptadas a sus necesidades específicas. Ofrece soporte para la integración con bases de datos, autenticación de usuarios, gestión de sesiones y otros aspectos importantes de las aplicaciones web modernas.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre \textit{Flask} desde el siguiente enlace: \url{https://flask.palletsprojects.com/en/2.2.x/}
+\end{itemize}
+
+\subsection{SQLite} \label{SQLite}
+
+SQLite es una herramienta ligera y flexible para la gestión de bases de datos que permite a los desarrolladores almacenar y manipular datos de forma eficiente en aplicaciones locales. A diferencia de otros sistemas, no funciona como un servidor independiente, sino que se ejecuta como una biblioteca dentro de una aplicación. Es una base de datos de archivo único, fácil de transportar y distribuir.
+
+Esta base de datos es bastante utilizada en aplicaciones móviles y de escritorio con volúmenes de datos pequeños. Además, tiene un tamaño reducido y consume pocos recursos.
+
+Esta herramienta ha sido utilizada en el presente proyecto para almacenar y manipular la información de nuestra aplicación de manera eficiente.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre SQLite desde el siguiente enlace: \url{https://www.sqlite.com/index.html}
+\end{itemize}
+
+\section{Apis}
+
+En esta sección explicaremos detalladamente las \textit{APIs} que hemos utilizado para realizar nuestra aplicación web.
+
+\subsection{OpenWeatherMaps} \label{API OpenWeatherMaps}
+
+OpenWeatherMaps es un servicio online que proporciona datos y pronósticos meteorológicos inspirados en OpenStreetMap. Además, este servicio proporciona varios de sus servicios de manera gratuita, y utiliza distintas fuentes de datos como por ejemplo estaciones meteorológicas, radares, etc. 
+Proporciona una API que permite realizar hasta  96 llamadas por minuto de hasta 200.000 ciudades diferentes.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre OpenWeatherMaps desde la siguiente URL: \url{https://openweathermap.org/api}
+\end{itemize}
+
+\subsection{TuTiempo} \label{API TuTiempo}
+TuTiempo es un servicio online que proporciona el pronóstico del tiempo para 7 días y datos horarios para las próximas 24 horas. Además, este servicio proporciona la información de manera gratuita. Proporciona una API que permite realizar hasta 65 llamadas por minuto.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre TuTiempo desde la siguiente URL: \url{https://api.tutiempo.net/}
+\end{itemize}
+
+\subsection{NewsData.io} \label{API NewsData.io}
+NewsData.io es un servicio online que brinda acceso a artículos de noticias de todo el mundo. Este servicio recopila noticias de más de, 9495 fuentes de noticias que cubren alrededor de 124 países en 62 idiomas. Proporciona una API que permite realizar 200 llamadas al día y ofrece poder  buscar artículos en función de palabras claves, ubicación, fechas, idioma.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre NewsData.io desde la siguiente URL: \url{https://newsdata.io/documentation}
+\end{itemize}
+
+\subsection{TicketMaster} \label{API TicketMaster}
+Ticketmaster es un servicio online que proporciona información detallada de más de 230.000 
+eventos, atracciones y lugares disponibles de diferentes países. Además, este servicio proporciona toda la información de manera gratuita, y utiliza distintas fuentes de datos. Proporciona una API que permite realizar cinco llamadas por minuto con un límite de 5000 llamadas por día.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre Ticketmaster desde la siguiente URL: \url{https://developer.ticketmaster.com/}
+\end{itemize}
+
+\section{Librerías}
+\subsection{Requests}
+
+La librería \textit{Requests} de Python es un estándar que nos permite realizar solicitudes HTTP cuando se está desarrollando la parte del servidor de una página web. Gracias a esta librería  se simplifica todo en una API simple. También es importante saber que el protocolo HTTP hace referencia al protocolo de solicitud y respuesta basado en la arquitectura cliente-servidor. 
+
+La arquitectura cliente-servidor se basa en conexiones TCP/IP mediante las cuales se intercambian mensajes de respuesta y solicitud.
+ 
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería Requests desde el siguiente enlace: \url{https://docs.python-requests.org/en/v2.0.0/}
+\end{itemize}
+
+\subsection{Threading}
+
+\textit{Threading} es una librería de Python que permite a los programadores crear y controlar múltiples hilos de ejecución en una aplicación. Los hilos de ejecución son procesos que se ejecutan de manera simultánea y permiten que una aplicación realice varias tareas al mismo tiempo.
+
+Esta librería ofrece una serie de funciones que permiten crear, iniciar y controlar hilos de ejecución, lo que facilita la creación de aplicaciones multihilo. Además, permite el uso de bloqueos y semáforos, que ayudan a prevenir errores de concurrencia y a garantizar que los hilos no interfieran entre sí.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{Threading} desde el siguiente enlace: \url{https://docs.python.org/3/library/threading.html}
+\end{itemize}
+
+\subsection{Geopy}
+
+\textit{Geopy} es una librería de Python que permite a los desarrolladores a realizar tareas de geolocalización y cálculo de distancias geográficas. 
+
+Con Geopy, los desarrolladores pueden buscar la ubicación geográfica de una dirección, encontrar la distancia entre dos ubicaciones geográficas, o calcular rutas entre dos puntos en un mapa. Además, esta es compatible con diferentes servicios de geolocalización, como Google Maps, OpenStreetMap y Bing Maps.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{Geopy} desde el siguiente enlace: \url{https://pypi.org/project/geopy/}
+\end{itemize}
+
+\subsection{Folium}
+
+\textit{Folium} es una librería muy poderosa de Python que facilita la visualización de datos que han sido manipulados en Python en un mapa de folleto interactivo. Está inspirada en las librerías leaflet.js, OpenStreetMap, Mapbox y Stamen.
+También permite vincular datos a un mapa con visualizaciones Choropleth, así como pasar visualizaciones en vector/raster/HTML como marcadores en el mapa.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{Folium} desde el siguiente enlace: \url{https://pypi.org/project/folium/}
+\end{itemize}
+
+\subsection{Datetime}
+
+\textit{Datetime} es una librería estándar de Python inspirada en Robot Framework que permite la creación y conversión de valores de fecha y hora. Algunos ejemplos de esta librería pueden ser: obtener la fecha actual, convertir hora, crear hora, etc.
+ 
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{Datetime} desde el siguiente enlace: \url{https://docs.python.org/3/library/datetime.html}
+\end{itemize}
+
+\subsection{OS}
+
+\textit{OS} es una librería de Python que proporciona funciones para interactuar con el sistema operativo. Esta librería permite usar de forma portátil la funcionalidad dependiente del sistema operativo. Además, esta también se utiliza para interactuar con el sistema de ficheros.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{OS} desde el siguiente enlace: \url{https://docs.python.org/es/3.10/library/os.html}
+\end{itemize}
+
+\subsection{Functools}
+
+\textit{Functools} es una librería de Python que proporciona funciones útiles para trabajar con funciones de orden superior, es decir, funciones que operan con otras funciones. Esta librería es particularmente útil para desarrolladores que trabajan con programación funcional en Python, y ofrece varias herramientas para mejorar el rendimiento y la eficiencia de las funciones de orden superior.
+
+\begin{itemize}
+    \item Puedes consultar más información sobre la librería \textit{Functools} desde el siguiente enlace: \url{https://docs.python.org/es/3/library/functools.html}
+\end{itemize}
+
+\section{Metodologías}
+
+En esta sección explicaremos las metodologías que hemos utilizado para la gestión del trabajo y de la arquitectura en la que se basa nuestra aplicación. La metodología que hemos usado para la gestión del trabajo ha sido la metodología SCRUM y para el diseño de la arquitectura hemos utilizado el patrón de arquitectura MVP (Model-View-Presenter). A continuación se detallarán cada una de las metodologías: 
+
+
+\subsection{Metodología SCRUM}
+SCRUM es una metodología ágil de gestión de proyectos que se utiliza para desarrollar productos de manera iterativa e incremental. Se enfoca en la colaboración, la retroalimentación constante y la adaptación al cambio.
+
+Esta metodología implica la creación de un equipo multidisciplinario y autoorganizado que trabaja en sprints (iteraciones) cortos, que suelen durar entre 1 y 4 semanas. 
+
+Gracias a esta metodología podemos ser flexibles a cambios espontáneos, es decir, si los requisitos del proyecto cambian repentinamente por parte del cliente.
+
+\subsection{Fases}
+
+\begin{enumerate}
+    \item \textbf{Planificación} \textbf{\textit{(Product Backlog:)}} En esta fase establecemos las tareas prioritarias y obtenemos información detallada sobre el desarrollo de nuestro proyecto.
+    Todas las tareas establecidas las añadimos a nuestro Product Backlog. Una vez que tenemos listo nuestro Product Backlog, comenzamos el sprint. 
+     
+    \item \textbf{Ejecución} \textbf{\textit{(Sprint:)}} Durante esta fase desarrollaremos las tareas establecidas en la fase de \textit{Planificación} durante un periodo de dos semanas.
+    \item \textbf{Control} \textbf{\textit{(Burn Down:)}} En esta fase el equipo desarrollo se reúne para demostrar el trabajo completado y recibir comentarios del Product Owner y otros interesados.
+\end{enumerate}
+
+\subsection{Model-View-Presenter (MVP)}
+\textit{MVP} es una arquitectura de software que se utiliza para desarrollar aplicaciones. Este patrón consta de tres fases que son modelo, vista y presentador. A continuación se detallará cada una de ellas: 
+
+\begin{itemize}
+    \item 
+    \textit{\textbf{Model:}} es el componente que representa la lógica de negocio de la aplicación y su estado interno. Es el encargado de realizar las operaciones en los datos y de validar la información ingresada por el usuario. Este componente es independiente de la interfaz de usuario.
+     \item 
+    \textit{\textbf{View:}} es el componente que se encarga de mostrar la información al usuario final. Su función es presentar la información del modelo de una forma clara y sencilla para que el usuario pueda interactuar con ella.
+     \item  
+    \textit{\textbf{Presenter:}} es el componente que comunica al modelo y a la vista. Es el encargado de interpretar las acciones del usuario en la vista y actualizar el modelo en consecuencia. También es responsable de actualizar la vista con los cambios en el modelo.
+\end{itemize}
+
+
+\imagen{ModeloVistaPresentador}{ Patrón Modelo-Vista-Presentador. \cite{ImgMVP}}

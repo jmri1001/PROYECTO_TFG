@@ -1,0 +1,224 @@
+\apendice{Plan de Proyecto Software}
+
+\section{Introducción}
+En esta sección de los anexos se ha abordado la descripción detallada del progreso y la viabilidad del proyecto, divida en dos aspectos principales: la viabilidad legal, que implica considerar la legislación que podría impactar nuestro proyecto, y la viabilidad económica, donde hemos llevado a cabo una estimación de los costos asociados con nuestro proyecto.
+
+\section{Planificación temporal}
+
+Para la planificación temporal de nuestro proyecto hemos utilizado la \textit{metodología SCRUM} \cite{SCRUM}. Esta planificación temporal se ha basado en realizar sprints de una duración de dos semanas aproximadamente. Al término de cada sprint, se han llevado a cabo reuniones para evaluar el cumplimiento de los objetivos establecidos para dicho período. Además, en cada reunión se planteaban las tareas a realizar para el siguiente sprint.
+
+La herramienta que hemos utilizado para la gestión del proyecto ha sido \textit{Jira}, la cual provee un tablero que nos ha facilitado la organización del proyecto de manera eficiente.
+
+\newpage
+\subsection{Sprint 1 - 14/11/2022 - 28/11/2022}
+
+Durante la etapa inicial del sprint, hemos destinado la primera semana a realizar la configuración del repositorio del proyecto y la herramienta para la gestión de la planificación del proyecto. Además, se decidió qué entorno de desarrollo utilizaríamos para desarrollar nuestro proyecto.
+
+En la segunda semana del sprint, se ha realizado la investigación  de los diferentes servicios (APIs), de los cuales íbamos a extraer la información para nuestra aplicación web.
+
+Finalmente, hemos realizado la implementación del servidor Flask.
+
+\imagen{Sprint1}{Informe del Sprint 1}
+Se puede observar que en el informe del Sprint 1 sale una línea horizontal de color naranja, debido a que no se le asignaron \textit{story points} a las tareas planificadas para este sprint.
+\imagen{Sprint1_Tareas}{Tareas Sprint 1}
+
+\subsection{Sprint 2 - 29/11/2022 - 13/12/2022}
+
+Para este sprint se fijaron como objetivo obtener los casos de uso para nuestra aplicación y la conexión con las \textit{APIs}.
+
+Durante la primera semana de este sprint se fueron decidiendo los casos de usos que se iban a implementar en nuestra app.
+
+Durante la segunda semana, lo primero que se hizo fue investigar cómo funcionaban las APIs con las que se iban a trabajar, que en nuestro caso han sido OpenWeatherMaps, Tu Tiempo, NewData.io, TicketMaster. Para cada una de las anteriores APIs fue necesario crearse una cuenta de desarrollador para poder tener nuestra API KEY propia y así podemos realizar llamadas a cada una de las APIs para solicitar información. Una vez que ya se nos proporcionó la API KEY de cada una de las APIs, se realizó una demo para cada una de ellas para ver cómo se devolvía la información solicitada. 
+
+\imagen{Sprint2}{Informe del Sprint 2}
+\imagen{Sprint2_Tareas}{Tareas Sprint 2}
+
+
+\subsection{Sprint 3 - 15/12/2022 - 05/02/2023}
+
+Durante las dos primeras semanas de este sprint, nos hemos enfocado en crear un prototipo de la interfaz de usuario de la aplicación a desarrollar, con el objetivo de obtener una visión clara de cómo avanzar en el desarrollo del proyecto. Una vez realizada la anterior tarea, se desarrolló una función en Python que nos devolviera la ubicación actual del usuario para así poder proporcionarle información relevante al usuario.
+
+A partir de la tercera semana, se estuvo desarrollando la template de eventos y generando la construcción del mapa para poder colocar los eventos favoritos en él.
+
+Por último, este sprint se tenía previsto que finalizará el día 18/01/2023, pero se decidió que finalizará el día 05/02/2023 por motivos personales de uno de mis tutores.
+
+\imagen{Sprint3}{Informe del Sprint 3}
+\imagen{Sprint3_Tareas}{Tareas Sprint 3}
+
+\subsection{Sprint 4 - 05/02/2022 - 06/02/2023}
+
+En este sprint, hemos puesto especial atención en el desarrollo del Front-end de la aplicación. Para llevar a cabo este desarrollo se han utilizado tecnologías como HTML, CSS y el framework Bootstrap.
+
+Durante este sprint se han desarrollado las templates para la parte de noticias, meteorología, login y registro de nuestra aplicación.
+
+Se ha de comentar que este sprint ha tenido una duración de dos días debido a una confusión a la hora de crear el sprint en Jira, ya que para este sprint Jira decidió automáticamente la duración para el mismo.
+
+\imagen{Sprint4}{Informe del Sprint 4}
+\imagen{Sprint4_Tareas}{Tareas Sprint 4}
+
+\subsection{Sprint 5 - 07/02/2023 - 20/02/2023}
+
+En este sprint, se estableció como objetivo dedicar la 
+ primera semana a realizar un estudio sobre qué tablas íbamos a tener en nuestra base de datos y cómo se relacionarían entre ellas. Una vez que teníamos diseñado el esquema relacional de nuestra base de datos,  se creó la base de datos con el fin de tener persistencia sobre los datos. Tras esto, se empezó a trabajar con la API de TicketMaster para poder extraer los eventos disponibles en España.
+
+Después de haber realizado la tarea de extraer los eventos de la API de TicketMaster, se empezó a desarrollar la opción de poder guardar eventos en favoritos. Una vez que teníamos implementado esto, se implementó un mapa en el cual se muestran los eventos favoritos elegidos por el usuario.
+
+Cuando se decidieron las tareas que se iban a llevar a cabo durante este sprint se estimaron con una dificultad un poco alta, pero realmente no fueron tan complejas como parecían, por eso se añadieron nuevas tareas y se modificó la estimación de cada una de las tareas añadidas a este sprint.
+
+\imagen{Sprint5}{Informe del Sprint 5}
+\imagen{Sprint5_Tareas}{Tareas Sprint 5}
+
+\subsection{Sprint 6 - 27/03/2023 - 11/04/2023}
+
+Este sprint se ha centrado principalmente en documentar varios apartados de la memoria de este proyecto. Además, también se han realizado algunas mejoras en el Front-End.
+
+Durante la primera semana y parte de la segunda, nos hemos enfocado en documentar diversos aspectos clave de nuestro proyecto, como los objetivos, las técnicas y herramientas utilizadas, los aspectos relevantes del desarrollo y los trabajos relacionados.
+
+Por otra, se han realizado una serie de modificaciones en las templates de noticias y eventos.
+
+\imagen{Sprint6}{Informe del Sprint 6}
+\imagen{Sprint6_Tareas}{Tareas Sprint 6}
+
+
+\subsection{Sprint 7 - 17/04/2023 - 02/05/2023}
+
+En este sprint se ha dedicado la mayor parte del tiempo a realizar el manual de usuario y el manual del programador del presente  proyecto. También se ha realizado el cifrado de las contraseñas de nuestros usuarios en la base de datos para tener mayor seguridad en nuestra aplicación.
+
+Durante la primera semana y parte de la segunda, se ha realizado el manual de usuario y el manual del programador.
+Una vez terminados los manuales, se continuó con el cifrado de contraseñas. Tras esto, se realizaron algunas mejoras sobre el apartado de la memoria Aspectos Relevantes.
+
+\imagen{Sprint7}{Informe del Sprint 7}
+\imagen{Sprint7_Tareas}{Tareas Sprint 7}
+
+\subsection{Sprint 8 - 03/05/2023 - 15/05/2023}
+
+Este sprint se ha centrado principalmente en realizar el apartado de requisitos de los anexos e implementar la publicación de la aplicación en un servidor público para su uso. Además, se han realizado varias mejoras sobre el código de la aplicación y de la memoria.
+
+\imagen{Sprint8}{Informe del Sprint 8}
+\imagen{Sprint8_Tareas}{Tareas Sprint 8}
+
+\subsection{Sprint 9 - 08/06/2023 - 11/06/2023}
+El propósito de este sprint ha sido llevar a cabo una evaluación exhaustiva tanto de la documentación como del código creado a lo largo de los últimos seis meses durante el proceso de desarrollo de este proyecto. Este sprint ha tenido una duración de cuatro días respecto al resto de sprints, por motivos de exámenes no se ha podido comenzar antes este sprint.
+
+
+\section{Estudio de viabilidad}
+
+En esta sección, llevaremos a cabo un estudio exhaustivo de la viabilidad económica y legal del presente proyecto. Realizaremos un análisis detallado de los costos asociados con el desarrollo de este proyecto.
+
+\subsection{Viabilidad económica}
+
+\subsubsection{Costes de personal}
+
+ El desarrollo de este proyecto ha sido realizado por un desarrollador que ha trabajado tres horas y media diarias durante un periodo de seis meses. Se ha trabajado un promedio de 23 días al mes, lo que  nos da un total de 483 horas de trabajo dedicadas al desarrollo de este proyecto. 
+
+Considerando que el salario bruto promedio en España para un desarrollador Junior es de 25698€, el costo total del personal del presente proyecto sería el siguiente:
+
+\begin{itemize}
+    \item Salario neto anual              →  20.354€
+    \item Cuota Anual Seguridad Social    →  1.631,8€
+    \item Salario bruto anual             →  25.698€
+    \item \textbf{Salario bruto 6 meses}  → \textbf{12.849€}
+\end{itemize}
+
+\subsubsection{Costes de Hardware }
+Dentro de los costes de Hardware, se encuentra el coste del dispositivo utilizado para el desarrollo de este proyecto. Este dispositivo tiene un precio de mercado de aproximadamente \textbf{1400€}.
+
+El dispositivo utilizado para el desarrollo del proyecto, se estima que la amortización del equipo es de aproximadamente de tres años.
+Dado que hemos utilizado este dispositivo durante un período de seis meses, hemos logrado amortizar alrededor de un 7\% de la inversión total realizada en el mismo.
+
+\subsubsection{Costes de Software}
+
+Estos costes se identifican con los costes de las herramientas utilizadas para el desarrollo de nuestro proyecto. En nuestro caso, todas las herramientas software que hemos utilizado han sido gratuitas, por lo tanto, este coste es cero para nuestro proyecto.
+
+\subsubsection{Otros costes}
+
+Estos costes se identifican con los costes adicionales que no pertenecen a ninguno de los costes anteriores.
+
+\begin{itemize}
+    \item Dominio web →   4€
+    \item Conexión a Internet → 150€
+    \item Impresión de documentación  →  47€
+    \item Electricidad  → 190€
+    \item  \textbf{Coste Total} → \textbf{391€}
+\end{itemize}
+
+\subsubsection{Costes de Totales}
+
+A continuación, podemos observar los costes del desarrollo del presente proyecto: 
+
+\begin{itemize}
+    \item \textbf{\textit{Costes de Personal}} →  12.849,00€
+    \item \textbf{\textit{Costes de Hardware}} → 98,00€
+    \item \textbf{\textit{Costes de Software}}  → 0,00€
+    \item \textbf{\textit{Otros Costes}}  → 391,00€
+\end{itemize}
+\textcolor{red}{\textbf{Costes Totales}} → \textbf{14.640€}
+
+Para recuperar los costes generados del desarrollo del presente proyecto se ha pensado en incorporar publicidad y buscar patrocinios de empresas interesadas en promocionarse a través de nuestra aplicación web. Esto nos proporcionará ingresos continuos a lo largo del tiempo a través de la visualización de anuncios y acuerdos con patrocinadores. A continuación se realizará una estimación de como recuperaremos los costes del presente proyecto:
+
+\begin{itemize}
+    \item \textbf{Ingresos por anuncios = Número de visitantes x CTR x CPC }
+
+    \begin{enumerate}
+        \item \textbf{Número de visitantes}: Cantidad de personas que visitan nuestra página web.
+        \item \textbf{Tasa de clics (CTR)}: Porcentaje de visitantes que hacen clic en los anuncios.
+        \item \textbf{Costo por clic (CPC)}: Ingreso generado por cada clic realizado en un anuncio, en términos monetarios.
+    \end{enumerate}    
+\end{itemize}
+
+Supongamos que nuestro sitio web tiene un promedio de 10.000 visitantes mensuales y la tasa de clics (CTR) es del 10\%. El costo por clic (CPC) promedio es de 0.70€. Además, la plataforma de anuncios con la que trabajamos retiene el 15\% de los ingresos generados.
+\begin{itemize}
+    \item \textbf{ Número de visitantes}: 10.000
+    \item \textbf{CTR}: 7\%
+    \item \textbf{CPC}: 0,70€
+    \item \textbf{Porcentaje retenido por la plataforma}: 15\% 
+\end{itemize}
+   
+A continuación calculamos el número de clics generados:
+
+\begin{itemize}
+    \item \textbf{Clics = Número de visitantes x CTR}
+    \item Clics = 10.000 x 0,10 
+    \item \textbf{Clics} = 1.000
+\end{itemize}
+
+Luego, calculamos los ingresos brutos generados:
+
+\begin{itemize}
+    \item \textbf{Ingresos brutos = Clics x CPC }
+    \item Ingresos brutos = 1.000 x 0.70€
+    \item  \textbf{Ingresos brutos} = 700€
+\end{itemize}
+
+Finalmente, calculamos los ingresos netos teniendo en cuenta el porcentaje retenido por la plataforma de anuncios:
+
+\begin{itemize}
+    \item \textbf{Ingresos netos = Ingresos brutos x (1-Porcentaje retenido) }
+    \item Ingresos netos = 700€ x (1-0,15)
+    \item  \textbf{Ingresos netos} = 700€ x 0,85
+    \item  \textbf{Ingresos netos} = 595€
+\end{itemize}
+
+Una vez realizados los cálculos, los ingresos netos generados a través de la visualización de anuncios en nuestra aplicación web serían 595€ al mes.
+
+Teniendo en cuenta, que los costes generados para el desarrollo del presente proyecto han sido 14.640€, podemos decir que en un periodo 2 años y 1 mes se han recuperado todos los gastos generados para este proyecto. A partir de este momento, se empezaría a obtener beneficios del presente proyecto.
+
+ 
+\subsection{Viabilidad legal}
+
+En esta sección, nos dedicaremos a analizar las licencias asociadas a las herramientas que hemos utilizado en el desarrollo del presente proyecto.
+
+En la tabla A.1 se presenta un listado de las herramientas y librerías usadas en el desarrollo del proyecto asociadas a su licencia.
+
+\tablaSmall{Licencias de las librerías y herramientas}{l c c c c c}{licencias}
+{ \multicolumn{1}{l}{Herramienta/Librería} & &  Licencia &  Versión \\}{
+Flask & &  BSD & 2.3.0\\
+Jinja2 & & BSD & 3.1.2\\
+Geopy & & MIT & 2.3.0\\
+GitHub & &  GNU & 3.0\\
+SQLite  & &  GNU & 3.12.12\\
+StarUml & & SHAREWARE & 3.2.0\\
+Docker & & Licencia Apache 2.0 & -\\
+} 
+
+

@@ -1,0 +1,76 @@
+\capitulo{3}{Conceptos teóricos}
+
+En esta sección se explicará los conceptos teóricos que son necesarios para poder entender bien el desarrollo del presente proyecto.
+
+
+\section{API}
+
+Una API \cite{api} puede definirse como un grupo de reglas y protocolos que especifican cómo los programas pueden interactuar entre sí. En el contexto del desarrollo de software, una API permite que un programa utilice la funcionalidad de otro programa o servicio de una manera estandarizada y segura.
+
+Una API puede ser pública o privada. Una API pública ayuda  a los programadores a crear aplicaciones que interactúen con un servicio web, mientras que una API privada está orientada para que los desarrolladores puedan interactuar con los datos y servicios de una empresa.
+
+Las APIs mayoritariamente se utilizan para la integración de servicios de terceros en una aplicación, la automatización de procesos de negocio, la extracción de datos y la realización de aplicaciones móviles.
+
+En resumen, una API es una forma estandarizada de permitir que los programas interactúen entre sí y aprovechen la funcionalidad de otros servicios o aplicaciones. Además, es una herramienta muy necesaria para el desarrollo de aplicaciones modernas y la automatización de procesos de negocio.
+
+
+\section{Servidor Web}
+Un servidor web  \cite{servidorWeb} es un programa que se ejecuta en un ordenador y que es capaz de recibir y responder a peticiones HTTP de otros ordenadores en la red, normalmente a través de Internet. Es el encargado de recibir las solicitudes, procesarlas y enviarles las respuestas a los clientes correspondientes.
+
+Para que un servidor web pueda procesar las solicitudes, debe estar configurado correctamente con el software y los archivos necesarios. Los servidores web más comunes son Apache, Nginx e IIS, aunque existen muchos otros.
+
+Cuando un cliente solicita una página web a través de un navegador web, la petición se envía al servidor web correspondiente. El servidor web busca los archivos necesarios para construir la página web, los procesa y envía la respuesta al cliente. En general, la respuesta del servidor web es un archivo HTML, aunque también puede ser otro tipo de archivo como una imagen, un archivo de audio o un archivo de video.
+
+Además de servir páginas web estáticas, los servidores web también pueden ejecutar programas en el servidor y enviar al cliente los resultados generados. Esto es especialmente útil para aplicaciones web complejas que requieren procesamiento del lado del servidor. 
+Estas aplicaciones principalmente son desarrolladas en PHP, Python, Ruby y Java, entre otros.
+
+En resumen, un servidor web es aquel que permite a los clientes solicitar y recibir información a través de Internet. Es una parte esencial de la infraestructura de la World Wide Web y permite la entrega rápida y eficiente de contenido web a usuarios de todo el mundo.
+
+\section{Base de Datos}
+
+Una base de datos \cite{wiki:BaseDeDatos} consiste en un conjunto de datos que se almacena en un dispositivo de manera organizada y se puede acceder y manipular de manera eficiente.  
+
+La organización de una base de datos consiste en tablas que contienen columnas y filas. Cada registro o entrada en la base de datos se representa mediante una fila, mientras que cada campo relacionado con el registro se representa mediante una columna.
+
+Dependiendo del tipo de información que deseemos almacenar y de la forma en que se necesita acceder a ella, utilizaremos un tipo de base de datos u otro.
+
+Además, las bases de datos se pueden acceder y actualizar mediante consultas y comandos específicos, lo que facilita la recuperación y actualización de información en grandes cantidades. Los usuarios pueden realizar consultas para buscar y filtrar información específica, o pueden utilizar comandos para agregar, modificar o eliminar datos en la base de datos.
+
+El manejo de la información en una base de datos se gestiona mediante sistemas de gestión de bases de datos (DBMS), los cuales son programas diseñados para crear, modificar y gestionar bases de datos.
+
+\section{Servicio Web}
+
+Un servicio web \cite{servicioWeb} es una aplicación software que se ejecuta en un servidor y que permite a los usuarios realizar ciertas tareas o acceder a cierta información a través de una red, como Internet. Este tipo de aplicaciones se basan en el uso de estándares abiertos como HTTP, XML y SOAP, y se pueden acceder a través de una variedad de protocolos, como HTTP, FTP y SMTP.
+
+Un servicio web consta de tres componentes principales: el proveedor de servicios, que es el servidor que aloja el servicio web y que recibe las solicitudes de los usuarios; el consumidor de servicios, que es la aplicación o sistema que utiliza el servicio web para realizar tareas o acceder a información; y la descripción de servicios, que es una especificación formal del servicio web que describe sus funcionalidades y cómo acceder a ellas.
+
+Los servicios web pueden ser de dos tipos: basados en REST y basados en SOAP. Los servicios basados en REST (Representational State Transfer) utilizan los verbos HTTP (GET, POST, PUT, DELETE, etc.) para manipular los recursos y se basan en la representación de estos recursos en un formato específico, como XML o JSON. Por otro lado, los servicios basados en SOAP (Simple Object Access Protocol) utilizan un formato de mensaje XML para transmitir información y se basan en la definición de servicios como WSDL.
+
+Los servicios web tienen una gran diversidad de aplicaciones, desde la integración de aplicaciones y sistemas hasta la automatización de procesos de negocio y el desarrollo de aplicaciones móviles. Además, han sido clave en la transformación de la web hacia el Internet de las cosas, al permitir la interconexión y comunicación entre una amplia variedad de dispositivos y sistemas.
+
+\section{Protocolo HTTP}
+
+El protocolo HTTP \cite{http} es un grupo de reglas que establecen cómo se deben intercambiar la información entre el cliente y el servidor en la Web. Se considera que es un protocolo de capa de aplicación que se utiliza en el nivel superior de la pila de protocolos de Internet.
+
+En el modelo cliente-servidor, el cliente (navegador web) envía una solicitud HTTP al servidor web, que a su vez envía una respuesta HTTP al cliente. La solicitud y la respuesta se envían en formato de texto plano, lo que significa que se pueden leer y escribir manualmente, lo que lo hace muy accesible para los desarrolladores.
+
+HTTP utiliza métodos de solicitud, como GET, POST, PUT y DELETE, entre otros, para indicar la acción que el cliente desea realizar sobre un recurso determinado en el servidor. El método GET se utiliza para solicitar recursos, mientras que el método POST se utiliza para enviar datos a un servidor web.
+
+HTTP también utiliza códigos de estado, como el código 200 (Todo Ok), 404 (No encontrado) y 500 Error interno en el Servidor, entre otros, para indicar el resultado de la solicitud realizada. Estos códigos de estado son importantes porque permiten a los desarrolladores identificar rápidamente los problemas que puedan aparecer durante el intercambio de información entre el cliente y el servidor.
+
+Una de las principales ventajas de HTTP es que es un protocolo sin estado. Esto significa que cada solicitud se considera independiente de las anteriores, lo que hace que las respuestas del servidor sean más rápidas y eficientes. Sin embargo, esto también significa que HTTP no puede mantener información sobre las solicitudes anteriores del cliente, lo que a veces puede ser un problema.
+
+\section{API Endpoint}
+
+Un API endpoint \cite{endpoint} es un punto de acceso en una API que permite que las aplicaciones se comuniquen con un servicio web o con un servidor web de una manera específica y estructurada. Se trata de una URL (Uniform Resource Locator) específica que un cliente utiliza para acceder a una API y acceder a recursos específicos.
+
+Los endpoints de una API pueden ser creados y personalizados por los desarrolladores de software para permitir que las aplicaciones accedan a los datos y servicios que se encuentran en un servidor web o en un servicio web. Estos puntos finales pueden ser utilizados para solicitar datos, enviar datos, actualizar datos o eliminar datos.
+
+Los endpoints de una API están diseñados para ser utilizados por desarrolladores de aplicaciones, y se comunican con los clientes utilizando un protocolo de comunicación específico, como HTTP. Los clientes envían solicitudes HTTP a los puntos finales de la API y reciben respuestas en formato de datos estructurados, como JSON  o XML.
+
+Además, los endpoints de la API pueden ser públicos o privados, lo que significa que pueden estar disponibles para todos los usuarios o solo para los usuarios autorizados. Además, un solo servicio o aplicación puede tener múltiples puntos finales de API, cada uno diseñado para un propósito específico.
+
+
+
+
+

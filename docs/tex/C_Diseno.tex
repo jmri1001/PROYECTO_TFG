@@ -1,0 +1,116 @@
+\apendice{Especificación de diseño}
+
+\section{Introducción}
+
+En esta sección, se proporciona una explicación sobre cómo se han diseñado y organizado las diversas partes de nuestra aplicación web que hemos desarrollado.
+
+\section{Diseño de datos}
+
+Para el diseño de datos, hemos utilizado una base de datos para estructurar la información almacenada en nuestra aplicación. En nuestro caso, hemos utilizado SQLite, la cual está compuesta por varias tablas: 
+
+\begin{itemize}
+    \item \textbf{Usuarios}: Esta tabla contiene todos los usuarios que se registran en nuestra aplicación. Para registrarse en nuestra aplicación, el usuario debe introducir un correo electrónico (por ejemplo, una cuenta de Gmail, etc.) y una contraseña (la cual estará cifrada en la base de datos).
+    
+    \item \textbf{EventosFavoritos}: En esta tabla se almacenan todos los eventos elegidos como favoritos para el usuario. En dicha tabla se añadirá toda la información relevante para cada uno de los eventos.
+    
+    \item \textbf{Ubicaciones}: Esta tabla contiene la información descriptiva de cada ubicación que es relevante para el usuario.
+\end{itemize}
+
+\imagen{ER}{Esquema relacional de la base de datos}
+
+Por otra parte, hemos utilizado dos ficheros con formato JSON, noticias.json y eventos.json, para almacenar la información que nos devuelve la API de noticias y la API de eventos. Se ha tomado esta decisión para almacenar los datos de las dos APIs anteriores porque es más eficiente que almacenar toda la información en la base de datos.
+
+El fichero \textbf{Noticias.json} contiene la siguiente información:
+
+\begin{itemize}
+    \tightlist
+    \item \textbf{Title}: Título de la noticia.
+    \item \textbf{Link }: Enlace de publicación de la noticia.
+    \item \textbf{Country }: Nombre del país donde ha sucedido la noticia.
+    \item \textbf{Language}: Idioma en el que está redactada la noticia.
+    \item \textbf{Keywords}: Palabras claves de la noticia.
+    \item \textbf{Autor}:  Nombre de la entidad que ha publicado la noticia.
+    \item \textbf{Description}: Descripción del suceso de la noticia.
+    \item \textbf{Content}: Resumen de la noticia publicada.
+    \item \textbf{PubDate}: Fecha de publicación de la noticia.
+    \item \textbf{Category}: Categoría de la noticia.
+    \item \textbf{VideoUrl}: Enlace al vídeo de la noticia(Puede no haber enlace)
+    \item \textbf{ImageUrl}: Enlaces de las imágenes de la noticia.
+    \item \textbf{SourceId}: Identificador de la noticia.	
+\end{itemize}
+
+El fichero \textbf{Eventos.json} contiene la siguiente información:
+\begin{itemize}
+    \tightlist
+    \item \textbf{Name}: Nombre del evento.
+    \item \textbf{Type }: Tipo de evento.
+    \item \textbf{Id}: Identificador del evento.
+    \item \textbf{ImageUrl}: Enlaces de las imágenes del evento.
+    \item \textbf{StartDateTime}: Fecha y hora de comienzo del evento.
+    \item \textbf{EndDateTime}: Fecha y hora de finalización del evento.
+    \item \textbf{Timezone}: Zona horaria del lugar donde se celebra el evento. 
+    \item \textbf{Genero}: Género del evento (música,deportes,etc.)
+    \item \textbf{PriceRanges}: Precio mínimo y máximo del evento.
+    \item \textbf{Country}: Nombre del país donde se celebra el evento.
+    \item \textbf{Address}: Ubicación del evento.
+    \item \textbf{Location}: Coordenadas geográficas del lugar donde se celebra el evento.
+\end{itemize}
+
+
+\section{Diseño procedimental}
+
+El objetivo de esta sección es proporcionar una visión general del proceso completo que deben seguir los usuarios para poder iniciar sesión, registrarse y  visualizar las noticias, eventos y meteorología en nuestra aplicación web. 
+
+A continuación se presentan los diagramas de secuencia UML \cite{UML} obtenidos:
+
+En la figura C.2 se muestra el diagrama de secuencia que representa las interacciones y flujo de acciones necesarias para registrarse y logüearse en la aplicación:
+
+\imagen{DiagramaSecuenciaLoginRegistro}{Diagrama de Secuencia de Login y Registro de usuarios}
+
+En la figura C.3 se muestra el diagrama de secuencia que representa las interacciones y flujo de acciones del servicio Noticias de nuestra aplicación:
+
+\imagen{DiagramaSecuenciaNoticias}{Diagrama de secuencia del servicio Noticias}
+
+En la figura C.4 se muestra el diagrama de secuencia que representa las interacciones y flujo de acciones del servicio Eventos de nuestra aplicación:
+
+\imagen{DiagramaSecuenciaEventos}{Diagrama de secuencia del servicio Eventos}
+
+En la figura C.5 se muestra el diagrama de secuencia que representa las interacciones y flujo de acciones del servicio Meteorología de nuestra aplicación:
+
+\imagen{DiagramaSecuenciaOpenweather}{Diagrama de secuencia del servicio Meteorología}
+
+
+\section{Diseño arquitectónico}
+
+La presente sección está dedicada a detallar la arquitectura del proyecto. Se utiliza una estructura cliente-servidor que se extiende desde la aplicación hasta las APIs. En ambas partes, tanto en el servidor como en el cliente, se llevan a cabo validaciones para verificar la precisión y consistencia de los datos intercambiados.
+
+El reparto de tareas en este sistema se divide en dos partes: el cliente se ocupa de la interfaz y de recibir la solicitud de información que desea el usuario, mientras que el procesamiento de los datos, la inferencia en la red y la devolución de los resultados son tareas a cargo del servidor.
+
+\subsection{Modelo-Vista-Presentador (MVP)}
+
+\begin{itemize}
+    \item 
+    \textit{\textbf{Modelo:}} El modelo es el responsable de aplicar la lógica de negocio  y de gestionar el acceso a los datos de nuestra aplicación. En nuestro proyecto le hemos dado el nombre \textit{modelo} y está escrito en Python. Dicho modelo está formado por los módulos de noticias, eventos y meteorología, donde se extraen todas la noticias y eventos disponibles, y el pronóstico del tiempo de una ubicación.
+     \item 
+    \textit{\textbf{Vista:}} La vista es la responsable de generar la interfaz de usuario de nuestra aplicación para que el usuario interactúe con ella. Está escrita en HTML y CCS, y está compuesta por varios elementos que permiten comunicarse con el presentador para poder navegar entre diferentes páginas de la aplicación.
+     \item  
+    \textit{\textbf{Presentador:}} El presentador es el intermediario entre la  \textit{Vista} y el \textit{Modelo} para que ambos puedan comunicarse. Al \textit{Presentador} se le ha llamado en nuestro proyecto \textit{app} y está escrito  en Python. Este recopila las solicitudes realizadas por el usuario y solicita la ejecución de diversas operaciones a los distintos módulos del modelo.
+\end{itemize}
+
+\imagen{ModeloVistaPresentador}{ Patrón Modelo-Vista-Presentador. \cite{ImgMVP}}
+
+\section{Diseño de interfaces}
+
+En este apartado se presentará el prototipo inicial de la  aplicación web, creado durante las primeras semanas del proyecto con la ayuda de la herramienta Pencil.
+
+El propósito de este prototipo era tener una visión general de cómo enfocar nuestra aplicación en términos de usabilidad, aunque se han realizado algunas modificaciones respecto de la interfaz inicial.  
+
+\imagen{PRegistro}{Prototipo de Registro}
+\imagen{PLogin}{Prototipo de Login}
+\imagen{PPrincipal}{Prototipo de Principal}
+\imagen{PNoticias}{Prototipo de Noticias}
+\imagen{PEventos}{Prototipo de Eventos}
+\imagen{PInfoEvento}{Prototipo de Información del Evento}
+\imagen{PMeterologia}{Prototipo de Meteorología}
+\imagen{PEventosFavoritos}{Prototipo de Eventos Favoritos}
+

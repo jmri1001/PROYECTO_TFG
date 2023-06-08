@@ -1,0 +1,145 @@
+\capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
+
+En este apartado se detallarán los aspectos considerados más relevantes del presente proyecto. Desde los problemas  que nos han surgido hasta los retos enfrentados en el proyecto.
+
+\section{Principio del proyecto}
+
+El tema del proyecto apareció de la inquietud de querer aprender desarrollo web y poder publicar algún día mi propia aplicación para que todos los usuarios puedan hacer uso de ella. Desde pequeño siempre he tenido la inquietud de querer desarrollar mis propias aplicaciones.
+
+Por otra parte, los conocimientos adquiridos durante la carrera de Ingeniería Informática me han ayudado a pensar soluciones tecnológicas para cada uno de los problemas enfrentados en el desarrollo del proyecto.
+
+Por ello pensamos en desarrollar una aplicación web, la cual ofreciera información de lugares de interés para el usuario.
+
+Una vez que los tutores dieron por válida la idea del proyecto, comenzamos a trabajar desde el primer momento. De esta manera fue como apareció la idea de desarrollar la aplicación web ANME.
+
+\imagen{logo}{Logo de ANME}{.4}
+
+\section{Metodologías}
+
+Desde el primer día se tuvo en cuenta que el proyecto sería llevado a cabo de una manera que reflejase un alto nivel de profesionalismo. Para ello, se ha seguido la metodología SCRUM, que a continuación detallaremos.
+
+La metodología SCRUM ha sido empleada para gestionar el proyecto, la cual nos ha permitido llevar un orden y un feedback de las tareas llevadas a cabo en cada sprint. Desde el inicio, el desarrollo se ha dividido en sprints de una duración 15 días aproximadamente.
+
+Para cada ciclo de trabajo del proyecto (conocido como sprint), se establecieron una serie de objetivos y se asignó un valor a cada uno de ellos utilizando la técnica de estimación de \textit{Story points}.
+
+Para administrar el proyecto se ha empleado la herramienta Jira, que nos proporciona un tablero de tareas donde podemos mover las tareas de una etapa a otra. Una vez que una tarea está completa, se debe mover al estado Done en el \textit{tablero}.
+
+Al finalizar cada ciclo de trabajo del proyecto (sprint), se llevaron a cabo reuniones para revisar el trabajo realizado y planificar el siguiente sprint. Para planificar el sprint, se creó una lista de tareas a realizar. 
+
+El objetivo principal al concluir cada sprint era entregar una parte funcional del producto final.
+
+\section{Aprendizaje Autónomo}
+
+Para poder desarrollar el proyecto se han requerido varios conocimientos técnicos de los cuales no se habían tratado en el grado de Ingeniería Informática. Sobre todo, relacionados con el desarrollo web. A continuación se detallará cada uno de ellos y las fuentes utilizadas para su formación.
+
+\subsection{Funcionamiento de APIs}
+
+Para crear la aplicación web se propusieron varios servicios (APIs), de los cuales no sabíamos como funcionaban ni en que formato devolvían la información. Para entender cómo funcionaba cada uno de los servicios tuvimos que investigar sobre la documentación de cada servicio, así de esta forma pudimos entender como solicitar la información que nosotros deseábamos a la API.
+
+Para la formación del funcionamiento de las APIs se leyeron los siguientes recursos: 
+
+\begin{itemize}
+    \item Documentación de la API \textit{OpenWeatherMaps}: \url{https://openweathermap.org/api}
+    \item Documentación de la API \textit{TuTiempo}: \url{https://api.tutiempo.net/}
+    \item Documentación de la API \textit{NewData.io}: \url{https://newsdata.io/documentation}
+    \item Documentación de la API \textit{TicketMaster}: \url{https://developer.ticketmaster.com/}
+\end{itemize}
+
+
+\subsection{Flask}
+
+Al principio de todo se propuso la opción de utilizar Django \cite{Django} para crear la aplicación web, pero investigando encontremos el framework Flask \cite{Flask} que era más sencillo de utilizar y de instalar que Django, por este motivo nos decantemos por elegir Flask. 
+
+Además, Flask es un \textit{framework} de Python que facilita la creación de servidores web de manera sencilla y rápida, y además favorece la implementación del patrón Model-View-Presenter.
+
+\subsection{HTML, CSS y BOOTSTRAP}
+
+Para el desarrollo del \textit{front-end} se decidió utilizar  HTML y CSS, pero como no se había aprendido CSS durante el grado, se pensó en utilizar el \textit{framework} Bootstrap para que el modelado de la de aplicación fuera más fácil y conciso.
+
+Al final también se implementaron clases en CSS por nuestra cuenta, gracias la página web de CSS, \url{https://css.com/}, que muestra muchos ejemplos de cómo hacer diferentes clases en CSS.
+
+\subsection{Coordenadas Geográficas}
+
+En principio se pensó utilizar JavaScript para conocer la ubicación a tiempo real del usuario para proporcionar información relevante respecto su ubicación.
+
+Posteriormente, se decidió utilizar la librería \textit{Geopy} de Python para saber la ubicación a tiempo real del usuario. Se tomó esta decisión porque al principio del proyecto se desconocía esta librería y vimos que tenía una precisión mucho mayor que utilizando JavaScript.
+
+\section{Desarrollo de la App}
+Durante la primera fase del desarrollo del presente proyecto, se investigó sobre trabajos relacionados con nuestro proyecto y además se decidió que entorno de desarrollo utilizaríamos para nuestro proyecto.
+
+Una vez realizado el trabajo de investigación respecto de los trabajos relacionados con nuestro proyecto y decidido nuestro entorno de desarrollo, comencemos a realizar las siguientes tareas:
+
+\begin{itemize}
+    \item Diseño del prototipo de la interfaz de la aplicación.
+    \item Extraer los datos necesarios de las \textit{APIs}
+    \item Crear la base de datos en SQLite.
+    \item Conectar la base de datos a nuestra aplicación.
+    \item Conectar Flask con HTML
+\end{itemize}
+
+En cuanto a la persistencia de datos, se optó por utilizar SQLite. Se trata de una base de datos relacional fácil de configurar y de usar. 
+
+\imagen{Database}{Conexión a SQLite desde Python.}
+
+Para diseñar la estructura de la aplicación, se optó por utilizar el patrón de arquitectura Modelo-Vista-Presentador (MVP), que define cómo organizar y estructurar los diferentes componentes del sistema, las relaciones entre ellos y sus responsabilidades.
+
+Para la obtención de la información meteorológica se utilizaron las APIs proporcionadas por \textit{OpenWeatherMaps} y \textit{TuTiempo}, las cuales nos permitían realizar 96 y 65 llamadas por minuto de manera gratuita.
+
+Para la obtención de noticias se ha utilizado la API \textit{NewsData.io}, que nos consentía realizar 200 solicitudes diarias de forma gratuita. 
+
+Para la obtención de eventos se utilizó la API \textit{TicketMaster}, que nos consentía  realizar 5000 peticiones diarias de forma gratuita.
+
+Una vez que ya teníamos implementada la parte del \textit{back-end} y las templates del front-end ya estaban integradas en nuestra aplicación, se comenzó a realizar varias funcionalidades de nuestra aplicación como la del registro o el login de usuarios, y algunas de las principales como la visualización de noticias, eventos y meteorología.
+
+Para realizar las funcionalidades anteriores fue necesario aprender como realizar peticiones al servidor desde la interfaz de usuario, y a obtener el fichero JSON con la información solicitada a la \textit{API} para que la información fuera accesible.
+
+\imagen{Api}{Solicitud de información al servicio NewsData.io}
+
+Además, se implementó la opción de poder filtrar tanto las noticias como los eventos por ubicación o categorías.
+
+Con el fin de garantizar la disponibilidad constante de nuestra aplicación web para los usuarios, se tomó la decisión de guardar los datos obtenidos a través de las APIs. De esta manera, los servicios ofrecidos por nuestra aplicación estarán siempre accesibles, sin interrumpir la experiencia del usuario.
+
+Se puso un gran esfuerzo en garantizar la facilidad de uso y la accesibilidad en el diseño de nuestra aplicación, esto se puede apreciar en nuestra aplicación como texto de tamaño legible, iconos para facilitar la compresión de la información, temas de contrastes altos. Se siguieron varias directrices de diseño en cuanto a estilos y tipos de componentes.
+
+\section{Documentación}
+
+Desde el primer momento, se optó por escribir la documentación de la memoria y anexos en \textit{LaTeX}. Se tomó esta decisión porque LaTeX nos ofrece un resultado profesional, no tenemos que tener en cuenta de cómo queda el texto, se adapta a otros formatos perfectamente y fuerza al autor a estructurar sus textos. De esta forma podemos visualizar la información directamente estructurada. La única desventaja que hemos detectado sobre LaTeX, es que hay que compilar cada vez que se hace una modificación.
+
+\section{Integración Continua}
+Al principio del desarrollo del presente proyecto no se tuvo en cuenta la implementación de integración continua sobre el mismo, pero a medida que se fue desarrollando el proyecto se optó por implementar la integración continua con el fin detectar de manera rápida defectos y  así poder generar un código de más calidad.
+
+También se ha utilizado la integración continua en el desarrollo de este proyecto para desplegar automáticamente nuestra aplicación web en un entorno de producción con el fin de trabajar de manera más eficiente y reducir los errores en el código existente.
+
+Gracias a la integración continua podemos asegurar que el software esté siempre en un estado funcional y de calidad.
+
+\section{Dificultades en el desarrollo del proyecto}
+
+A lo largo del desarrollo del presente proyecto nos hemos encontrado con varias dificultades, las cuales se detallarán a continuación:
+
+\begin{itemize}
+    \item La primera dificultad con la que nos encontremos durante el desarrollo fue como implementar la geolocalización del usuario, debido a que la herramienta que utilicemos para obtener la ubicación actual del usuario no tenía una precisión exacta. Tras esto, decidimos extraer la geolocalización del usuario a través de las cookies del navegador con el objetivo de obtener la ubicación actual del usuario con la mayor precisión posible. La resolución de esta dificultad nos ha llevado bastante tiempo de investigación, ya que nunca habíamos trabajo con las cookies del navegador.
+
+    \item La segunda dificultad con la que nos encontremos fue como realizar las llamadas a las APIs para solicitar la información necesaria para cada uno de los servicios de nuestra aplicación. Esto nos ha llevado bastante tiempo de investigación, debido a que nunca se había trabajo con estos servicios y a su complejidad.
+
+    \item La tercera dificultad con la que nos encontremos fue con la disponibilidad de las APIs debido a que sus servicios no funcionaban todos los días. Entonces, se optó por almacenar toda la información de cada uno de los servicios en distintos ficheros JSON con el fin de tener disponible siempre los servicios de noticias, eventos y meteorología en nuestra aplicación web. Toda la información contenida en los ficheros JSON se actualiza diariamente si es posible. De esta forma se pudo resolver dicho inconveniente. 
+
+    \item Por otra parte, ha resultado un poco complejo el desarrollo del front-end debido a que nunca se había trabajo en el desarrollo de la interfaz de usuario.  Para poder llevar a cabo el desarrollo del Front-End nos ha llevado bastante tiempo de investigación, ya que por cada elemento que se añadía a la interfaz de usuario había que darle estilo.
+    
+\end{itemize}
+
+
+\section{Publicación de la App}
+
+Una vez que la aplicación estuvo completamente desarrollada y lista para ser utilizada por los usuarios finales, se la publicó en un servicio de alojamiento (hosting).
+
+\imagen{Inicio}{Aplicación ANME}
+
+Podemos acceder a la aplicación a través del siguiente enlace: \url{https://www.anme.city}
+
+También podemos acceder al repositorio del código del presente proyecto a través del siguiente enlace: \url{https://github.com/jmri1001/PROYECTO_TFG.git}
+
+
+
+
+
+
